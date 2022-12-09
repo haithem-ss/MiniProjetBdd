@@ -1,3 +1,4 @@
+
 import express from "express";
 import cors from "cors";
 import { initDriver } from "./Config/database.js";
@@ -5,6 +6,13 @@ import * as dotenv from "dotenv";
 import AuthRoutes from "./Routes/index.js";
 import session from "express-session";
 import passport from "passport";
+import express from 'express'
+import cors from 'cors'
+import {  initDriver } from './Config/database.js'
+import * as dotenv from 'dotenv'
+import UsersRouter from "./Routes/Users.Route.js"
+
+
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
 }
@@ -21,7 +29,12 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", AuthRoutes);
+//app.use("/", AuthRoutes);
+app.use("/users",UsersRouter)
+
+app.get("/", function (req, res) {
+  res.status(200).send("We are up and running");
+});
 
 app.listen(PORT, function () {
   console.log(`Server running on localhost:${PORT}`);
