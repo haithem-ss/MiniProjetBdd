@@ -18,10 +18,10 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-session": "^1.17.3",
-    "neo4j-driver": "^5.2.0",
-    "passport": "^0.6.0",
-    "passport-google-oauth2": "^0.2.0",
     "jsonwebtoken": "^8.5.1",
-    "neo4j-driver": "^5.2.0"
+    "neo4j-driver": "^5.2.0",
+    "nopt": "^7.0.0",
+    "passport": "^0.6.0",
+    "passport-google-oauth2": "^0.2.0"
   }
 }
