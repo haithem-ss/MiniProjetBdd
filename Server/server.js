@@ -5,7 +5,8 @@ import * as dotenv from "dotenv";
 import AuthRoutes from "./Routes/Users.Auth.Google.Route.js";
 import session from "express-session";
 import passport from "passport";
-// import UsersRouter from "./Routes/Users.Route.js";
+import UsersRouter from "./Routes/Users.Route.js";
+
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
 }
@@ -23,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", AuthRoutes);
-// app.use("/users", UsersRouter);
+app.use("/users", UsersRouter);
 
 app.listen(PORT, function () {
   console.log(`Server running on localhost:${PORT}`);

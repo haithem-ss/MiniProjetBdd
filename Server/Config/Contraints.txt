@@ -1,0 +1,3 @@
+CREATE CONSTRAINT emailUnique IF NOT EXISTS
+FOR (n:User)
+REQUIRE n.email IS UNIQUE

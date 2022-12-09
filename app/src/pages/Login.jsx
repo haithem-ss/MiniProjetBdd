@@ -18,22 +18,17 @@ import Form, {
   HelperMessage,
   ValidMessage,
 } from '@atlaskit/form';
-const submitForm =(data)=>{
-  let userInfos={
-    firstName:data.nom,
-    lastName:data.prenom,
-    email:data.email,
-    // sexe:data.sexe,
-    // dateOfBirth:data.dateOfBirth,
-    // phoneNumber:data.phoneNumber,
-    password:data.password,
-    confirmationPassword:data.confirmationPassword,
+const submitForm = (data) => {
+  let userInfos = {
+    email: data.email,
+    password: data.password,
   }
+
   console.log(userInfos)
-  axios.post("http://localhost:5000/users/register",userInfos)
-  .then((response )=>{
-    console.log(response)
-  })
+  axios.post("http://localhost:5000/users/login", userInfos)
+    .then((response) => {
+      console.log(response)
+    })
 }
 const Login = () => (
   <div
@@ -53,65 +48,34 @@ const Login = () => (
       {({ formProps, submitting }) => (
         <form  {...formProps}>
           <FormHeader
-            title="S'identifier"
+            title="Se connecter"
             description="* Champ obligatoire"
           />
           <FormSection>
-            <div
-            style={{
-              display:"flex",
-              justifyContent:"space-between",
-            }}>
-            {/* Nom */}
+            {/* Email */}
             <Field
-              aria-required={true}
-              name="nom"
-              label="Nom"
-              isRequired
+              name="email"
+              label="Email"
               defaultValue=""
-
-            >
+              isRequired>
               {({ fieldProps, error }) => (
                 <Fragment>
-                  <TextField autoComplete="off" {...fieldProps} />
-                  {error && (
-                    <ErrorMessage>
-                      This username is already in use, try another one.
-                    </ErrorMessage>
-                  )}
+                  <TextField {...fieldProps} />
+
+                  {error && <ErrorMessage>{error}</ErrorMessage>}
                 </Fragment>
               )}
             </Field>
-            {/* Prénom*/}
-            <Field
-              aria-required={true}
-              name="prenom"
-              label="Prénom"
-              isRequired
-              defaultValue=""
-            >
-              {({ fieldProps, error }) => (
-                <Fragment>
-                  <TextField autoComplete="off" {...fieldProps} />
-
-                  {error && (
-                    <ErrorMessage>
-                      This username is already in use, try another one.
-                    </ErrorMessage>
-                  )}
-                </Fragment>
-              )}
-            </Field>
-            </div>
             {/* Mot de passe*/}
             <Field
               aria-required={true}
               name="password"
               label="Mot de passe"
               defaultValue=""
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
               isRequired
               validate={(value) =>
-                value && value.length < 8 ? 'TOO_SHORT' : undefined
+                value && !value.match(/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/) ? 'TOO_SHORT' : undefined
               }
             >
               {({ fieldProps, error, valid, meta }) => {
@@ -136,61 +100,6 @@ const Login = () => (
                 );
               }}
             </Field>
-            {/* Confirmation de mot de passe*/}
-            <Field
-              aria-required={true}
-              name="confirmationPassword"
-              label="Confirmer le mot de passe"
-              defaultValue=""
-              isRequired
-              validate={(value) =>
-                value && value!==formProps.ref.current.password.value ? 'DIFFERENT_PASSWORD' : undefined
-              }
-            >
-              {({ fieldProps, error, valid, meta }) => {
-                return (
-                  <Fragment>
-                    <TextField type="password" {...fieldProps} />
-
-                    {error && (
-                      <ErrorMessage>
-                        Veuillez verifier le mot de passe.
-                      </ErrorMessage>
-                    )}
-                    {valid && meta.dirty ? (
-                      <ValidMessage>Awesome password!</ValidMessage>
-                    ) : null}
-                  </Fragment>
-                );
-              }}
-            </Field>
-            {/* Email */}
-            <Field 
-            name="email" 
-            label="Email" 
-            defaultValue="" 
-            isRequired>
-                {({ fieldProps, error }) => (
-                  <Fragment>
-                    <TextField {...fieldProps} />
-
-                    {error && <ErrorMessage>{error}</ErrorMessage>}
-                  </Fragment>
-                )}
-              </Field>
-            {/* Sexe*/}
-
-            {/* Date de naissance*/}
-            {/* <Field name="dateOfBirth" label="Date de naissance" defaultValue="" isRequired>
-              {({ fieldProps: { id, ...rest }, error }) => (
-                <Fragment>
-                  <DatePicker selectProps={{ inputId: id }} {...rest} />
-                  {error && <ErrorMessage>{error}</ErrorMessage>}
-                </Fragment>
-              )}
-            </Field> */}
-
-
             <CheckboxField name="remember" label="Remember me" defaultIsChecked>
               {({ fieldProps }) => (
                 <Checkbox
@@ -200,16 +109,14 @@ const Login = () => (
               )}
             </CheckboxField>
           </FormSection>
-
           <FormFooter>
             <ButtonGroup>
               <LoadingButton
-              type="submit"
-                // onClick={()=>validateForm(formProps)}
+                type="submit"
                 appearance="primary"
                 isLoading={submitting}
               >
-                S'identifier
+                Se connecter
               </LoadingButton>
             </ButtonGroup>
           </FormFooter>
