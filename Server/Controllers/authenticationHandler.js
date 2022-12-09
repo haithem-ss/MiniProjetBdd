@@ -8,7 +8,9 @@ export const isLoggedin = (req, res, next) => {
 
 export const getAuth = async (req, res) => {
   try {
-    res.status(200).send('<a href = "auth/google"> get athanticated</a>');
+    res
+      .status(200)
+      .send('<a href = "/users/auth/google">authenticate with google</a>');
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
@@ -26,10 +28,7 @@ export const getAuthFailure = async (req, res) => {
 };
 
 export const logout = async (req, res, next) => {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/");
+  req.session.destroy((err) => {
+    res.redirect("/users");
   });
 };
