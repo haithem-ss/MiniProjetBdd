@@ -6,6 +6,7 @@ import AuthRoutes from "./Routes/index.js";
 import session from "express-session";
 import passport from "passport";
 import UsersRouter from "./Routes/Users.Route.js"
+import cookieParser from "cookie-parser";
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -20,6 +21,7 @@ app.use(session({ secret: SECRET }, { resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(cookieParser());
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
