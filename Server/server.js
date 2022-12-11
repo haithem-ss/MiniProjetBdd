@@ -5,6 +5,10 @@ import * as dotenv from "dotenv";
 import AuthRoutes from "./Routes/index.js";
 import session from "express-session";
 import passport from "passport";
+import UsersRouter from "./Routes/Users.Route.js"
+import CategoriesRouter from "./Routes/Categories.Route.js";
+
+
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
 }
@@ -21,11 +25,17 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", AuthRoutes);
+//app.use("/", AuthRoutes);
+app.use("/users",UsersRouter)
+app.use("/categories",CategoriesRouter)
+app.get("/", function (req, res) {
+  res.status(200).send("We are up and running");
+});
 
 app.listen(PORT, function () {
   console.log(`Server running on localhost:${PORT}`);
 });
+
 
 //database connection
 const uri = `neo4j+s://${process.env.CONNECTION_URL}`;

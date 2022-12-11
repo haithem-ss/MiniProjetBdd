@@ -1,0 +1,7 @@
+CREATE CONSTRAINT emailUnique IF NOT EXISTS
+FOR (n:User)
+REQUIRE n.email IS UNIQUE
+
+CREATE CONSTRAINT categoryUnique IF NOT EXISTS
+FOR (c:Category)
+REQUIRE c.categoryName IS UNIQUE

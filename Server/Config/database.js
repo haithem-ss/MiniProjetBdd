@@ -2,9 +2,9 @@ import neo4j from 'neo4j-driver'
 import * as dotenv from 'dotenv'
 dotenv.config();
 
-
+let driver
 export async function initDriver(uri, username, password) {
-        const driver = neo4j.driver(
+         driver = neo4j.driver(
             uri,
             neo4j.auth.basic(
               username,
@@ -19,5 +19,9 @@ export async function initDriver(uri, username, password) {
             console.log("Could not connect to the database")
 
           }
+        return driver
+      }
+    
+export function getDriver() {
         return driver
       }

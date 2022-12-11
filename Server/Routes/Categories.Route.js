@@ -1,11 +1,11 @@
 import express from "express";
-import { AddCategory } from "../Controllers/Categories.Controller.js"; 
-// import { Logout,Login,refreshToken,Register } from "../Controllers/Users.Controller.js"; 
-const CategoriesRouter = express.Router();
+import { addCategory,deleteCategory,getCategories,editCategory} from "../Controllers/Categories.Controller.js"; 
+
+const CategoriesRouter = express.Router(); 
+CategoriesRouter.post('/addCategory', addCategory);
+CategoriesRouter.get('/', getCategories);
+CategoriesRouter.delete('/deleteCategory/:categoryName', deleteCategory);
+CategoriesRouter.put('/editCategory/:categoryName', editCategory);
+
  
-CategoriesRouter.post('/AddCategory', AddCategory);
-// UsersRouter.post('/login', Login);
-// UsersRouter.get('/token', refreshToken);
-// UsersRouter.delete('/logout', Logout);
- 
-export default UsersRouter;
+export default CategoriesRouter;
