@@ -17,8 +17,10 @@ export const getAuth = async (req, res) => {
 };
 export const getAuthSucceed = async (req, res) => {
   try {
-    console.log(req.user);
-    res.status(200).send(`Welcome ${req.user.name.givenName}`);
+    console.log(req.user.properties);
+    res.status(200).send(`Welcome ${req.user.properties.lastName},
+    your infos are:
+    ${req.user.properties.firstName}, , ${req.user.properties.email} , ${req.user.properties.user_id}}`);
   } catch (error) {
     res.status(404).send({ message: error.message });
   }
