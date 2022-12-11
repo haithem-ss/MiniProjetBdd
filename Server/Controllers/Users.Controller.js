@@ -2,26 +2,31 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getDriver } from "../Config/database.js";
 
-export const Register = async(req,res)=>{
-    const userInfos={
-        firstName:req.body.firstName,
-        lastName:req.body.lastName,
-        email:req.body.email,
-        sexe:req.body.sexe,
-        dateOfBirth:req.body.dateOfBirth,
-        phoneNumber:req.body.phoneNumber,
-        password:req.body.password,
-        confirmationPassword:req.body.confirmationPassword,
-    }
-
-    //init driver
-    let driver=getDriver()
-    const session = driver.session()
-    try {
-        // create user
-        const result = await session.executeWrite(
-            tx => tx.run(
-              `
+export const Register = async (req, res) => {
+  const userInfos = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email,
+    sexe: req.body.sexe,
+    dateOfBirth: req.body.dateOfBirth,
+    phoneNumber: req.body.phoneNumber,
+    password: req.body.password,
+    confirmationPassword: req.body.confirmationPassword,
+  };
+  //verify if password and confirmationPassword are a match
+  if (userInfos.password !== userInfos.confirmationPassword)
+    return res.status(400).json({ msg: "Please verify password" });
+  //init hashing function
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(userInfos.password, salt);
+  //init driver
+  let driver = getDriver();
+  const session = driver.session();
+  try {
+    // create user
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
                 CREATE (u:User {
                   email: "${userInfos.email}",
                   password:"${userInfos.password}",
@@ -32,21 +37,17 @@ export const Register = async(req,res)=>{
                   sexe:"${userInfos.sexe}"
                 })
               `
-            )
-          )
-        res.status(200).json({msg: "Registration was successful"});
-    } catch (error) {
-        //Cant create user
-        //Email already used
-        if (error.code==="Neo.ClientError.Schema.ConstraintValidationFailed "){
-          res.status(400).json({code_err: "duplicatedEmail"});
-          console.log("Duplicated email")
-        }
-        res.status(400).json();
-    }finally{
-        await session.close()
+      )
+    );
+    res.status(200).json({ msg: "Registration was successful" });
+  } catch (error) {
+    //Cant create user
+    //Email already used
+    if (error.code === "Neo.ClientError.Schema.ConstraintValidationFailed ") {
+      res.status(400).json({ code_err: "duplicatedEmail" });
+      console.log("Duplicated email");
     }
-}
+}}
 
 export const getUsers = async(req, res) => {
   let driver=getDriver()
@@ -74,41 +75,44 @@ export const Login = async(req, res) => {
   let driver=getDriver()
   const session = driver.session()
     try {
+
       const user = await session.executeRead(
         tx => tx.run(
           `
-            MATCH (u:User {
+            MATCH (u:User  {
               email: "${req.body.email}"
             })
             return u
           `
-        )
-      )
-      console.log(user)
+      ))
+      if (!user.records) return res.status(400).json({code_msg: "EmailNotFound"});
+      const userInfos={
+        email:user.records[0].get("u").properties.email
+      }
+      console.log(userInfos)
       //compare passwords
-        const match = await bcrypt.compare(req.body.password, user[0].password);
+        const match = await bcrypt.compare(req.body.password,user.records[0].get("u").properties.password);
         if(!match) return res.status(400).json({code_msg: "invalidPassword"});
-          
-        const userId = user[0].id;
-        const name = user[0].name;
-        const email = user[0].email;
-        const accessToken = jwt.sign({userId, name, email}, process.env.ACCESS_TOKEN_SECRET,{
+          //Getting user's data
+
+        const accessToken = jwt.sign(userInfos, process.env.ACCESS_TOKEN_SECRET,{
             expiresIn: '15s'
         });
-        const refreshToken = jwt.sign({userId, name, email}, process.env.REFRESH_TOKEN_SECRET,{
+        const refreshToken = jwt.sign(userInfos, process.env.REFRESH_TOKEN_SECRET,{
             expiresIn: '1d'
         });
         await session.executeWrite(
           tx => tx.run(
             `
               MATCH (u:User {
-                email: "${email}",
+                email: "${userInfos.email}"
               })
-              SET u.refreshToken=${refreshToken}
+              SET u.refreshToken="${refreshToken}"
               return u
             `
-          )
-        )
+      )
+    );
+
 
         res.cookie('refreshToken', refreshToken,{
             httpOnly: true,
@@ -117,7 +121,7 @@ export const Login = async(req, res) => {
         res.json({ accessToken });
     } catch (error) {
         console.log(error)
-        res.status(404).json({msg:"Email not found"});
+        res.status(404).json({msg:"Error"});
     }
 }
  

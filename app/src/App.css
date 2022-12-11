@@ -1,38 +1,150 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100;200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
+:root{
+  --height: 2.75rem ;
+  --grey400:#ADB5BD;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*{
+  font-family: "Anek Kannada" !important;
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.formButtons{
+  width: 100%;
   display: flex;
+  justify-content: space-between;
   flex-direction: column;
+  gap:1rem
+}
+button{
+  height: var(--height) !important;
+  line-height: var(--height) !important;
+}
+form button{
+  z-index: 0;
+}
+
+.css-1yu0jr9-Input->input{
+  height: auto !important;
+}
+
+button span.css-udadfb-ButtonBase{
+  height: 100% !important;
+  line-height: inherit;
+}
+label{
+  font-size: 1rem !important;
+}
+.css-kpq71j-FormHeaderTitle{
+  font-size: 2rem !important;
+  font-weight: 600 !important;
+  color: #495057 !important;
+  letter-spacing: 0rem;
+  line-height: auto !important;
+  margin-bottom: 0.5rem !important;
+}
+.formSubtitle{
+  color: var(--grey400) !important;
+}
+
+.css-1qiikkb-Spinner{
+  height: 50% !important;
+
+}
+form{
+  overflow-y: hidden !important;
+  overflow-x: hidden !important;
+}
+.css-1ya0m-FormSectionWrapper{
+  width: 100% !important;
+  /* overflow-x: hidden;
+  height: fit-content !important;
+  overflow-y: hidden !important; */
+
+}
+.selectAttlassian
+/* ,.css-b62m3t-container,.css-13cymwt-control,#react-select-3-input */
+{
+  height: var(--height) !important;
+  line-height: var(--height) !important;
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: pointer !important;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+  line-height: 1.4285714285714286;
+  background-color: #FAFBFC;
+  border: 1px solid #DFE1E6;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
+  color:  #091E42;
+  
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: solid;
+  box-sizing: border-box;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.selectAttlassian:active{
+  border: 1px solid #AAC7EF !important;
+  background-color: transparent;
+}
+.selectAttlassian:not([data-compact]) {
+  padding: 8px 6px;
+  height: 2.57em;
+}
+.selectAttlassian option{
+  height: var(--height) !important;
+  line-height: var(--height) !important;
+  color:  #091E42;
+  
+}
+.selectAttlassian option:hover{
+background-color:  #F4F5F7 !important;
+  
+}
+.css-4mp3pp-menu{
+  z-index: 10 !important;
+  display: block;
+}
+input{
+  background-color: transparent;
+  border: 0;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  width: 100%;
+}
+#dateDeNaissance input {
+  width: 33% !important;
+  z-index: 999;
+}
+#adresse select {
+  width: 30% !important;
+}
+#adresse {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+nav  a,.css-udadfb-ButtonBase a{
+  color:#091E42 !important;
+  text-decoration: none !important;
+}
+.css-19dzqlj-ProductHome{
+  max-height: 50px !important;
+}
+.css-1lqks8e-ProductHome>* {
+  max-height: 50px !important;
+}
+.css-19dzqlj-ProductHome>*,.css-3gx4qd-ProductHome,.css-1lqks8e-ProductHome {
+  max-height: 50px !important;
+  margin: auto;
+}
+button#navBarCTA{
+  height: 2rem !important;
+  line-height: 2rem !important;
 }
