@@ -12,8 +12,9 @@ h6{
 }
 .full{
     display: flex;
-    width: 100vw;
-    margin-top: 100px;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
 
 }
 .picDiv{
@@ -60,6 +61,15 @@ h6{
     line-height: 40px;
     color: #6C757D;}
 
+.descriptionDiv p{
+        
+    font-family: 'Anek Kannada';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 40px;
+    color: #6C757D;
+    margin: 0px;}
 .priceDiv{
 
 }
@@ -68,7 +78,7 @@ h6{
     font-style: normal;
     font-weight: 500;
     font-size: 48px;
-    line-height: 80px;
+    line-height: 50px;
     color: #495057;
 }
 .priceDiv h6{ 
@@ -87,6 +97,7 @@ h6{
     font-size: 24px;
     line-height: 29px;
     color: #495057;
+    margin-bottom: 20px;
 }
 .colorSelectors{
     display: flex;
@@ -115,12 +126,13 @@ h6{
     font-size: 24px;
     line-height: 29px;
     color: #495057;
+    margin-bottom: 20px;
     
 }
 .quantitySelector{
     display: flex;
-    
-    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
 }
 .quantityText h4{
     font-family: 'Anek Kannada';
@@ -137,10 +149,11 @@ h6{
     font-size: 24px;
     line-height: 40px;
     color: #343A40;
+    
 }
 .quantityDecrement{
     width: 78px;
-    height: 56px;
+    height: 56px !important;
     border: 1px solid #E9ECEF;
     border-radius: 00px 40px 40px 0px;
     transform: matrix(-1, 0, 0, 1, 0, 0);
@@ -153,21 +166,89 @@ h6{
 .quantity{
     width:75px;
     text-align: center;
+    font-size: 36px;
 }
 .quantityIncrement{
     width: 78px;
-    height: 56px;
+    height: 56px !important;
     border: 1px solid #E9ECEF;
     border-radius: 40px 0px 0px 40px;
     transform: matrix(-1, 0, 0, 1, 0, 0);
+    text-align: center;
+
     
+}
+.quantityDecrement h1{
+    margin-bottom: 0px;
+    font-size: 36px;
+}
+.quantityIncrement h1{
+    margin-bottom: 0px;
+    font-size: 36px;
 }
 .quantityIncrement:hover{
     cursor: pointer;
+    
 }
 .quantiyValue{
     display: flex;
+    height: 56px;
 }
 .quantityText{
     display: flex;
+    gap: 10px;
+}
+.submitionDiv{
+    display: flex;
+    width: 100%;
+    gap: 20px;
+    justify-content: flex-end;
+
+    margin-top: 40px;
+
+}
+.cartButton {
+    border: 1px solid #2F45C5;
+    border-radius: 10px;
+    width:25%;
+    height:75px !important;
+}
+.cartButton h1{
+    font-family: 'Anek Kannada';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    color: #2F45C5;
+}
+.purchaseButton{
+    background: #2F45C5;
+    border-radius: 10px;
+    width:25%;
+    height:75px !important;
+    margin-right: 75px;
+}
+.purchaseButton h1{
+    font-family: 'Anek Kannada';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 28px;
+    line-height: 35px;
+    color: #FFFFFF;
+
+}
+.cartButton:hover{
+    cursor: pointer;
+
+}
+.purchaseButton:hover{
+    cursor: pointer;
+}
+.cartButton:active{
+    background-color: #c6c6c6;
+
+}
+.purchaseButton:active{
+    cursor: pointer;
+    background-color: #435adc;
 }
