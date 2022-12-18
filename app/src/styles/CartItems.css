@@ -1,0 +1,225 @@
+:root {
+  --blue: #2f45c5;
+  --white: #ffffff;
+  --darkGrey: #6c757d;
+  --lightGrey: #e9ecef;
+  --height: 32px !important;
+  --Grey200: #dee2e6;
+  --Secondary: #e64943;
+  --Grey300: #ced4da;
+}
+.ShoppingCart__wraper {
+  background: var(--lightGrey);
+  width: 100%;
+  height: calc(100vh - 56px);
+}
+
+.ShoppingCart__header {
+  height: 80px;
+  position: relative;
+}
+.ShoppingCart__header .title {
+  position: absolute;
+  left: 32px;
+  top: 50%;
+  transform: translateY(-80%);
+}
+.title,
+.total {
+  font-family: "Anek Kannada";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 55px;
+  color: black;
+}
+.ShoppingCart__header .total {
+  position: absolute;
+  right: 150px;
+  top: 50%;
+  transform: translateY(-80%);
+}
+.ShoppingCart__header .btn-validate {
+  position: absolute;
+  right: 34px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--blue);
+  border-radius: 5px;
+  color: var(--white);
+  width: 100px;
+  border: none;
+  height: var(--height);
+}
+.btn-validate__trash {
+  background: var(--Grey300) !important;
+}
+
+.ShoppingCart__items {
+  justify-content: flex-start;
+  border-bottom: 1px solid var(--lightGrey);
+  background: #ffffff;
+  width: 95vw;
+  top: 50px;
+  right: 170px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  box-shadow: 4px 11px 24px rgba(0, 0, 0, 0.15);
+}
+
+.ShoppingCartElement__Info__CartItems {
+  width: 82vw;
+  float: none;
+}
+.checkBox {
+  display: none;
+}
+.checkBoxDisplay {
+  width: 15px !important;
+  display: block !important;
+}
+.info__date__style {
+  position: absolute;
+  left: 100%;
+  margin-left: -58px;
+  margin-top: 10px;
+}
+
+.removeBtn__display {
+  display: none;
+}
+.info__category__style {
+  top: 30px !important;
+}
+.image__style {
+  width: 80px;
+  height: 75px;
+}
+
+.ShoppingCartElement__Image__style {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.image__style {
+  width: 80px !important;
+  height: 80px !important;
+}
+
+.product__title__style {
+  margin-top: 10px !important;
+}
+
+.ShoppingCart__header2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: "filter search";
+  margin: 10px 25px;
+  /* border: 1px solid; */
+}
+.ShoppingCart__header2 button {
+  cursor: pointer;
+}
+.ShoppingCart__header2 .filter .Price,
+.Date,
+.Category {
+  white-space: nowrap;
+  width: 90px;
+  background: #ffffff;
+  /* gray 400 */
+
+  border: 1px solid #adb5bd;
+  border-radius: 45px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: nowrap;
+  /* flex-direction: row; */
+  align-items: flex-start;
+  margin-right: 10px;
+}
+/* .Price {
+  background-color: #e64943 !important;
+  color: var(--white);
+} */
+.btn_clicked {
+  background-color: #e64943 !important;
+  color: var(--white) !important;
+}
+.ShoppingCart__header2 .Historique {
+  width: 150px;
+  white-space: nowrap;
+  display: flex;
+  border: 1px solid #adb5bd;
+  justify-content: space-around;
+  background: var(--Grey200);
+  border-radius: 5px;
+}
+
+.arrow {
+  padding-top: 4px;
+}
+.ShoppingCart__header2 .Sort {
+  color: var(--darkGrey);
+  font-family: "Anek Kannada";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 52px;
+  margin-top: 5px;
+}
+.Sort__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.ShoppingCart__header2 .filter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+  margin: 0 10px;
+}
+
+.ShoppingCart__header2 .search {
+  display: flex;
+  justify-content: end;
+
+  align-items: center;
+  width: 100%;
+}
+.ShoppingCart__header .Trash {
+  background: var(--blue);
+  border: 1px solid var(--blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  width: 30px;
+  position: absolute;
+  right: 150px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.ShoppingCart__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  border-bottom: 1px solid var(--lightGrey);
+  background: var(--white);
+  margin: 0 5px;
+  padding: 0 5px;
+}
+
+.Historyu__Info__style {
+  width: 84vw !important;
+}

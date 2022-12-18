@@ -47,40 +47,45 @@ export const Register = async (req, res) => {
       res.status(400).json({ code_err: "duplicatedEmail" });
       console.log("Duplicated email");
     }
-}
-export const Login = async(req, res) => {
-  let driver=getDriver()
-  const session = driver.session()
-    try {
-
-      const user = await session.executeRead(
-        tx => tx.run(
-          `
+  }
+};
+export const Login = async (req, res) => {
+  let driver = getDriver();
+  const session = driver.session();
+  try {
+    const user = await session.executeRead((tx) =>
+      tx.run(
+        `
             MATCH (u:User  {
               email: "${req.body.email}"
             })
             return u
           `
-      ))
-      if (!user.records) return res.status(400).json({code_msg: "EmailNotFound"});
-      const userInfos={
-        email:user.records[0].get("u").properties.email
-      }
-      console.log(userInfos)
-      //compare passwords
-        const match = await bcrypt.compare(req.body.password,user.records[0].get("u").properties.password);
-        if(!match) return res.status(400).json({code_msg: "invalidPassword"});
-          //Getting user's data
+      )
+    );
+    if (!user.records)
+      return res.status(400).json({ code_msg: "EmailNotFound" });
+    const userInfos = {
+      email: user.records[0].get("u").properties.email,
+    };
+    console.log(userInfos);
+    //compare passwords
+    const match = await bcrypt.compare(
+      req.body.password,
+      user.records[0].get("u").properties.password
+    );
+    if (!match) return res.status(400).json({ code_msg: "invalidPassword" });
+    //Getting user's data
 
-        const accessToken = jwt.sign(userInfos, process.env.ACCESS_TOKEN_SECRET,{
-            expiresIn: '15s'
-        });
-        const refreshToken = jwt.sign(userInfos, process.env.REFRESH_TOKEN_SECRET,{
-            expiresIn: '1d'
-        });
-        await session.executeWrite(
-          tx => tx.run(
-            `
+    const accessToken = jwt.sign(userInfos, process.env.ACCESS_TOKEN_SECRET, {
+      expiresIn: "15s",
+    });
+    const refreshToken = jwt.sign(userInfos, process.env.REFRESH_TOKEN_SECRET, {
+      expiresIn: "1d",
+    });
+    await session.executeWrite((tx) =>
+      tx.run(
+        `
               MATCH (u:User {
                 email: "${userInfos.email}"
               })
@@ -90,18 +95,17 @@ export const Login = async(req, res) => {
       )
     );
 
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.json({ accessToken });
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ msg: "Error" });
+  }
+};
 
-        res.cookie('refreshToken', refreshToken,{
-            httpOnly: true,
-            maxAge: 24 * 60 * 60 * 1000
-        });
-        res.json({ accessToken });
-    } catch (error) {
-        console.log(error)
-        res.status(404).json({msg:"Error"});
-    }
-}
- 
 // export const Logout = async(req, res) => {
 //     const refreshToken = req.cookies.refreshToken;
 //     if(!refreshToken) return res.sendStatus(204);

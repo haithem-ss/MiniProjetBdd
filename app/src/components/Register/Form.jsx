@@ -9,6 +9,9 @@ import TextField from '@atlaskit/textfield';
 import { DatePicker, DateTimePicker } from '@atlaskit/datetime-picker';
 import { motion } from "framer-motion";
 import GoogleIcon from "../../assets/Google.jsx"
+import { useNavigate } from "react-router-dom";
+
+
 import Form, {
     CheckboxField,
     ErrorMessage,
@@ -33,7 +36,6 @@ const whileNotUsingSelect=()=>{
 }
 
 
-  
 const submitForm = (data) => {
     let userInfos = {
         firstName: data.nom,
@@ -53,9 +55,13 @@ const submitForm = (data) => {
         })
 }
 function RegisterForm() {
+    const redirect = ()=>{
+        window.location.href = "http://localhost:5000/users/auth/google"
+    }
     const genders = [
         { label: 'Homme', value: 'Homme' },
         { label: 'Femme', value: 'Femme' },
+        
     ]
     const jours=[]
     const mois=[]
@@ -523,8 +529,9 @@ function RegisterForm() {
                                     style={{
                                         border: "1px solid #ADB5BD"
                                     }}
-                                >
+                                    >
                                     <div
+                                        onClick={redirect}
                                         style={{
                                             display: "flex",
                                             justifyContent: "center",

@@ -24,14 +24,17 @@ const submitForm = (data) => {
     email: data.email,
     password: data.password,
   }
-
   console.log(userInfos)
   axios.post("http://localhost:5000/users/login", userInfos)
     .then((response) => {
       console.log(response)
     })
 }
+const redirect = ()=>{
+  window.location.href = "http://localhost:5000/users/auth/google"
+}
 const LoginForm = () => (
+  
   <div
     style={{
       width: '400px',
@@ -140,6 +143,7 @@ const LoginForm = () => (
                 S'identifier
               </LoadingButton>
              <Button
+              onClick={redirect}
              appearance="default"
              style={{
               border:"1px solid #ADB5BD"
