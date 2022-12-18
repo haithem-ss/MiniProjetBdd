@@ -29,7 +29,7 @@ export const Register = async (req, res) => {
         `
                 CREATE (u:User {
                   email: "${userInfos.email}",
-                  password:"${hashedPassword}",
+                  password:"${userInfos.password}",
                   firstName: "${userInfos.firstName}",
                   lastName: "${userInfos.lastName}",
                   dateOfBirth: "${userInfos.dateOfBirth}",
@@ -49,6 +49,27 @@ export const Register = async (req, res) => {
     }
   }
 };
+
+export const getUsers = async (req, res) => {
+  let driver = getDriver();
+  const session = driver.session();
+  try {
+    const user = await session.executeRead((tx) =>
+      tx.run(
+        `
+            MATCH (u)
+            return u
+          `
+      )
+    );
+    console.log(user);
+    res.status(200).json(user);
+  } catch (error) {
+    console.log(error);
+    res.status(404).json({ msg: "no users" });
+  }
+};
+
 export const Login = async (req, res) => {
   let driver = getDriver();
   const session = driver.session();
