@@ -2,18 +2,21 @@ import React, { ChangeEvent, useCallback, useState } from "react";
 import "../styles/CartItems.css";
 import ShoppingCartElement from "../assets/ShoppingCartElement.jsx";
 import ChevronDownIcon from "@atlaskit/icon/glyph/chevron-down";
-import { AtlassianNavigation, Search } from "@atlaskit/atlassian-navigation";
 import Sort from "../assets/Sort";
 import Arrow from "../assets/Arrow.jsx";
 import Trash from "../assets/Trash";
 import { useDispatch, useSelector } from "react-redux";
+import { AtlassianNavigation, Search } from "@atlaskit/atlassian-navigation";
+
 import { useNavigate } from "react-router-dom";
+import ValidationPhase from "../assets/ValidationPhase.jsx";
 import {
   removeSelectedItems,
-  filterByCategory,
   sortCartByPrice,
-  sortByDate
+  searchByTitle,
+  showUncheckedItems
 } from "../redux/CartSlice.js";
+
 const CartItems = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -21,17 +24,25 @@ const CartItems = () => {
   const [btnValidateTrash, setBtnValidateTrash] = useState("");
   const [isRenderDelete, setIsRenderDelete] = useState(false);
   const [filterbtn, setFilterbtn] = useState("");
-  const onChange2 = event => {
-    setIsChecked(event.target.checked);
-    console.log(event.target);
-    if (event.target.checked) {
-      setBtnValidateTrash("btn-validate__trash");
-    } else {
-      setBtnValidateTrash("");
-    }
-  };
+  const [search, setSearch] = useState("");
+  const onChange = useCallback(
+    event => {
+      setSearch(event.target.value);
+      if (event.target.value === "") {
+        dispatch(showUncheckedItems());
+      }
+      if (event.target.value !== "") {
+        dispatch(searchByTitle(event.target.value));
+      }
+    },
+    [dispatch]
+  );
+
   const deleteSelectedCheckboxes = () => {
     dispatch(removeSelectedItems());
+    setIsChecked(false);
+    setBtnValidateTrash("");
+    window.location.reload();
   };
   const pull_selectedCheckBox = checkbox => {
     console.log(checkbox);
@@ -51,37 +62,47 @@ const CartItems = () => {
     return totalPrice;
   };
 
-  const [value, setValue] = useState("");
-  const onChange = event => {
-    setValue(event.target.value);
-  };
   const cart = useSelector(state => state.cart);
+  const [divAnimation, setDivAnimation] = useState("");
   const [priceSort, setPriceSort] = useState(false);
   const [sortedCart, setSortedCart] = useState(cart);
+  const [renderValidation, setRenderValidation] = useState(false);
   const onSortByPrice = () => {
     setFilterbtn("btn_clicked");
     setPriceSort(!priceSort);
     dispatch(sortCartByPrice());
   };
-  const onRemoveSelectedItems = () => {
-    dispatch(removeSelectedItems());
+  const onValidate = () => {
+    setDivAnimation("dropdown_menu-6");
+    setRenderValidation(true);
   };
+
   return (
     <div className="ShoppingCart__wraper">
-      <div className="ShoppingCart__header">
-        <h2 className="title">Cart items</h2>
-        <div className="Total__Trash">
-          {isChecked ? (
-            <button className="Trash" onClick={deleteSelectedCheckboxes}>
-              <Trash />
-            </button>
-          ) : null}
-          {!isChecked ? (
-            <h2 className="total">Total: {getTotal().toLocaleString()} DA</h2>
-          ) : null}
+      {renderValidation ? (
+        <ValidationPhase getTotal={getTotal} divAnimation={divAnimation} />
+      ) : (
+        <div className="ShoppingCart__header">
+          <h2 className="title">Cart items</h2>
+          <div className="Total__Trash">
+            {isChecked ? (
+              <button className="Trash" onClick={deleteSelectedCheckboxes}>
+                <Trash />
+              </button>
+            ) : null}
+            {!isChecked ? (
+              <h2 className="total">Total: {getTotal().toLocaleString()} DA</h2>
+            ) : null}
+          </div>
+          <button
+            className={`btn-validate ${btnValidateTrash}`}
+            onClick={onValidate}
+          >
+            validate
+          </button>
         </div>
-        <button className={`btn-validate ${btnValidateTrash}`}>validate</button>
-      </div>
+      )}
+
       <div className="ShoppingCart__header2">
         <div className="filter">
           <span className="Sort">
@@ -113,11 +134,10 @@ const CartItems = () => {
           </button>
           <Search
             onClick={onChange}
-            placeholder="Search..."
+            placeholder="rehercher un produit..."
             tooltip="Search"
             label="Search"
-            value={value}
-            style={{ width: "300px" }}
+            value={search}
           />
         </div>
       </div>

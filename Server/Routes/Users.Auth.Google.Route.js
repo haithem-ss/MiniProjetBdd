@@ -23,8 +23,8 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    failureRedirect: "/users/auth/failure",
-    successRedirect: "/users/auth/success",
+    failureRedirect: "/auth/failure",
+    successRedirect: process.env.LINK_URL,
   })
 );
 router.get("/logout", logout);

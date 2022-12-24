@@ -91,7 +91,7 @@
   display: none;
 }
 .info__category__style {
-  top: 30px !important;
+  top: 25px !important;
 }
 .image__style {
   width: 80px;
@@ -188,7 +188,7 @@
 
 .ShoppingCart__header2 .search {
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
 
   align-items: center;
   width: 100%;
@@ -222,4 +222,34 @@
 
 .Historyu__Info__style {
   width: 84vw !important;
+}
+.search__input {
+  width: 300px;
+  height: 40px;
+  border: 1px solid var(--lightGrey);
+  border-radius: 5px;
+  padding: 0 10px;
+  font-family: "Anek Kannada";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  color: var(--darkGrey);
+  background-color: var(--white);
+  margin-left: 20px;
+}
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-active {
+  background-color: #e64943 !important;
+  color: #ffffff !important;
 }

@@ -53,6 +53,9 @@ const ShoppingCartDropDown = ({ active, title, favoriteClass = "" }) => {
             {cart.map(item => (
               <ShoppingCartElement
                 syleCss="ShoppingCartElement__Info__width"
+                styleCat = ""
+                styleDate = ""
+                styleTrash="ShoppingCartElement__Info__trash"
                 img={item.img}
                 title={item.title}
                 category={item.category}
@@ -61,9 +64,6 @@ const ShoppingCartDropDown = ({ active, title, favoriteClass = "" }) => {
                 quantity={item.quantity}
               />
             ))}
-            {/* <ShoppingCartElement syleCss="ShoppingCartElement__Info__width" />
-            <ShoppingCartElement syleCss="ShoppingCartElement__Info__width" />
-            <ShoppingCartElement syleCss="ShoppingCartElement__Info__width" /> */}
           </div>
         </div>
       ) : null}

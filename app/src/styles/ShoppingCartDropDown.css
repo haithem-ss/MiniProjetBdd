@@ -25,6 +25,7 @@
   padding: 0 10px;
   height: 40px;
   position: relative;
+  margin-top: 15px;
 }
 .header {
   position: absolute;
@@ -93,7 +94,7 @@
 }
 .ShoppingCartElement__Info .info__category {
   position: absolute;
-  top: 45px;
+  top: 40px;
 }
 .ShoppingCartElement__Info .info__title {
   font-family: "Anek Kannada";
@@ -111,7 +112,7 @@
   font-size: 16px;
   line-height: 20px;
   color: var(--blue);
-  margin: 5px;
+  margin: 20px 5px;
   float: right;
 }
 
@@ -119,7 +120,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: -10px;
   width: 70px;
 }
 
