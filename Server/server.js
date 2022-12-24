@@ -6,7 +6,9 @@ import AuthRoutes from "./Routes/Users.Auth.Google.Route.js";
 import session from "express-session";
 import passport from "passport";
 import UsersRouter from "./Routes/Users.Route.js";
-import cookieParser from "cookie-parser";import CategoriesRouter from "./Routes/Categories.Route.js";
+import cookieParser from "cookie-parser";
+import CategoriesRouter from "./Routes/Categories.Route.js";
+import ProductsRouter from "./Routes/Products.Route.js";
 
 
 if (process.env.NODE_ENV !== "production") {
@@ -31,6 +33,7 @@ app.use("/users", UsersRouter);
 //app.use("/", AuthRoutes);
 app.use("/users",UsersRouter)
 app.use("/categories",CategoriesRouter)
+app.use("/products",ProductsRouter)
 app.get("/", function (req, res) {
   res.status(200).send("We are up and running");
 });

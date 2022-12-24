@@ -35,11 +35,11 @@ function Product() {
       stock.color="red"
       
     }
-   
+  
     
   return (
     <div className="full">
-      <div className="picDiv"></div>
+      <div className="picDiv" style={{backgroundColor:productSpecs.colors[selectedColor]}}></div>
       
       <div className="infoDiv">
           <div className="descriptionDiv">
