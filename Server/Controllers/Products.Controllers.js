@@ -66,8 +66,8 @@ export const deleteProduct= async(req,res)=>{
       tx => tx.run(
         `
           MATCH (p:Product)
-          where p.categoryName = "${productToDeleteId}"
-          DELETE p
+          where ID(p) = ${productToDeleteId}
+          DETACH DELETE p
         `
       )
     )
@@ -117,7 +117,7 @@ export const getProducts = async(req, res) => {
         editedProductHaveDiscount:req.body.ProductHaveDiscount,
         editedProductBrand:req.body.ProductBrand,
     }
-    console.log(ProductInfos)
+    console.log(editedProductInfos)
     //init driver
     let driver=getDriver()
     const session = driver.session()
@@ -126,16 +126,15 @@ export const getProducts = async(req, res) => {
     const result = await session.executeWrite(
         tx => tx.run(
           `
-          match(p:Product {
-            productId: "${req.params.ProductId}"
-             })
+          match(p:Product)
+          where ID(p)=${req.params.productId}
           set 
-          p.ProductName:"${editedProductInfos.editedProductName}",
-          p.ProductDescription:"${editedProductInfos.editedProductDescription}",
-          p.ProductPrice:"${editedProductInfos.editedProductPrice}",
-          p.ProductStock:"${editedProductInfos.editedProductStock}",
-          p.ProductHaveDiscount:"${editedProductInfos.editedProductHaveDiscount}",
-          p.ProductBrand:"${editedProductInfos.editedProductBrand}"
+          p.ProductName = "${editedProductInfos.editedProductName}",
+          p.ProductDescription = "${editedProductInfos.editedProductDescription}",
+          p.ProductPrice = "${editedProductInfos.editedProductPrice}",
+          p.ProductStock = "${editedProductInfos.editedProductStock}",
+          p.ProductHaveDiscount = "${editedProductInfos.editedProductHaveDiscount}",
+          p.ProductBrand = "${editedProductInfos.editedProductBrand}"
           `
         )
       )
