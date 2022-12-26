@@ -9,10 +9,16 @@
     "@atlaskit/button": "^16.4.1",
     "@atlaskit/checkbox": "^12.4.1",
     "@atlaskit/datetime-picker": "^12.3.2",
+    "@atlaskit/dynamic-table": "^14.8.5",
+    "@atlaskit/flag": "^14.7.3",
     "@atlaskit/form": "^8.7.1",
     "@atlaskit/icon": "^21.11.2",
+    "@atlaskit/modal-dialog": "^12.4.2",
+    "@atlaskit/pagination": "^14.2.4",
     "@atlaskit/select": "^15.7.7",
+    "@atlaskit/spinner": "^15.2.1",
     "@atlaskit/textfield": "^5.3.2",
+    "@atlaskit/tooltip": "^17.6.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -23,9 +29,9 @@
     "react-router": "^6.4.5",
     "react-router-dom": "^6.4.5",
     "react-scripts": "5.0.1",
-    "react-select": "^5.7.0",
     "web-vitals": "^2.1.4",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "react-chartjs-2": "^4.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
