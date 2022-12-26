@@ -61,27 +61,22 @@ label {
   line-height: auto !important;
   margin-bottom: 0.5rem !important;
 }
-
 .formSubtitle {
   color: var(--grey400) !important;
 }
 
 .css-1qiikkb-Spinner {
   height: 50% !important;
-
 }
-
 form {
   overflow-y: hidden !important;
   overflow-x: hidden !important;
 }
-
 .css-1ya0m-FormSectionWrapper {
   width: 100% !important;
   /* overflow-x: hidden;
   height: fit-content !important;
   overflow-y: hidden !important; */
-
 }
 
 .selectAttlassian
@@ -100,8 +95,8 @@ form {
   outline: none;
   width: 100%;
   line-height: 1.4285714285714286;
-  background-color: #FAFBFC;
-  border: 1px solid #DFE1E6;
+  background-color: #fafbfc;
+  border: 1px solid #dfe1e6;
   align-items: center;
 
   color: #091E42;
@@ -138,7 +133,6 @@ form {
   z-index: 10 !important;
   display: block;
 }
-
 input {
   background-color: transparent;
   border: 0;
@@ -181,12 +175,23 @@ nav a,
 }
 
 .css-19dzqlj-ProductHome>*,
+nav a,
+.css-udadfb-ButtonBase a {
+  color: #091e42 !important;
+  text-decoration: none !important;
+}
+.css-19dzqlj-ProductHome {
+  max-height: 50px !important;
+}
+.css-1lqks8e-ProductHome > * {
+  max-height: 50px !important;
+}
+.css-19dzqlj-ProductHome > *,
 .css-3gx4qd-ProductHome,
 .css-1lqks8e-ProductHome {
   max-height: 50px !important;
   margin: auto;
 }
-
 button#navBarCTA {
   height: 2rem !important;
   line-height: 2rem !important;

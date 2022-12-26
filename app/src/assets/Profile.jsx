@@ -1,3 +1,4 @@
+import React from 'react'
 export default function Profile() {
     return (<>
         <svg style={{margin:"auto"}} width="37" height="37" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
