@@ -1,4 +1,4 @@
-import Badge from '@atlaskit/badge';
+import React from "react"
 
 export default function Cart(){
 

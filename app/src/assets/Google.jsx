@@ -1,7 +1,9 @@
+import React from 'react'
 import SVG from '@atlaskit/icon/svg';
 
 export default function GoogleIcon() {
   return (
+    <>
 <svg width="25" height="27" viewBox="0 0 33 34" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g clip-path="url(#clip0_22_2594)">
 <path d="M32.9825 17.3181C32.9825 15.9251 32.8702 14.9086 32.6273 13.8545H16.8286V20.1416H26.1021C25.9152 21.7041 24.9056 24.0571 22.6619 25.6382L22.6305 25.8487L27.6257 29.7448L27.9718 29.7796C31.1502 26.8242 32.9825 22.4758 32.9825 17.3181" fill="#4285F4"/>
@@ -15,6 +17,7 @@ export default function GoogleIcon() {
 </clipPath>
 </defs>
 </svg>
+    </>
   );
 };
 

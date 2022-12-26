@@ -1,0 +1,204 @@
+:root {
+  --mainColor: #343a40;
+  --lightColor: #adb5bd;
+  --red: #e64943;
+  --blue: #2f45c5;
+  --lightGreyColor: #f6f6f6;
+}
+.ShoppingCartElement {
+  display: flex;
+  align-items: center;
+}
+.DropDownContainer {
+  margin: 10px auto;
+  width: 450px;
+  height: 300px;
+  background: #ffffff;
+  box-shadow: 4px 11px 24px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  z-index: 100;
+  position: absolute;
+  top: 50px;
+  right: 170px;
+}
+.DropDownContainer__Header {
+  padding: 0 10px;
+  height: 40px;
+  position: relative;
+  margin-top: 15px;
+}
+.header {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-85%);
+
+  font-family: "Anek Kannada";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 40px;
+}
+.added-items {
+  color: var(--mainColor);
+}
+.view-cart {
+  color: var(--red);
+  right: 0;
+  margin-right: 15px;
+  font-weight: 600;
+  font-style: bold;
+  cursor: pointer;
+}
+.DropDownContainer__Body {
+  width: 100%;
+  overflow-y: scroll;
+  margin-top: -5px;
+  height: 250px;
+}
+
+.ShoppingCartElement__Image {
+  float: left;
+  margin: 10px;
+  width: 80px;
+  height: 100px;
+  background: var(--lightGreyColor);
+  display: flex;
+  justify-content: space-around;
+}
+.ShoppingCartElement__Image img {
+  width: 80px;
+  height: 100px;
+  border-radius: 10px;
+}
+.ShoppingCartElement__Info {
+  padding-left: 5px;
+  float: right;
+  margin: 10px 10px;
+  padding-left: 10px;
+  height: 100px;
+  background: #ffffff;
+  border-radius: 10px;
+  position: relative;
+}
+.ShoppingCartElement__Info__width {
+  width: 315px !important;
+}
+.ShoppingCartElement__Info .info__date,
+.info__category {
+  font-family: "Anek Kannada";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+  color: var(--lightColor);
+}
+.ShoppingCartElement__Info .info__category {
+  position: absolute;
+  top: 40px;
+}
+.ShoppingCartElement__Info .info__title {
+  font-family: "Anek Kannada";
+  font-style: bold;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--mainColor);
+  margin-top: -2px;
+}
+.ShoppingCartElement__Info .info__price {
+  font-family: "Anek Kannada";
+  font-style: bold;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  color: var(--blue);
+  margin: 20px 5px;
+  float: right;
+}
+
+.cartItem__incrDec {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70px;
+}
+
+.cartItem__incrDec button {
+  width: 20px;
+  height: 25px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ffffff;
+  border: 1px solid var(--lightColor);
+  cursor: pointer;
+}
+
+.cartItem__removeButton {
+  position: absolute;
+  right: 0 !important;
+  top: 0 !important;
+  transform: translate(-100%, 10%);
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+  border: 1px solid #ffffff;
+  width: 20px;
+  height: 20px;
+}
+.trash__icon {
+  width: 20px;
+  height: 20px;
+  background: var(--red);
+  color: var(--lightColor) !important;
+}
+.DropDownContainer__Body::-webkit-scrollbar {
+  width: 5px;
+  height: 80px !important;
+}
+
+/* Track */
+.DropDownContainer__Body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+.DropDownContainer__Body::-webkit-scrollbar-thumb {
+  background: var(--lightColor);
+}
+
+/* Handle on hover */
+.DropDownContainer__Body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+.favorite {
+  right: 90px !important;
+}
+.fadeIn {
+  -webkit-animation-name: fadeIn;
+  animation-name: fadeIn;
+  -webkit-animation-duration: 1s;
+  animation-duration: 0.7s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.cartItem__fullWidth {
+  width: 100%;
+}
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

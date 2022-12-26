@@ -1,38 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100;200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap');
-:root{
-  --height: 2.75rem ;
-  --grey400:#ADB5BD;
+@import url("https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100;200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap");
+:root {
+  --height: 2.75rem;
+  --grey400: #adb5bd;
 }
-*{
+* {
   font-family: "Anek Kannada" !important;
 }
-.formButtons{
+.formButtons {
   width: 100%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap:1rem
+  gap: 1rem;
 }
-button{
+button {
   height: var(--height) !important;
   line-height: var(--height) !important;
 }
-form button{
+form button {
   z-index: 0;
 }
 
-.css-1yu0jr9-Input->input{
+.css-1yu0jr9-Input- > input {
   height: auto !important;
 }
 
-button span.css-udadfb-ButtonBase{
+button span.css-udadfb-ButtonBase {
   height: 100% !important;
   line-height: inherit;
 }
-label{
+label {
   font-size: 1rem !important;
 }
-.css-kpq71j-FormHeaderTitle{
+.css-kpq71j-FormHeaderTitle {
   font-size: 2rem !important;
   font-weight: 600 !important;
   color: #495057 !important;
@@ -40,28 +40,26 @@ label{
   line-height: auto !important;
   margin-bottom: 0.5rem !important;
 }
-.formSubtitle{
+.formSubtitle {
   color: var(--grey400) !important;
 }
 
-.css-1qiikkb-Spinner{
+.css-1qiikkb-Spinner {
   height: 50% !important;
-
 }
-form{
+form {
   overflow-y: hidden !important;
   overflow-x: hidden !important;
 }
-.css-1ya0m-FormSectionWrapper{
+.css-1ya0m-FormSectionWrapper {
   width: 100% !important;
   /* overflow-x: hidden;
   height: fit-content !important;
   overflow-y: hidden !important; */
-
 }
 .selectAttlassian
 /* ,.css-b62m3t-container,.css-13cymwt-control,#react-select-3-input */
-{
+ {
   height: var(--height) !important;
   line-height: var(--height) !important;
   background-color: transparent;
@@ -74,40 +72,38 @@ form{
   outline: none;
   width: 100%;
   line-height: 1.4285714285714286;
-  background-color: #FAFBFC;
-  border: 1px solid #DFE1E6;
+  background-color: #fafbfc;
+  border: 1px solid #dfe1e6;
   align-items: center;
 
-  color:  #091E42;
-  
+  color: #091e42;
+
   border-radius: 3px;
   border-width: 2px;
   border-style: solid;
   box-sizing: border-box;
 }
-.selectAttlassian:active{
-  border: 1px solid #AAC7EF !important;
+.selectAttlassian:active {
+  border: 1px solid #aac7ef !important;
   background-color: transparent;
 }
 .selectAttlassian:not([data-compact]) {
   padding: 8px 6px;
   height: 2.57em;
 }
-.selectAttlassian option{
+.selectAttlassian option {
   height: var(--height) !important;
   line-height: var(--height) !important;
-  color:  #091E42;
-  
+  color: #091e42;
 }
-.selectAttlassian option:hover{
-background-color:  #F4F5F7 !important;
-  
+.selectAttlassian option:hover {
+  background-color: #f4f5f7 !important;
 }
-.css-4mp3pp-menu{
+.css-4mp3pp-menu {
   z-index: 10 !important;
   display: block;
 }
-input{
+input {
   background-color: transparent;
   border: 0;
   box-sizing: border-box;
@@ -130,21 +126,24 @@ input{
   justify-content: space-between;
   gap: 0.75rem;
 }
-nav  a,.css-udadfb-ButtonBase a{
-  color:#091E42 !important;
+nav a,
+.css-udadfb-ButtonBase a {
+  color: #091e42 !important;
   text-decoration: none !important;
 }
-.css-19dzqlj-ProductHome{
+.css-19dzqlj-ProductHome {
   max-height: 50px !important;
 }
-.css-1lqks8e-ProductHome>* {
+.css-1lqks8e-ProductHome > * {
   max-height: 50px !important;
 }
-.css-19dzqlj-ProductHome>*,.css-3gx4qd-ProductHome,.css-1lqks8e-ProductHome {
+.css-19dzqlj-ProductHome > *,
+.css-3gx4qd-ProductHome,
+.css-1lqks8e-ProductHome {
   max-height: 50px !important;
   margin: auto;
 }
-button#navBarCTA{
+button#navBarCTA {
   height: 2rem !important;
   line-height: 2rem !important;
 }
