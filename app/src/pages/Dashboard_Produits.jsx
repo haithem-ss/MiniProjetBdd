@@ -3,28 +3,25 @@ import { Table, SectionTitle, StatsCard } from "../components/Dashboard/Componen
 import React from "react";
 import {UtilityBar,DownloadSVG} from "../components/Dashboard/Components"
 import Navbar from "../components/Dashboard/Navbar"
-
+import { Link } from "react-router-dom";
+import axios from "axios";
 export default function () {
 
     const [products, setProducts] = React.useState([
-        { title: "item1", brand: "brand1", description: "description1", price: "price 1" },
-        { title: "item2", brand: "brand2", description: "description2", price: "price 2" },
-        { title: "item3", brand: "brand3", description: "description3", price: "price 3" },
-        { title: "item4", brand: "brand4", description: "description4", price: "price 4" },
-        { title: "item5", brand: "brand5", description: "description5", price: "price 5" },
-        { title: "item6", brand: "brand6", description: "description6", price: "price 6" },
-        { title: "item7", brand: "brand7", description: "description7", price: "price 7" },
-        { title: "item8", brand: "brand8", description: "description8", price: "price 8" },
-        { title: "item9", brand: "brand9", description: "description9", price: "price 9" },
-        { title: "item10", brand: "brand10", description: "description10", price: "price 10" },
-        { title: "i11em6", brand: "bra11d6", description: "descriptio116", price: "price 11" },
-        { title: "item12", brand: "brand12", description: "description12", price: "price 12" },
-        { title: "i13em6", brand: "bra13d6", description: "descriptio136", price: "price 13" },
-        { title: "it4m10", brand: "bran410", description: "description40", price: "price 14" },
-        { title: "i15em6", brand: "bra15d6", description: "descriptio156", price: "price 15" },
-        { title: "it6m10", brand: "bran610", description: "description60", price: "price 16" },
-        { title: "i17em6", brand: "bra17d6", description: "descriptio176", price: "price 17" },
     ])
+    React.useEffect(()=>{
+            axios.get("http://localhost:5000/products")
+        .then((response)=>{
+            const data=[]
+            for( let i of response.data.response){
+                data.push(i._fields[0].properties)
+            }
+
+        setProducts(data)
+
+        })
+
+    },[products])
 
 
     return (<div className="dashboard">
@@ -48,12 +45,12 @@ export default function () {
                 </div>
 
             </div>
-            <UtilityBar text="Nouvelle produit" button={true}/>
+            <UtilityBar text="Nouvelle produit" button={true} link="/Dashboard/Produits/Ajouter"/>
             <Table
                 checkbox={false}
-                status={true}
+                status={false}
                 head={[
-                    "Status", "Nom & prénom", "N° de téléphone", "Date d'achat", "Prix", "Adresse"
+                    "Nom de produit", "Marque", "Description", "Stock", "Prix"
                 ]}
                 rows={products}
             />

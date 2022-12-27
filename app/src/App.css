@@ -196,6 +196,9 @@ button#navBarCTA {
   height: 2rem !important;
   line-height: 2rem !important;
 }
+button#navBarCTA  a{
+  color:white !important;
+}
 
 .authSlogan {
   font-size: 30px;
@@ -204,16 +207,25 @@ button#navBarCTA {
 
 .authSection {
   overflow: hidden;
-  height: 100vh;
   width: 50%;
   padding: 3rem;
+  display:flex;
+  align-items:center;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #F8F9FA;
 }
 
-.authSection svg {
-  margin: auto;
-  height: 65%;
+.authSection #svg {
   padding: 3rem;
-  width: 80%;
+  width: clamp(150px,70%,550px);
+  height:fit-content !important;
+  margin:auto;
+}
+.authSection div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .section {
@@ -528,4 +540,13 @@ section {
 }
 .CheckoutModal svg {
   width: 70%;
+}
+.css-1vpkq7w-AtlassianNavigation{
+}
+div.formButtons:hover button{
+  z-index: 1 !important;
+
+}
+#RegisterInput div{
+  width: 100%;
 }

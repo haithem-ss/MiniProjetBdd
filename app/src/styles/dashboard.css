@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap');
+
+:root {
+  --height: 2.75rem;
+  --grey400: #ADB5BD;
+  --grey600: #495057;
+  --grey100: #E9ECEF;
+  --grey500: #6C757D;
+  --primary: #2F45C5;
+  --grey700: #343A40;
+  --grey300: #CED4DA;
+  --secondary: #E64943;
+}
+
+.dashboard {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Sidebar {
+  left: 0;
+  position: fixed;
+  height: calc(90vh - 12vh);
+  width: 20vw;
+  margin: 12vh 2.5vw;
+  padding: 1.5rem 0rem;
+  background-color: white;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.03);
+  border-radius: 10px;
+  max-width: 250px;
+}
+
+.SideBarItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  padding: 0rem 0rem 0rem;
+  width: calc(100% - 2rem);
+  margin: 1.2rem 0px;
+  cursor: pointer;
+  margin-left: 2rem;
+}
+
+.SideBarItem a {
+  text-decoration: none;
+  color: var(--grey500);
+}
+
+.SideBarItem.selected a {
+  color: var(--primary) !important;
+
+}
+
+.SideBarItem.selected span,
+.SideBarItem.selected svg path {
+  color: var(--primary);
+  fill: var(--primary) !important;
+
+}
+
+.SideBarItem span {
+  font-weight: 500;
+  color: var(--grey500);
+  transition: all 0.5s ease-in;
+
+}
+
+.SideBarItemEdge {
+  height: 28px;
+  width: 4px;
+  border-radius: 2px;
+  background-color: #2F45C5;
+  transition: all 0.5s ease-in;
+}
+
+.logout {
+  position: absolute;
+  top: calc(90vh - 10vh - 5vh);
+}
+
+.statsCard {
+  display: flex;
+  text-align: right;
+  justify-content: space-around;
+  flex-direction: column;
+  min-width: 15vw;
+  gap: 1rem;
+}
+
+.statsCard .text {
+  color: var(--grey400);
+  font-size: 90%;
+}
+
+.statsCard .data {
+  color: var(--primary);
+  font-weight: 600;
+  font-size: 23px;
+}
+
+.MainStatsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  width: 50%;
+  gap: 1rem;
+}
+
+.GraphWrapper {
+  width: 40%;
+  height: 100px;
+  background-color: white;
+  border-radius: 15px;
+}
+
+.UpperSectionWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media only screen and (min-width: 1500px) {
+  .ContentWrapper {
+    width: calc(100vw - 250px - 10vw) !important;
+  }
+}
+.ContentWrapper {
+  width: 75vw;
+  display: block;
+  padding: 2rem;
+  margin-top: 60px;
+  margin-left: 25vw;
+}
+
+.TitleStatsWrapper {
+  display: flex;
+  justify-content: flex-end;
+  width: 30vw;
+  gap: 1rem;
+}
+
+.PageTitle {
+  width: 60%;
+  min-width: 50%;
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.5rem;
+}
+
+.PageTitle .Title {
+  font-size: 2.7vw;
+
+  font-weight: 400;
+  color: var(--grey500);
+}
+
+.SubSection {
+  font-weight: 500;
+  font-size: 2vw;
+  color: var(--grey500);
+}
+
+.PageTitle .CTA {
+  width: 30%;
+  color: #13CD3C;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: flex-start;
+  cursor: pointer;
+  font-size: 90%;
+}
+
+table {
+  border-spacing: 0rem 1rem;
+  width: 100%;
+  border-collapse: separate;
+  margin: 1rem auto;
+}
+
+td,
+th {
+  text-align: left;
+  background-color: white;
+  padding: 0rem 1rem;
+}
+
+tr {
+  height: 8vh;
+}
+
+table>tr>th {
+  border-spacing: 0;
+
+}
+
+tr th {
+  background-color: #F4F5F7 !important;
+  color: var(--grey500);
+  border: 0px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.03);
+
+}
+
+tr td:nth-child(1),
+tr th:nth-child(1) {
+  border-radius: 10px 0px 0px 10px;
+}
+
+tr td:nth-last-child(1),
+tr th:nth-last-child(1) {
+  border-radius: 0px 10px 10px 0px;
+}
+
+.dropdown {
+  cursor: pointer;
+  border: 0px;
+  background-color: white;
+}
+
+.dropdown-content {
+  text-align: left;
+  position: absolute;
+  top: 60px;
+  right: 230px;
+  background-color: #fff;
+  width: 230px;
+  box-shadow: 8px 10px 14px rgba(0, 0, 0, 0.06);
+  padding: 0.75rem 0.75rem;
+  z-index: 1;
+}
+
+.dropdown-content p:hover {
+  background-color: #F8F9FA;
+  cursor: pointer;
+}
+
+.dropdown-content p {
+  padding: 0.5rem;
+}
+
+.statusAttente,
+.statusFait {
+  border-radius: 30px;
+  color: white;
+  height: 2vh;
+  width: fit-content;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-size: 13px;
+  line-height: 2vh;
+  font-weight: 400;
+}
+
+.statusFait {
+  background-color: #13CD3C;
+}
+
+.statusAttente {
+  background-color: #FF8E26;
+}
+
+.BackArrow {
+  cursor: pointer;
+  height: 45px;
+  width: 45px;
+  background-color: var(--grey100);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.AddButton {
+  height: 100%;
+  background-color: var(--primary);
+  border: 0px;
+  color: white;
+  padding: 0.7rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.filter span {
+  display: flex;
+  align-items: center;
+  color: var(--primary);
+  font-weight: 700;
+  margin-left: 0.5rem;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+.filter {
+  width: 50%;
+  display: flex;
+}
+
+.flex {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.start {
+  width: 40%;
+
+}
+
+.end {
+  width: 50%;
+  justify-content: flex-end;
+  gap: 3rem;
+
+}
+
+.css-wxvfrp,
+.css-1o07z2d {
+  border-radius: 15px !important;
+  border: 0px !important;
+  height: 2.5rem !important;
+  padding-left: 0.5rem;
+  background-color: white !important;
+}
+
+.Navbar {
+  width: calc(100% - 4rem);
+  height: 60px;
+  background-color: white;
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0rem 2rem;
+}
+
+.UserInfos {
+  gap: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.UserInfos div {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.UserInfos .Name {
+  font-weight: 500;
+}
+
+.UserInfos .Email {
+  font-size: 90%;
+  color: var(--grey400);
+}
+.Navbar svg{
+  cursor: pointer;
+}
+.AddButton a{
+  color: white;
+  text-decoration: none;
+}

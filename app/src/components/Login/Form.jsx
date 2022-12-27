@@ -8,7 +8,8 @@ import TextField from "@atlaskit/textfield";
 import { DatePicker, DateTimePicker } from "@atlaskit/datetime-picker";
 import Select, { components } from "@atlaskit/select";
 import GoogleIcon from "../../assets/Google.jsx";
-
+import toast, { Toaster } from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 import Form, {
   CheckboxField,
   ErrorMessage,
@@ -27,7 +28,10 @@ const submitForm = data => {
   console.log(userInfos);
   axios.post("http://localhost:5000/users/login", userInfos).then(response => {
     console.log(response);
-  });
+    localStorage.setItem("accessToken", response.data.accessToken);
+    localStorage.setItem("refreshToken", response.data.refreshToken);
+  return <Navigate to="/" /> 
+ });
 };
 const googleAuth = () => {
   const url = `${process.env.REACT_APP_API_URL}/users/auth/google`;
@@ -37,20 +41,26 @@ const googleAuth = () => {
 
 const LoginForm = () => (
   <div
-    style={{
-      width: "400px",
-      maxWidth: "50%",
-      margin: " auto"
-    }}
+  style={{
+    display: 'flex',
+    width: '50%',
+    maxWidth: '100%',
+    margin: 'auto',
+    flexDirection: 'column',
+    alignItems: "center",
+  }}
   >
+          <div>
+        <Toaster />
+      </div>
     <Form
       onSubmit={data => {
         submitForm(data);
       }}
     >
       {({ formProps, submitting }) => (
-        <form {...formProps}>
-          <FormHeader title="Bienvenue" />
+          <form
+          style={{ width: '65%' }}  {...formProps}>          <FormHeader title="Bienvenue" />
           <span className="formSubtitle">
             Entrez vos informations pour vous connecter à votre compte.
           </span>

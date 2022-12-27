@@ -95,7 +95,8 @@ export const getProducts = async(req, res) => {
           `
         )
       )
-      res.status(200).json({result});
+      const response=result.records
+      res.status(200).json({response});
     } catch (error) {
         //Cant get Categories
         //Duplicated Category

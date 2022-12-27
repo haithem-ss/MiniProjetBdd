@@ -90,12 +90,10 @@
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
+  width: 80px;
   color: var(--lightColor);
 }
-.ShoppingCartElement__Info .info__category {
-  position: absolute;
-  top: 40px;
-}
+
 .ShoppingCartElement__Info .info__title {
   font-family: "Anek Kannada";
   font-style: bold;

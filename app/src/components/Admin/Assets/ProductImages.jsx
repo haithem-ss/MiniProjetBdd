@@ -22,7 +22,7 @@ const ProductImages = () => {
           types={fileTypes}
           multiple={true}
           maxSize={4}
-          label="ajouter des images"
+          label="Ajouter des images"
           hoverTitle="Glissez et déposez votre image ici"
           onTypeError={file => {
             alert("Seuls les fichiers JPG, PNG et GIF sont autorisés");
