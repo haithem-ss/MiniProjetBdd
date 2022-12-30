@@ -1,4 +1,5 @@
 import { useLocation , Link  } from "react-router-dom";
+import React from "react";
 const ShoppingCartIcon = () => (
     <svg width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
         <g clip-path="url(#clip0_361_1752)">
@@ -100,13 +101,16 @@ const SideBarItem = (icon, text, active,path) => {
 }
 
 export default function () {
+    let [current,setCurrent]=React.useState(0)
     const { pathname } = useLocation();
-    let current
-    if (pathname.split("/").length === 2) current = 1
-    else if (pathname.split("/")[2] === "Commandes") current = 4
-    else if (pathname.split("/")[2] === "Produits") current = 2
-    else if (pathname.split("/")[2] === "Utilisateurs") current = 3
-    console.log(current)
+
+    React.useEffect(()=>{
+        if (pathname.split("/").length === 2) setCurrent(1) 
+        else if (pathname.split("/")[2] === "Commandes") setCurrent(4) 
+        else if (pathname.split("/")[2] === "Produits") setCurrent(2) 
+        else if (pathname.split("/")[2] === "Utilisateurs") setCurrent(3) 
+    },[])
+
     return (<div className="Sidebar">
         {current === 1 ? SideBarItem(<DashboardIcon />, "Dashboard", true,links[0]) : SideBarItem(<DashboardIcon />, "Dashboard", false,links[0])}
         {current === 2 ? SideBarItem(<ProductIcon />, "Produits", true,links[1]) : SideBarItem(<ProductIcon />, "Produits", false,links[1])}

@@ -7,8 +7,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 export default function () {
 
-    const [products, setProducts] = React.useState([
-    ])
+    const [products, setProducts] = React.useState([])
     React.useEffect(()=>{
             axios.get("http://localhost:5000/products")
         .then((response)=>{
@@ -16,12 +15,10 @@ export default function () {
             for( let i of response.data.response){
                 data.push(i._fields[0].properties)
             }
-
         setProducts(data)
-
         })
 
-    },[products])
+    },[])
 
 
     return (<div className="dashboard">
@@ -40,19 +37,22 @@ export default function () {
                 {SectionTitle("Liste des produits","Télécharger", <DownloadSVG></DownloadSVG>)}
                 <div className="MainStatsWrapper">
 
-                    {StatsCard("Nombre de produits", 150)}
-                    {StatsCard("Nombre de catégories", 150)}
+                    {StatsCard("Nombre de produits", products.length)}
+                    {StatsCard("Nombre de catégories", 20)}
                 </div>
 
             </div>
-            <UtilityBar text="Nouvelle produit" button={true} link="/Dashboard/Produits/Ajouter"/>
+
             <Table
                 checkbox={false}
                 status={false}
                 head={[
-                    "Nom de produit", "Marque", "Description", "Stock", "Prix"
+                    "Titre", "Marque", "Description", "Stock", "Prix"
                 ]}
                 rows={products}
+                text="Nouvelle produit" 
+                button={true} 
+                link="/Dashboard/Produits/Ajouter"
             />
             {/* {SectionTitle("Liste des produits","Télécharger",<DownloadSVG/>)} */}
 

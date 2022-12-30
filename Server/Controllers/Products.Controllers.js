@@ -1,29 +1,28 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getDriver } from "../Config/database.js";
-import neo4j, { session } from 'neo4j-driver'
-
+import neo4j, { session } from "neo4j-driver";
 
 //ADD API
-export const addProduct= async(req,res)=>{
-    const ProductInfos={
-        ProductName:req.body.ProductName,
-        ProductDescription:req.body.ProductDescription,
-        ProductPrice:req.body.ProductPrice,
-        ProductStock:req.body.ProductStock,
-        ProductHaveDiscount:req.body.ProductHaveDiscount,
-        ProductBrand:req.body.ProductBrand,
-        ProductCategory:req.body.ProductCategory,
-    }
-    console.log(ProductInfos)
-    //init driver
-    let driver=getDriver()
-    const session = driver.session()
-    //create Product
-    try {
-    const result = await session.executeWrite(
-        tx => tx.run(
-          `
+export const addProduct = async (req, res) => {
+  const ProductInfos = {
+    ProductName: req.body.ProductName,
+    ProductDescription: req.body.ProductDescription,
+    ProductPrice: req.body.ProductPrice,
+    ProductStock: req.body.ProductStock,
+    ProductHaveDiscount: req.body.ProductHaveDiscount,
+    ProductBrand: req.body.ProductBrand,
+    ProductCategory: req.body.ProductCategory,
+  };
+  console.log(ProductInfos);
+  //init driver
+  let driver = getDriver();
+  const session = driver.session();
+  //create Product
+  try {
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
             CREATE (p:Product {
               ProductName:"${ProductInfos.ProductName}",
               ProductDescription:"${ProductInfos.ProductDescription}",
@@ -36,97 +35,96 @@ export const addProduct= async(req,res)=>{
             MATCH(c:Category{categoryName:"${ProductInfos.ProductCategory}"})
             CREATE (p)-[:CategorisedBy]->(c)
           `
-        )
       )
-        res.status(200).json({msg: "Product added successfully"});
-    } catch (error) {
-        //Cant create Category
-        //Duplicated Category
-        // if (error.code==="Neo.ClientError.Schema.ConstraintValidationFailed"){
-        //   console.log("Duplicated Category")
-        // }
-        console.log(error)
-        res.status(400).json({msg: "Internal error, please try later"});
-    }finally{
-        await session.close()
-
-    }
-}
+    );
+    res.status(200).json({ msg: "Product added successfully" });
+  } catch (error) {
+    //Cant create Category
+    //Duplicated Category
+    // if (error.code==="Neo.ClientError.Schema.ConstraintValidationFailed"){
+    //   console.log("Duplicated Category")
+    // }
+    console.log(error);
+    res.status(400).json({ msg: "Internal error, please try later" });
+  } finally {
+    await session.close();
+  }
+};
 
 //DELETE API
-export const deleteProduct= async(req,res)=>{
-  const productToDeleteId=req.params.productId;
+export const deleteProduct = async (req, res) => {
+  const productToDeleteId = req.params.productId;
   console.log(productToDeleteId);
   //init driver
-  let driver=getDriver()
-  const session = driver.session()
+  let driver = getDriver();
+  const session = driver.session();
   //delete Category
   try {
-  const result = await session.executeWrite(
-      tx => tx.run(
+    const result = await session.executeWrite((tx) =>
+      tx.run(
         `
           MATCH (p:Product)
           where ID(p) = ${productToDeleteId}
           DETACH DELETE p
         `
       )
-    )
-      res.status(200).json({msg: "Product with Id: "+productToDeleteId+" deleted successfully"});
+    );
+    res.status(200).json({
+      msg: "Product with Id: " + productToDeleteId + " deleted successfully",
+    });
   } catch (error) {
-      //Cant create user
-      console.log(error)
-      res.status(400).json({msg: "Internal error, please try later"});
-  }finally{
-      await session.close()
-
+    //Cant create user
+    console.log(error);
+    res.status(400).json({ msg: "Internal error, please try later" });
+  } finally {
+    await session.close();
   }
-}
+};
 
 //READ API
-export const getProducts = async(req, res) => {
-  let driver=getDriver()
+export const getProducts = async (req, res) => {
+  let driver = getDriver();
 
   const session = driver.session();
   try {
-    const result = await session.executeWrite(
-        tx => tx.run(
-          `
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
           match (p:Product) return(p)
           `
-        )
       )
-      const response=result.records
-      res.status(200).json({response});
-    } catch (error) {
-        //Cant get Categories
-        //Duplicated Category
-        console.log(error)
-        res.status(400).json({msg: "Internal error, please try later"});
-    }finally{
-        await session.close()
-  
-    }
-    }
+    );
+    const response = result.records;
+    res.status(200).json({ response });
+  } catch (error) {
+    //Cant get Categories
+    //Duplicated Category
+    console.log(error);
+    res.status(400).json({ msg: "Internal error, please try later" });
+  } finally {
+    await session.close();
+  }
+};
 
-  //UPDATE API 
-  export const editProduct= async(req,res)=>{
-    const editedProductInfos={
-        editedProductName:req.body.ProductName,
-        editedProductDescription:req.body.ProductDescription,
-        editedProductPrice:req.body.ProductPrice,
-        editedProductStock:req.body.ProductStock,
-        editedProductHaveDiscount:req.body.ProductHaveDiscount,
-        editedProductBrand:req.body.ProductBrand,
-    }
-    console.log(editedProductInfos)
-    //init driver
-    let driver=getDriver()
-    const session = driver.session()
-    //edit Category
-    try {
-    const result = await session.executeWrite(
-        tx => tx.run(
-          `
+//UPDATE API
+export const editProduct = async (req, res) => {
+  const editedProductInfos = {
+    editedProductName: req.body.ProductName,
+    editedProductDescription: req.body.ProductDescription,
+    editedProductPrice: req.body.ProductPrice,
+    editedProductStock: req.body.ProductStock,
+    editedProductHaveDiscount: req.body.ProductHaveDiscount,
+    editedProductBrand: req.body.ProductBrand,
+  };
+  console.log(editedProductInfos);
+  //init driver
+  let driver = getDriver();
+  const session = driver.session();
+  //edit Category
+  try {
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
           match(p:Product)
           where ID(p)=${req.params.productId}
           set 
@@ -137,18 +135,68 @@ export const getProducts = async(req, res) => {
           p.ProductHaveDiscount = "${editedProductInfos.editedProductHaveDiscount}",
           p.ProductBrand = "${editedProductInfos.editedProductBrand}"
           `
-        )
       )
-        res.status(200).json({msg: "Product modified successfully"});
-    } catch (error) {
-        //Cant update Category
-        // if (error.code==="Neo.ClientError.Schema.ConstraintValidationFailed"){
-        //   console.log("Duplicated Category")
-        // }
-        console.log(error)
-        res.status(400).json({msg: "Internal error, please try later"});
-    }finally{
-        await session.close()
-
-    }
-}
+    );
+    res.status(200).json({ msg: "Product modified successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ msg: "Internal error, please try later" });
+  } finally {
+    await session.close();
+  }
+};
+export const gerProduct = async (req, res) => {
+  //init driver
+  let driver = getDriver();
+  console.log(req.query);
+  const session = driver.session();
+  try {
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
+        match(p:Product{ProductName: "${req.query.name}"})
+        match (p)-[:CategorisedBy]->(cat:Category)<-[:CategorisedBy]-(rec:Product)
+        match (rec)<-[:Contient]-(:Commande)
+        where p.ProductName<>rec.ProductName
+        match (cat:Category)<-[:CategorisedBy]-(best:Product)
+        where best.ProductName<>p.ProductName
+        with  collect(rec)+collect(best) as liste ,p
+        unwind liste as products
+        return p,collect(distinct products);
+      `
+      )
+    );
+    res.status(200).json({ product: result.records[0]._fields[0].properties,recommanded: result.records[0]._fields[1]});
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ msg: "Internal error, please try later" });
+  } finally {
+    await session.close();
+  }
+};
+export const gerProductRecommanded= async (req, res) => {
+  //init driver
+  let driver = getDriver();
+  console.log(req.query);
+  const session = driver.session();
+  try {
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
+        match (u:User{firstName:"${req.query.firstName}",lastName:"${req.query.lastName}"})
+        match (u)-[r:Placer]->(c:Commande)-[x:Contient]->(p:Product)
+        match (p)<-[Contient]-(w:Commande)<-[z:Placer]-(cli:User)
+        match (cli)-[:Placer]->(h:Commande)-[j:Contient]->(rec:Product)
+        where cli.id<>u.id
+        return rec, count(*) as Frequence order by Frequence Desc limit 5
+      `
+      )
+    );
+    res.status(200).json({ products: result.records});
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ msg: "Internal error, please try later" });
+  } finally {
+    await session.close();
+  }
+};

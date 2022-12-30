@@ -13,7 +13,7 @@ export const PaymentCheckout = async (req, res) => {
       tx.run(
         `
             MATCH (u:User) WHERE u.phoneNumber = "${phone}"
-            CREATE (u)-[:HAS_PAYMENT]->(p:Payment {
+            CREATE (u)-[:Placer]->(p:Commande {
                 amount: "${total} DA",
                 cardNumber: "${cardNumber} ",
                 expiry: "${expiry}",
@@ -23,7 +23,6 @@ export const PaymentCheckout = async (req, res) => {
                 items: "${items}",
                 user: "${user}",
                 phone: "${phone}"
-
                 })
             `
       )

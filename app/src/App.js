@@ -16,6 +16,7 @@ import { Navigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import "./styles/dashboard.css";
 import Dashboard_Produits from "./pages/Dashboard_Produits"
+import Dashboard_Utilisateurs from "./pages/Dashboard_Utilisateurs"
 import "./App.css";
 function App() {
   const [user, setUser] = React.useState(null);
@@ -83,12 +84,12 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/SearchPage" element={<SearchPage />} />
-
         <Route path="/product" element={<Product />} />
         <Route path="/CartItems" element={<CartItems />} />
         <Route path="/History" element={<History />} />
         <Route path="/Dashboard/Produits/Ajouter" element={<AdminProduct />} />
         <Route path="/Dashboard/Produits" element={<Dashboard_Produits />} />
+        <Route path="/Dashboard/Utilisateurs" element={<Dashboard_Utilisateurs />} />
         <Route path="/Success" element={<Success userDetails={user} />} />
       </Routes>
     </>

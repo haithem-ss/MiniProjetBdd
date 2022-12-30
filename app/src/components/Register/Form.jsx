@@ -10,6 +10,7 @@ import { motion } from "framer-motion";
 import GoogleIcon from "../../assets/Google.jsx";
 import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
+import { redirect } from "react-router-dom";
 
 import Form, {
   CheckboxField,
@@ -24,14 +25,12 @@ import Form, {
 import Select, { components } from "@atlaskit/select";
 
 const whenUsingSelect = () => {
-  console.log("You can");
-  document.getElementsByClassName("css-n5adxy-ButtonBase")[0].style.zIndex = -1;
-  document.getElementsByClassName("css-in3me7-ButtonBase")[0].style.zIndex = -1;
+  document.getElementsByClassName("formButtons")[0].getElementsByClassName("css-n5adxy-ButtonBase")[0].style.zIndex = -1;
+  document.getElementsByClassName("formButtons")[0].getElementsByClassName("css-in3me7-ButtonBase")[0].style.zIndex = -1;
 };
 const whenNotUsingSelect = () => {
-  console.log("You cannot");
-  document.getElementsByClassName("css-n5adxy-ButtonBase")[0].style.zIndex = 1;
-  document.getElementsByClassName("css-in3me7-ButtonBase")[0].style.zIndex = 1;
+  document.getElementsByClassName("formButtons")[0].getElementsByClassName("css-n5adxy-ButtonBase")[0].style.zIndex = 1;
+  document.getElementsByClassName("formButtons")[0].getElementsByClassName("css-in3me7-ButtonBase")[0].style.zIndex = 1;
 };
 
 
@@ -52,6 +51,12 @@ const submitForm = (data) => {
     .post("http://localhost:5000/users/register", userInfos)
     .then(response => {
       console.log(response);
+      if (response.data.msg==="duplicatedEmail"){
+        toast.error("Veuillez eassyer ultérierement")
+      }else{
+        toast.success("Compte crée avec success")
+      }
+      return redirect("/login");
     });
 }
 
@@ -403,12 +408,8 @@ function RegisterForm() {
                       label="Adresse     ">
                       {({ fieldProps, error }) => (
                         <Fragment>
-                          <Select
-                            onMenuClose={() => whenNotUsingSelect()}
-                            onMenuOpen={() => whenUsingSelect()}
+                          <TextField type="number"
                             {...fieldProps}
-                            options={wilayas}
-                            defaultValue=""
                           />
                           {error && <ErrorMessage>{error}</ErrorMessage>}
                         </Fragment>

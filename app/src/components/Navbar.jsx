@@ -18,30 +18,6 @@ import Cart from "../assets/Cart";
 import ShoppingCartDropDown from "../assets/ShoppingCartDropDown";
 const Option = ({userInfos}) => {
   const [open, isOpen] = React.useState(false)
-  const wrapperRef = useRef(null);
-  const [isclickedOutside, setIsClickedOutside] = useState(false);
-  useOutsideAlerter(wrapperRef);
-
-    function useOutsideAlerter(ref) {
-      useEffect(() => {
-        /**
-         * Alert if clicked on outside of element
-         */
-        function handleClickOutside(event) {
-          console.log(ref.current);
-          if (ref.current && !ref.current.contains(event.target)) {
-            setIsClickedOutside(true);
-            console.log("clicked outside");
-          }
-        }
-        // Bind the event listener
-        document.addEventListener("mousedown", handleClickOutside);
-        return () => {
-          // Unbind the event listener on clean up
-          document.removeEventListener("mousedown", handleClickOutside);
-        };
-      }, [ref]);
-    }
   const ToggleDropDown = () => {
       isOpen(!open)
   }
@@ -50,8 +26,7 @@ const Option = ({userInfos}) => {
       <Avatar size="small" src={"../assets/Profile.jpg"} />
 
       </button>
-      {
-        isclickedOutside ?       <motion.div className="dropdown-content"            ref={wrapperRef}
+          <motion.div className="dropdown-content"           
         initial={{
             opacity: 0,
             display: "none",
@@ -76,9 +51,8 @@ const Option = ({userInfos}) => {
           {userInfos.firstName} {userInfos.lastName}
           </span>
       </span>
-    </motion.div> : null
-      }
-      <motion.div className="dropdown-content"            ref={wrapperRef}
+    </motion.div> 
+      <motion.div className="dropdown-content"          
           initial={{
               opacity: 0,
               display: "none",

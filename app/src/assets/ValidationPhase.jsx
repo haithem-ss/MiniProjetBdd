@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "react-phone-number-input/style.css";
-// import PhonkeInput from "react-phone-number-input";
+import PhoneInput from "react-phone-number-input";
 import CreditCardInput from "react-credit-card-input";
 import "../styles/ValidationPhase.css";
 import "../styles/CartItems.css";
@@ -76,11 +76,11 @@ const ValidationPhase = ({ divAnimation, getTotal }) => {
         <div className="validation_form__input">
           <div className="validation_form__input__phone">
             <label className="validation_form__label">Phone number</label>
-            {/* <PhoneInput
+            <PhoneInput
               placeholder="Enter phone number"
               value={phone}
               onChange={onChangePhone}
-            /> */}
+            />
           </div>
           <div className="validation_form__input__card">
             <label className="validation_form__label">Card number</label>
