@@ -8,7 +8,8 @@ import TextField from "@atlaskit/textfield";
 import { DatePicker, DateTimePicker } from "@atlaskit/datetime-picker";
 import Select, { components } from "@atlaskit/select";
 import GoogleIcon from "../../assets/Google.jsx";
-
+import toast, { Toaster } from 'react-hot-toast';
+import { Navigate } from 'react-router-dom';
 import Form, {
   CheckboxField,
   ErrorMessage,
@@ -24,10 +25,20 @@ const submitForm = data => {
     email: data.email,
     password: data.password
   };
-  console.log(userInfos);
-  axios.post("http://localhost:5000/users/login", userInfos).then(response => {
-    console.log(response);
-  });
+   return axios.post("http://localhost:5000/users/login", userInfos).then(response => {
+    console.log(response)
+    if (response.status===204){
+        return toast.error("Veuillez verifiez l'email et le mot de passe")
+    }
+    if (response.status===205){
+      return toast.error("Veuillez verifiez le mot de passe")
+  }
+      toast.success("Wellcome back")
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+    
+    
+     });
 };
 const googleAuth = () => {
   const url = `${process.env.REACT_APP_API_URL}/users/auth/google`;
@@ -37,20 +48,26 @@ const googleAuth = () => {
 
 const LoginForm = () => (
   <div
-    style={{
-      width: "400px",
-      maxWidth: "50%",
-      margin: " auto"
-    }}
+  style={{
+    display: 'flex',
+    width: '50%',
+    maxWidth: '100%',
+    margin: 'auto',
+    flexDirection: 'column',
+    alignItems: "center",
+  }}
   >
+          <div>
+        <Toaster />
+      </div>
     <Form
       onSubmit={data => {
-        submitForm(data);
+        return submitForm(data);
       }}
     >
       {({ formProps, submitting }) => (
-        <form {...formProps}>
-          <FormHeader title="Bienvenue" />
+          <form
+          style={{ width: '65%' }}  {...formProps}>          <FormHeader title="Bienvenue" />
           <span className="formSubtitle">
             Entrez vos informations pour vous connecter à votre compte.
           </span>

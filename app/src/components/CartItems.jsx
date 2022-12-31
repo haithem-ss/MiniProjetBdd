@@ -61,7 +61,6 @@ const CartItems = () => {
     });
     return totalPrice;
   };
-
   const cart = useSelector(state => state.cart);
   const [divAnimation, setDivAnimation] = useState("");
   const [priceSort, setPriceSort] = useState(false);

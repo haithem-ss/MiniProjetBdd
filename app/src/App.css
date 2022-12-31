@@ -1,27 +1,46 @@
-@import url("https://fonts.googleapis.com/css2?family=Anek+Kannada:wght@100;200;300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@400;500;600;700&display=swap');
 :root {
   --height: 2.75rem;
-  --grey400: #adb5bd;
+  --grey400: #ADB5BD;
+  --grey600: #495057;
+  --grey100: #E9ECEF;
+  --grey500: #6C757D;
+  --primary: #2F45C5;
+  --grey700: #343A40;
+  --grey300: #CED4DA;
+  --secondary: #E64943;
 }
+
+body {
+  scroll-behavior: smooth;
+  background-color: #F8F9FA;
+}
+
 * {
-  font-family: "Anek Kannada" !important;
+  font-family: "Lexend Deca" !important;
 }
+
 .formButtons {
   width: 100%;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1rem
 }
-button {
+
+form scrcpy --fullscreenbutton,
+.CheckoutModal button {
   height: var(--height) !important;
   line-height: var(--height) !important;
 }
+
 form button {
   z-index: 0;
+  height: var(--height) !important;
+  line-height: var(--height) !important;
 }
 
-.css-1yu0jr9-Input- > input {
+.css-1yu0jr9-Input->input {
   height: auto !important;
 }
 
@@ -29,9 +48,11 @@ button span.css-udadfb-ButtonBase {
   height: 100% !important;
   line-height: inherit;
 }
+
 label {
   font-size: 1rem !important;
 }
+
 .css-kpq71j-FormHeaderTitle {
   font-size: 2rem !important;
   font-weight: 600 !important;
@@ -57,9 +78,11 @@ form {
   height: fit-content !important;
   overflow-y: hidden !important; */
 }
+
 .selectAttlassian
+
 /* ,.css-b62m3t-container,.css-13cymwt-control,#react-select-3-input */
- {
+  {
   height: var(--height) !important;
   line-height: var(--height) !important;
   background-color: transparent;
@@ -76,29 +99,36 @@ form {
   border: 1px solid #dfe1e6;
   align-items: center;
 
-  color: #091e42;
+  color: #091E42;
 
   border-radius: 3px;
   border-width: 2px;
   border-style: solid;
   box-sizing: border-box;
 }
+
 .selectAttlassian:active {
-  border: 1px solid #aac7ef !important;
+  border: 1px solid #AAC7EF !important;
   background-color: transparent;
 }
+
 .selectAttlassian:not([data-compact]) {
   padding: 8px 6px;
   height: 2.57em;
 }
+
 .selectAttlassian option {
   height: var(--height) !important;
   line-height: var(--height) !important;
-  color: #091e42;
+  color: #091E42;
+
 }
+
 .selectAttlassian option:hover {
-  background-color: #f4f5f7 !important;
+  background-color: #F4F5F7 !important;
+
 }
+
 .css-4mp3pp-menu {
   z-index: 10 !important;
   display: block;
@@ -114,18 +144,37 @@ input {
   outline: none;
   width: 100%;
 }
+
 #dateDeNaissance input {
   width: 33% !important;
   z-index: 999;
 }
+
 #adresse select {
   width: 30% !important;
 }
+
 #adresse {
   display: flex;
   justify-content: space-between;
   gap: 0.75rem;
 }
+
+nav a,
+.css-udadfb-ButtonBase a {
+  color: #091E42 !important;
+  text-decoration: none !important;
+}
+
+.css-19dzqlj-ProductHome {
+  max-height: 50px !important;
+}
+
+.css-1lqks8e-ProductHome>* {
+  max-height: 50px !important;
+}
+
+.css-19dzqlj-ProductHome>*,
 nav a,
 .css-udadfb-ButtonBase a {
   color: #091e42 !important;
@@ -146,4 +195,358 @@ nav a,
 button#navBarCTA {
   height: 2rem !important;
   line-height: 2rem !important;
+}
+button#navBarCTA  a{
+  color:white !important;
+}
+
+.authSlogan {
+  font-size: 30px;
+  color: var(--grey600);
+}
+
+.authSection {
+  overflow: hidden;
+  width: 50%;
+  padding: 3rem;
+  display:flex;
+  align-items:center;
+  flex-direction: column;
+  justify-content: space-around;
+  background-color: #F8F9FA;
+}
+
+.authSection #svg {
+  padding: 3rem;
+  width: clamp(150px,70%,550px);
+  height:fit-content !important;
+  margin:auto;
+}
+.authSection div{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.section {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  padding: 2rem 3vw;
+  height: calc(100vh - 56px - 4rem);
+  overflow: hidden;
+}
+
+.section h2 {
+  color: black;
+  font-size: 27px;
+  font-weight: 600;
+}
+
+.ProductCard {
+  border-radius: 10px;
+  height: 60vh;
+  width: 20vw;
+  border: 2px solid var(--grey200);
+  overflow: hidden;
+  max-width:300px
+}
+
+.ProductCard p {
+  margin: 0.75rem auto !important;
+  margin-top: 0px !important;
+}
+
+.CardsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: calc(((100vw - 6vw) - 20*4vw) / 3);
+  width: fit-content;
+  overflow-x: hidden;
+}
+
+.ImageWrapper {
+  height: 40%;
+  width: 100%;
+  background-color: #F6F6F6;
+}
+
+.ImageWrapper img {
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
+}
+
+.ProductCardCatégorie {
+  color: var(--grey500);
+}
+
+.ProductPrice {
+  color: var(--grey600);
+  font-weight: 600;
+}
+
+.ProductCardDescription {
+  color: var(--grey600);
+}
+
+.CardButtons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.CardButtons button {
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: 30px;
+  color: var(--primary);
+  width: 130px;
+  border: 1px solid var(--primary);
+  padding: 8px;
+  font-weight: 700;
+  font-size: 14px;
+  height: auto ! important;
+  line-height: normal !important;
+}
+
+.InfosWrapper {
+  padding: 1rem;
+  height: 50%;
+}
+
+.ProductTitle {
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--grey700);
+}
+
+.Heart {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px;
+  margin-top: -24vh;
+  margin-left: 17vw;
+  cursor: pointer;
+}
+
+.Arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 40px;
+  width: 40px;
+  background-color: #F8F9FA;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.15s ease-in;
+}
+
+.Arrow:hover {
+  background-color: #e8e8e9;
+}
+
+.inverted {
+  rotate: 180deg;
+}
+
+#dark {
+  background-color: var(--grey400);
+}
+
+
+.SearchResultContainer {
+  display: flex;
+  flex-wrap: wrap;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -webkit-touch-callout: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  padding: 2rem 3vw;
+  height: fit-content;
+  width: calc(100% - 2*3vw + calc(((100vw - 6vw) - 20*4vw) / 3));
+  overflow-x: hidden;
+  gap: calc(((100vw - 6vw) - 20*4vw) / 3);
+}
+
+section {
+  overflow-x: hidden;
+  min-height: calc(100vh - 56px - 4rem);
+
+}
+
+.ClassesWrapper {
+  padding: 0rem 3rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem
+}
+
+.ClassesWrapper button {
+  border-radius: 6px;
+  width: fit-content;
+  padding: 0 0.5rem;
+  min-width: 50px;
+  height: 30px !important;
+  line-height: 30px ! important;
+  border: 1px solid var(--grey300);
+  background-color: white;
+  color: var(--grey500);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.ClassesWrapper button.active {
+  background-color: var(--primary);
+  color: white;
+  border: 1px solid var(--primary);
+
+}
+
+.pagination {
+  padding-bottom: 2rem;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  width: fit-content;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.pagesContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.pagination .page {
+  height: 1.7rem;
+  width: 1.7rem;
+  line-height: 1.7rem;
+  border: 0px;
+  border-radius: 0.17rem;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.25s linear;
+  font-weight: 600;
+}
+
+.page.active {
+  cursor: not-allowed;
+  color: white;
+  background-color: var(--secondary);
+}
+
+.pagination .arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.Product {
+  padding: 2rem 3vw;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.Product img {
+  cursor: pointer;
+}
+
+.ProductImages {
+  width: 40%;
+  margin: auto;
+}
+
+.MainImage {
+  height: 50vh;
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid var(--grey300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  filter: drop-shadow(3px 4px 24px rgba(0, 0, 0, 0.05));
+  border-radius: 10px;
+}
+
+.MainImage img {
+  width: 22vw;
+  object-fit: cover;
+}
+
+.ImagesContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.ImagesContainer img {
+  border-radius: 10px;
+  filter: drop-shadow(0px 4px 20px rgba(0, 0, 0, 0.12));
+  width: 20%;
+}
+
+.CheckoutModal {
+  height: fit-content;
+  width: fit-content;
+  max-width: 500px;
+  max-width: 500px;
+  margin: auto;
+  padding: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  box-shadow: 4px 8px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate( -50% , 50% );
+}
+
+.CheckoutModalTitle {
+  font-weight: 600;
+  font-size: x-large;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.CheckoutModalText {
+  font-weight: 500;
+  font-size: 17px;
+  text-align: center;
+  color: var(--grey500);
+}
+.CheckoutModal svg {
+  width: 70%;
+}
+.css-1vpkq7w-AtlassianNavigation{
+}
+div.formButtons:hover button{
+  z-index: 1 !important;
+
+}
+#RegisterInput div{
+  width: 100%;
 }
