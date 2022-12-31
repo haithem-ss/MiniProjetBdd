@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Spinner from "@atlaskit/spinner";
 
-const Success = userDetails => {
-  // console.log(userDetails);
+const Success = (userDetails) => {
+  console.log(userDetails);
   const user = userDetails.userDetails;
   const [isLoading, setIsLoading] = useState(true);
   const [firstName, setFirstName] = useState("");

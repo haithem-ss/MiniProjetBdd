@@ -3,7 +3,7 @@ import "./App.css";
 import HomePage from "./pages/HomePage";
 import React from "react";
 import Login from "./pages/Login";
-import { Routes, Route,useLocation   } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Register from "./pages/Register";
 import Navbar from "./components/Navbar";
 import Product from "./components/productPage/product";
@@ -15,13 +15,15 @@ import axios from "axios";
 import { Navigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import "./styles/dashboard.css";
-import Dashboard_Produits from "./pages/Dashboard_Produits"
+import Dashboard_Produits from "./pages/Dashboard_Produits";
 import "./App.css";
 function App() {
   const [user, setUser] = React.useState(null);
   const [userInfos, setUserInfos] = React.useState(null);
   const axiosJWT = axios.create();
-  const [accessToken, setAccessToken] =React.useState(localStorage.getItem("accessToken"));
+  const [accessToken, setAccessToken] = React.useState(
+    localStorage.getItem("accessToken")
+  );
   React.useEffect(() => {
     try {
       setUserInfos(jwt_decode(accessToken));
@@ -73,19 +75,24 @@ function App() {
     // console.log(url);
     getUSer();
   }, []);
-  const location = useLocation()
-  console.log(location.pathname)
+  const location = useLocation();
+  console.log(location.pathname);
   return (
     <>
-    {!location.pathname.includes("Dashboard") ? <Navbar userInfos={userInfos} /> : null }
+      {!location.pathname.includes("Dashboard") ? (
+        <Navbar userInfos={userInfos} userDetails={user} />
+      ) : null}
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/SearchPage" element={<SearchPage />} />
+        <Route path="/SearchPage" element={<SearchPage userDetails={user} />} />
 
         <Route path="/product" element={<Product />} />
-        <Route path="/CartItems" element={<CartItems />} />
+        <Route
+          path="/CartItems"
+          element={<CartItems userInfos={userInfos} userDetails={user} />}
+        />
         <Route path="/History" element={<History />} />
         <Route path="/Dashboard/Produits/Ajouter" element={<AdminProduct />} />
         <Route path="/Dashboard/Produits" element={<Dashboard_Produits />} />

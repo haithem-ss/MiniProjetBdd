@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import "../styles/CartItems.css";
 import ShoppingCartElement from "../assets/ShoppingCartElement.jsx";
 import ChevronDownIcon from "@atlaskit/icon/glyph/chevron-down";
@@ -14,10 +14,15 @@ import {
   removeSelectedItems,
   sortCartByPrice,
   searchByTitle,
-  showUncheckedItems
+  showUncheckedItems,
 } from "../redux/CartSlice.js";
 
-const CartItems = () => {
+const CartItems = ({ userInfos, userDetails }) => {
+  useEffect(() => {
+    // console.log("userInfos", userInfos);
+    // console.log("userDetails", userDetails);
+  }, [userInfos, userDetails]);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isChecked, setIsChecked] = useState(false);
@@ -26,7 +31,7 @@ const CartItems = () => {
   const [filterbtn, setFilterbtn] = useState("");
   const [search, setSearch] = useState("");
   const onChange = useCallback(
-    event => {
+    (event) => {
       setSearch(event.target.value);
       if (event.target.value === "") {
         dispatch(showUncheckedItems());
@@ -44,7 +49,7 @@ const CartItems = () => {
     setBtnValidateTrash("");
     window.location.reload();
   };
-  const pull_selectedCheckBox = checkbox => {
+  const pull_selectedCheckBox = (checkbox) => {
     console.log(checkbox);
     if (checkbox) {
       setIsChecked(true);
@@ -56,13 +61,13 @@ const CartItems = () => {
   };
   const getTotal = () => {
     let totalPrice = 0;
-    cart.forEach(item => {
+    cart.forEach((item) => {
       totalPrice += item.price * item.quantity;
     });
     return totalPrice;
   };
 
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   const [divAnimation, setDivAnimation] = useState("");
   const [priceSort, setPriceSort] = useState(false);
   const [sortedCart, setSortedCart] = useState(cart);
@@ -80,7 +85,12 @@ const CartItems = () => {
   return (
     <div className="ShoppingCart__wraper">
       {renderValidation ? (
-        <ValidationPhase getTotal={getTotal} divAnimation={divAnimation} />
+        <ValidationPhase
+          getTotal={getTotal}
+          divAnimation={divAnimation}
+          userInfos={userInfos}
+          userDetails={userDetails}
+        />
       ) : (
         <div className="ShoppingCart__header">
           <h2 className="title">Cart items</h2>
@@ -142,7 +152,7 @@ const CartItems = () => {
         </div>
       </div>
       <div className="ShoppingCart__items">
-        {cart.map(item => {
+        {cart.map((item) => {
           return (
             <div className="ShoppingCart__item">
               <ShoppingCartElement

@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "react-phone-number-input/style.css";
-// import PhonkeInput from "react-phone-number-input";
+import PhoneInput from "react-phone-number-input";
 import CreditCardInput from "react-credit-card-input";
 import "../styles/ValidationPhase.css";
 import "../styles/CartItems.css";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 
-const ValidationPhase = ({ divAnimation, getTotal }) => {
-  const cart = useSelector(state => state.cart);
-
-  const sumbitForm = event => {
+const ValidationPhase = ({
+  divAnimation,
+  getTotal,
+  userInfos,
+  userDetails,
+}) => {
+  const cart = useSelector((state) => state.cart);
+  useEffect(() => {
+    console.log("userInfos", userInfos);
+    console.log("userDetails", userDetails);
+  }, [userInfos, userDetails]);
+  const sumbitForm = (event) => {
     event.preventDefault();
     let data = {
       cardNumber: cardNumber,
@@ -19,44 +27,44 @@ const ValidationPhase = ({ divAnimation, getTotal }) => {
       adress: adress,
       phone: phone,
       total: getTotal(),
-      user: "user",
-      items: cart.map(item => item.title),
-      date: new Date().toLocaleString()
+      user: userInfos ? userInfos : userDetails,
+      items: cart.map((item) => item.title),
+      date: new Date().toLocaleString(),
     };
-    // console.log("data", { data });
+    console.log("data", { data });
     axios
       .post("http://localhost:5000/checkout/payment", data)
-      .then(res => {
+      .then((res) => {
         console.log(res);
         console.log(res.data);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
   const [cardNumber, setCardNumber] = useState("");
   const [expiry, setExpiry] = useState("");
   const [cvc, setCvc] = useState("");
-  const handleCardNumberChange = event => {
+  const handleCardNumberChange = (event) => {
     setCardNumber(event.target.value);
     // console.log(event.target.value);
   };
-  const handleCardExpiryChange = event => {
+  const handleCardExpiryChange = (event) => {
     setExpiry(event.target.value);
     // console.log(event.target.value);
   };
-  const handleCardCvcChange = event => {
+  const handleCardCvcChange = (event) => {
     setCvc(event.target.value);
     // console.log(event.target.value);
   };
 
   const [phone, setPhone] = useState("");
   const [adress, setAdress] = useState("");
-  const onChange = event => {
+  const onChange = (event) => {
     setAdress(event.target.value);
     // console.log(event.target.value);
   };
-  const onChangePhone = phone => {
+  const onChangePhone = (phone) => {
     setPhone(phone);
     // console.log(phone);
   };
@@ -76,22 +84,23 @@ const ValidationPhase = ({ divAnimation, getTotal }) => {
         <div className="validation_form__input">
           <div className="validation_form__input__phone">
             <label className="validation_form__label">Phone number</label>
-            {/* <PhoneInput
+            <PhoneInput
               placeholder="Enter phone number"
               value={phone}
               onChange={onChangePhone}
-            /> */}
+              required
+            />
           </div>
           <div className="validation_form__input__card">
             <label className="validation_form__label">Card number</label>
             <CreditCardInput
               cardNumberInputProps={{
                 value: cardNumber,
-                onChange: handleCardNumberChange
+                onChange: handleCardNumberChange,
               }}
               cardExpiryInputProps={{
                 value: expiry,
-                onChange: handleCardExpiryChange
+                onChange: handleCardExpiryChange,
               }}
               cardCVCInputProps={{ value: cvc, onChange: handleCardCvcChange }}
               fieldClassName="input"
