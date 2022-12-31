@@ -21,6 +21,7 @@
     "express-session": "^1.17.3",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
+    "multer": "^1.4.5-lts.1",
     "neo4j-driver": "^5.2.0",
     "nopt": "^7.0.0",
     "passport": "^0.6.0",

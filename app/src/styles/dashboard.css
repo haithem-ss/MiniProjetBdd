@@ -221,8 +221,6 @@ tr th:nth-last-child(1) {
 .dropdown-content {
   text-align: left;
   position: absolute;
-  top: 60px;
-  right: 230px;
   background-color: #fff;
   width: 230px;
   box-shadow: 8px 10px 14px rgba(0, 0, 0, 0.06);
@@ -317,8 +315,8 @@ tr th:nth-last-child(1) {
 
 }
 
-.css-wxvfrp,
-.css-1o07z2d {
+.dashboard .css-wxvfrp,
+.dashboard .css-1o07z2d {
   border-radius: 15px !important;
   border: 0px !important;
   height: 2.5rem !important;

@@ -25,13 +25,20 @@ const submitForm = data => {
     email: data.email,
     password: data.password
   };
-  console.log(userInfos);
-  axios.post("http://localhost:5000/users/login", userInfos).then(response => {
-    console.log(response);
-    localStorage.setItem("accessToken", response.data.accessToken);
-    localStorage.setItem("refreshToken", response.data.refreshToken);
-  return <Navigate to="/" /> 
- });
+   return axios.post("http://localhost:5000/users/login", userInfos).then(response => {
+    console.log(response)
+    if (response.status===204){
+        return toast.error("Veuillez verifiez l'email et le mot de passe")
+    }
+    if (response.status===205){
+      return toast.error("Veuillez verifiez le mot de passe")
+  }
+      toast.success("Wellcome back")
+        localStorage.setItem("accessToken", response.data.accessToken);
+        localStorage.setItem("refreshToken", response.data.refreshToken);
+    
+    
+     });
 };
 const googleAuth = () => {
   const url = `${process.env.REACT_APP_API_URL}/users/auth/google`;
@@ -55,7 +62,7 @@ const LoginForm = () => (
       </div>
     <Form
       onSubmit={data => {
-        submitForm(data);
+        return submitForm(data);
       }}
     >
       {({ formProps, submitting }) => (

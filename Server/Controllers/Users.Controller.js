@@ -14,6 +14,7 @@ export const Register = async (req, res) => {
     confirmationPassword: req.body.confirmationPassword,
   };
   console.log("New user")
+  console.log(userInfos.password)
   //verify if password and confirmationPassword are a match
   if (userInfos.password !== userInfos.confirmationPassword)
     return res.status(400).json({ msg: "Please verify password" });
@@ -30,7 +31,7 @@ export const Register = async (req, res) => {
         `
                 CREATE (u:User {
                   email: "${userInfos.email}",
-                  password:"${userInfos.password}",
+                  password:"${hashedPassword}",
                   firstName: "${userInfos.firstName}",
                   lastName: "${userInfos.lastName}",
                   dateOfBirth: "${userInfos.dateOfBirth}",
@@ -46,7 +47,7 @@ export const Register = async (req, res) => {
     //Email already used
 
     if (error.code === "Neo.ClientError.Schema.ConstraintValidationFailed") {
-      res.status(400).json({ code_err: "duplicatedEmail" });
+      res.status(200).json({ msg: "duplicatedEmail" });
       console.log("Duplicated email");
     }
   }
@@ -59,13 +60,16 @@ export const getUsers = async (req, res) => {
     const user = await session.executeRead((tx) =>
       tx.run(
         `
-            MATCH (u)
+            MATCH (u:User)
             return u
           `
       )
     );
-    console.log(user);
-    res.status(200).json(user);
+    let data=[]
+    for( let i of user.records){
+      data.push(i._fields[0].properties)
+  }
+    res.status(200).json(data);
   } catch (error) {
     console.log(error);
     res.status(404).json({ msg: "no users" });
@@ -96,8 +100,9 @@ export const Login = async (req, res) => {
       req.body.password,
       user.records[0].get("u").properties.password
     );
+    console.log(req.body.password)
     console.log(match)
-    if (!match) return res.status(400).json({ code_msg: "invalidPassword" });
+    if (!match) return res.status(205).json({ code_msg: "invalidPassword" });
     //Getting user's data
 
     const accessToken = jwt.sign(userInfos, process.env.ACCESS_TOKEN_SECRET, {
@@ -124,8 +129,7 @@ export const Login = async (req, res) => {
     });
     res.json({ accessToken , refreshToken });
   } catch (error) {
-    console.log(error);
-    res.status(404).json({ msg: "Error" });
+    res.status(204).json({ msg: "Error" });
   }
 };
 export const verifyEmail=async(req,res)=>{
