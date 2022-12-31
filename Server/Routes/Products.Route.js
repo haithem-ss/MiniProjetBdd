@@ -13,11 +13,11 @@ var storage = multer.diskStorage({
 
 var upload = multer({ storage: storage })
 const productsRouter = express.Router(); 
-productsRouter.post('/addProduct',upload.array('profile-files', 6), addProduct);
+productsRouter.post('/addProduct',upload.array('pictures', 6), addProduct);
 productsRouter.get('/', getProducts);
 productsRouter.get('/:productName', getProduct);
 productsRouter.delete('/deleteProduct/:productName', deleteProduct);
-productsRouter.put('/editProduct/:productId', editProduct);
+productsRouter.put('/editProduct/:productId',upload.array('pictures', 6), editProduct);
 
  
 export default productsRouter;
