@@ -15,6 +15,7 @@ var upload = multer({ storage: storage })
 const productsRouter = express.Router(); 
 productsRouter.post('/addProduct',upload.array('pictures', 6), addProduct);
 productsRouter.get('/', getProducts);
+productsRouter.post('/Recommanded', gerProductRecommanded);
 productsRouter.get('/:productName', getProduct);
 productsRouter.delete('/deleteProduct/:productName', deleteProduct);
 productsRouter.put('/editProduct/:productId',upload.array('pictures', 6), editProduct);

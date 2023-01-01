@@ -227,22 +227,31 @@ export const gerProduct = async (req, res) => {
 export const gerProductRecommanded= async (req, res) => {
   //init driver
   let driver = getDriver();
-  console.log(req.query);
+
   const session = driver.session();
   try {
-    const result = await session.executeWrite((tx) =>
+    const recommanded = await session.executeWrite((tx) =>
       tx.run(
         `
-        match (u:User{firstName:"${req.query.firstName}",lastName:"${req.query.lastName}"})
+        match (u:User{email:"${req.body.email}"})
         match (u)-[r:Placer]->(c:Commande)-[x:Contient]->(p:Product)
         match (p)<-[Contient]-(w:Commande)<-[z:Placer]-(cli:User)
         match (cli)-[:Placer]->(h:Commande)-[j:Contient]->(rec:Product)
         where cli.id<>u.id
-        return rec, count(*) as Frequence order by Frequence Desc limit 5
+        return rec, count(*) as Frequence order by Frequence Desc 
       `
       )
     );
-    res.status(200).json({ products: result.records});
+    const popular = await session.executeWrite((tx) =>
+    tx.run(
+      `
+      match (u:User)
+      match (u)-[r:Placer]->(c:Commande)-[x:Contient]->(p:Product)-[:CategorisedBy]->(cat:Category)
+      return p, count(*) as Frequence order by Frequence Desc limit 25
+    `
+    )
+  );
+    res.status(200).json({ recommanded: recommanded.records ,popular:popular.records});
   } catch (error) {
     console.log(error);
     res.status(400).json({ msg: "Internal error, please try later" });

@@ -21,14 +21,19 @@ import EditProductPage from "./components/Admin/EditProductPage";
 import "./App.css";
 function App() {
   const [user, setUser] = React.useState(null);
-  const [userInfos, setUserInfos] = React.useState(null);
+  const [userInfos, setUserInfos] = React.useState(localStorage.getItem("userInfo") ? localStorage.getItem("userInfo") : null)
+
+
   const axiosJWT = axios.create();
-  const [accessToken, setAccessToken] = React.useState(
-    localStorage.getItem("accessToken")
-  );
+  const [accessToken, setAccessToken] =React.useState(localStorage.getItem("accessToken"));
+  // setTimeout(()=>{
+  //   setAccessToken(localStorage.getItem("accessToken"))
+  // },500)
   React.useEffect(() => {
     try {
-      setUserInfos(jwt_decode(accessToken));
+      const data=jwt_decode(accessToken)
+      localStorage.setItem("userInfo", JSON.stringify(data))
+      setUserInfos(data)
       axios.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;
     } catch {
       console.log("Logged out");
@@ -102,10 +107,8 @@ function App() {
           element={<EditProductPage />}
         />
         <Route path="/Dashboard/Produits" element={<Dashboard_Produits />} />
-        <Route
-          path="/Dashboard/Utilisateurs"
-          element={<Dashboard_Utilisateurs />}
-        />
+        <Route path="/Dashboard/Utilisateurs" element={<Dashboard_Utilisateurs />} />
+        <Route path="/Dashboard/Commandes" element={<Dashboard_Commandes />} />
         <Route path="/Success" element={<Success userDetails={user} />} />
       </Routes>
     </>

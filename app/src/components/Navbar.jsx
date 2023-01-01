@@ -18,80 +18,28 @@ import ProfilePic from "../assets/Profile";
 import Avatar from "@atlaskit/avatar";
 import Heart from "../assets/Heart";
 import Cart from "../assets/Cart";
+import { useNavigate } from "react-router-dom";
 import ShoppingCartDropDown from "../assets/ShoppingCartDropDown";
-import axios from "axios";
+const logout = () => {
+  localStorage.removeItem("userInfo");
+  localStorage.removeItem("accessToken");
+  localStorage.removeItem("refreshToken");
+};
 const Option = ({ userInfos }) => {
   const [open, isOpen] = React.useState(false);
-  const wrapperRef = useRef(null);
-  const [isclickedOutside, setIsClickedOutside] = useState(false);
-  useOutsideAlerter(wrapperRef);
-
-  function useOutsideAlerter(ref) {
-    useEffect(() => {
-      /**
-       * Alert if clicked on outside of element
-       */
-      function handleClickOutside(event) {
-        console.log(ref.current);
-        if (ref.current && !ref.current.contains(event.target)) {
-          setIsClickedOutside(true);
-          console.log("clicked outside");
-        }
-      }
-      // Bind the event listener
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        // Unbind the event listener on clean up
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, [ref]);
-  }
   const ToggleDropDown = () => {
     isOpen(!open);
   };
+  let Navigate = useNavigate();
+
   return (
     <>
       <button className="dropdown" onClick={ToggleDropDown}>
         <Avatar size="small" src={"../assets/Profile.jpg"} />
       </button>
-      {isclickedOutside ? (
-        <motion.div
-          className="dropdown-content"
-          ref={wrapperRef}
-          initial={{
-            opacity: 0,
-            display: "none",
-            // y:"calc( 9vh + 56px )",
-            x: "clamp(200px,12vw,1vw)",
-          }}
-          animate={
-            open
-              ? {
-                  display: "block",
-                  opacity: 1,
-                  transition: {
-                    duration: 0.25,
-                  },
-                }
-              : {}
-          }
-        >
-          <span>
-            Bienvenue
-            <span
-              style={{
-                fontWeight: 600,
-                marginInline: 5,
-              }}
-            >
-              {userInfos.firstName} {userInfos.lastName}
-            </span>
-          </span>
-        </motion.div>
-      ) : null}
       <motion.div
         className="dropdown-content"
-        ref={wrapperRef}
+        id="userInfos"
         initial={{
           opacity: 0,
           display: "none",
@@ -110,7 +58,11 @@ const Option = ({ userInfos }) => {
             : {}
         }
       >
-        <span>
+        <div
+          style={{
+            paddingTop: " 0.5rem",
+          }}
+        >
           Bienvenue
           <span
             style={{
@@ -120,11 +72,32 @@ const Option = ({ userInfos }) => {
           >
             {userInfos.firstName} {userInfos.lastName}
           </span>
-        </span>
+        </div>
+        <br></br>
+        <div
+          id="logout"
+          onClick={() => {
+            logout();
+            Navigate("/Dashboard");
+          }}
+        >
+          Panneau de configuration
+        </div>
+        <div
+          id="logout"
+          onClick={() => {
+            logout();
+            Navigate("/");
+            document.location.reload();
+          }}
+        >
+          Se déconnecter
+        </div>
       </motion.div>
     </>
   );
 };
+
 const CallToAction = (isAuth) => {
   const [isCartFavoriteDropDownOpen, setIsCartFavoriteDropDownOpen] =
     useState(false);
