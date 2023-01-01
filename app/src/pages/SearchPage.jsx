@@ -10,125 +10,62 @@ export default function SearchPage(userDetails) {
   const [pages, setPages] = React.useState([]);
   const location = useLocation();
   const [data, setData] = React.useState([]);
+  const [categories, setCategories] = React.useState([]);
   useEffect(() => {
-    console.log("location.state", location.state);
     setData(location.state);
-    console.log("userDetails", userDetails);
   }, []);
   console.log("data", data);
-  const [catégories, setCatégories] = React.useState([
-    { nom: "Cat1", description: "Description cat1" },
-    { nom: "Cat2", description: "Description cat2" },
-    { nom: "Cat3", description: "Description cat3" },
-    { nom: "Cat4", description: "Description cat4" },
-    { nom: "Cat5", description: "Description cat5" },
-    { nom: "Cat6", description: "Description cat6" },
-  ]);
-  const [products, setProducts] = React.useState([
-    {
-      title: "item1",
-      brand: "brand1",
-      description: "description1",
-      price: "price 1",
-    },
-    {
-      title: "item2",
-      brand: "brand2",
-      description: "description2",
-      price: "price 2",
-    },
-    {
-      title: "item3",
-      brand: "brand3",
-      description: "description3",
-      price: "price 3",
-    },
-    {
-      title: "item4",
-      brand: "brand4",
-      description: "description4",
-      price: "price 4",
-    },
-    {
-      title: "item5",
-      brand: "brand5",
-      description: "description5",
-      price: "price 5",
-    },
-    {
-      title: "item6",
-      brand: "brand6",
-      description: "description6",
-      price: "price 6",
-    },
-    {
-      title: "item7",
-      brand: "brand7",
-      description: "description7",
-      price: "price 7",
-    },
-    {
-      title: "item8",
-      brand: "brand8",
-      description: "description8",
-      price: "price 8",
-    },
-    {
-      title: "item9",
-      brand: "brand9",
-      description: "description9",
-      price: "price 9",
-    },
-    {
-      title: "item10",
-      brand: "brand10",
-      description: "description10",
-      price: "price 10",
-    },
-    {
-      title: "i11em6",
-      brand: "bra11d6",
-      description: "descriptio116",
-      price: "price 11",
-    },
-    {
-      title: "item12",
-      brand: "brand12",
-      description: "description12",
-      price: "price 12",
-    },
-    {
-      title: "i13em6",
-      brand: "bra13d6",
-      description: "descriptio136",
-      price: "price 13",
-    },
-    {
-      title: "it4m10",
-      brand: "bran410",
-      description: "description40",
-      price: "price 14",
-    },
-    {
-      title: "i15em6",
-      brand: "bra15d6",
-      description: "descriptio156",
-      price: "price 15",
-    },
-    {
-      title: "it6m10",
-      brand: "bran610",
-      description: "description60",
-      price: "price 16",
-    },
-    {
-      title: "i17em6",
-      brand: "bra17d6",
-      description: "descriptio176",
-      price: "price 17",
-    },
-  ]);
+
+  const [products, setProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  useEffect(() => {
+    try {
+      const categoryNames = data.searchedItems.map(
+        (category) => category.productCategory
+      );
+      const uniqueCategoryNames = [...new Set(categoryNames)];
+
+      if (categoryNames.length > 0) {
+        setLoading(false);
+        setCategories(uniqueCategoryNames);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }, [data]);
+
+  console.log("categories", categories);
+  useEffect(() => {
+    try {
+      const product = data.searchedItems.map((product) => {
+        return {
+          title: product.ProductName,
+          price: product.ProductPrice,
+          image: product.ProductImage,
+          description: product.ProductDescription,
+          brand: product.ProductBrand,
+        };
+      });
+      const deleteDuplicates = (arr) => {
+        if (arr.length === 0) return [];
+        let unique = [arr[0]];
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i].title !== unique[unique.length - 1].title) {
+            unique.push(arr[i]);
+          }
+        }
+        return unique;
+      };
+      const uniqueProduct = deleteDuplicates(product);
+      if (product) {
+        setLoading(false);
+        setProducts(uniqueProduct);
+      }
+    } catch (error) {
+      console.log("error", error);
+    }
+  }, [data]);
+  console.log("products", products);
   React.useEffect(() => {
     console.log(products.length / 12);
     let p = [];
@@ -145,6 +82,64 @@ export default function SearchPage(userDetails) {
       );
     }, 600);
   }, [currentPagination]);
+  const filterByCategory = (category) => {
+    console.log("category", category);
+    if (category === "catégorie") {
+      const product = data.searchedItems.map((product) => {
+        return {
+          title: product.ProductName,
+          price: product.ProductPrice,
+          image: product.ProductImage,
+          description: product.ProductDescription,
+          brand: product.ProductBrand,
+        };
+      });
+      const deleteDuplicates = (arr) => {
+        if (arr.length === 0) return [];
+        let unique = [arr[0]];
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i].title !== unique[unique.length - 1].title) {
+            unique.push(arr[i]);
+          }
+        }
+        return unique;
+      };
+      const uniqueProduct = deleteDuplicates(product);
+      if (product) {
+        setLoading(false);
+        setProducts(uniqueProduct);
+      }
+    } else {
+      const filteredProducts = data.searchedItems.filter(
+        (product) => product.productCategory === category
+      );
+      const product = filteredProducts.map((product) => {
+        return {
+          title: product.ProductName,
+          price: product.ProductPrice,
+          image: product.ProductImage,
+          description: product.ProductDescription,
+          brand: product.ProductBrand,
+        };
+      });
+      const deleteDuplicates = (arr) => {
+        if (arr.length === 0) return [];
+        let unique = [arr[0]];
+        for (let i = 1; i < arr.length; i++) {
+          if (arr[i].title !== unique[unique.length - 1].title) {
+            unique.push(arr[i]);
+          }
+        }
+        return unique;
+      };
+      const uniqueProduct = deleteDuplicates(product);
+      if (product) {
+        setLoading(false);
+        setProducts(uniqueProduct);
+      }
+    }
+  };
+
   const Pagination = () => (
     <div className="pagination">
       <button className="arrow" onClick={pervPage}>
@@ -201,12 +196,21 @@ export default function SearchPage(userDetails) {
   );
   const CatsBar = () => {
     return (
-      <div className="ClassesWrapper">
-        <button className="active">catégorie</button>
-        {catégories.map((item) => (
-          <button className="">{item.nom}</button>
-        ))}
-      </div>
+      <>
+        {loading === false ? (
+          <div className="ClassesWrapper">
+            <button
+              className="active"
+              onClick={() => filterByCategory("catégorie")}
+            >
+              catégorie
+            </button>
+            {categories.map((cat) => (
+              <button onClick={() => filterByCategory(cat)}>{cat}</button>
+            ))}
+          </div>
+        ) : null}
+      </>
     );
   };
   return (

@@ -54,6 +54,7 @@ app.use("/users", UsersRouter);
 app.use("/users", UsersRouter);
 app.use("/categories", CategoriesRouter);
 app.use("/checkout", CheckoutRouter);
+// url: "http://localhost:5000/products",
 app.use("/products", ProductsRouter);
 app.use("/search", SearchProductsRouter);
 app.use("/favorite", FavoriteProductRouter);

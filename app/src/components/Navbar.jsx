@@ -12,13 +12,13 @@ import DropdownMenu, {
   DropdownItem,
   DropdownItemGroup,
 } from "@atlaskit/dropdown-menu";
+import axios from "axios";
 import { motion } from "framer-motion";
 import Button from "@atlaskit/button";
 import ProfilePic from "../assets/Profile";
 import Avatar from "@atlaskit/avatar";
 import Heart from "../assets/Heart";
 import Cart from "../assets/Cart";
-import { useNavigate } from "react-router-dom";
 import ShoppingCartDropDown from "../assets/ShoppingCartDropDown";
 const logout = () => {
   localStorage.removeItem("userInfo");
