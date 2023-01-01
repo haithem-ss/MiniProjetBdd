@@ -1,24 +1,26 @@
 import Sidebar from "../components/Dashboard/Sidebar"
 import { Table, SectionTitle, StatsCard } from "../components/Dashboard/Components";
 import React from "react";
-import {UtilityBar,DownloadSVG} from "../components/Dashboard/Components"
+import { UtilityBar, DownloadSVG } from "../components/Dashboard/Components"
 import Navbar from "../components/Dashboard/Navbar"
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Spinner from "@atlaskit/spinner"
+
 export default function () {
 
     const [products, setProducts] = React.useState([])
-    React.useEffect(()=>{
-            axios.get("http://localhost:5000/products")
-        .then((response)=>{
-            const data=[]
-            for( let i of response.data.response){
-                data.push(i._fields[0].properties)
-            }
-        setProducts(data)
-        })
+    React.useEffect(() => {
+        axios.get("http://localhost:5000/products")
+            .then((response) => {
+                const data = []
+                for (let i of response.data.response) {
+                    data.push(i._fields[0].properties)
+                }
+                setProducts(data)
+            })
 
-    },[])
+    }, [])
 
 
     return (<div className="dashboard">
@@ -26,34 +28,54 @@ export default function () {
         <Navbar />
 
         <div className="ContentWrapper">
-            <div
+
+            {products.length === 0 ? <div
                 style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    marginBottom: "1rem"
-                }}>
-                {SectionTitle("Liste des produits","Télécharger", <DownloadSVG></DownloadSVG>)}
-                <div className="MainStatsWrapper">
-
-                    {StatsCard("Nombre de produits", products.length)}
-                    {StatsCard("Nombre de catégories", 20)}
+                    width: "75vw",
+                    height:"calc(100vh - 120px)",
+                    display:"flex",
+                    justifyContent:"center",
+                    alignItems:"center"
+                }}
+            >
+                <div>
+                <Spinner
+                    size={"large"}
+                />
                 </div>
+               
+            </div> :
+                <>
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "100%",
+                            justifyContent: "space-between",
+                            marginBottom: "1rem"
+                        }}>
+                        {SectionTitle("Liste des produits", "Télécharger", <DownloadSVG></DownloadSVG>)}
+                        <div className="MainStatsWrapper">
 
-            </div>
+                            {StatsCard("Nombre de produits", products.length)}
+                            {StatsCard("Nombre de catégories", 20)}
+                        </div>
 
-            <Table
-                checkbox={false}
-                status={false}
-                head={[
-                    "Titre", "Marque", "Description", "Stock", "Prix"
-                ]}
-                rows={products}
-                text="Nouvelle produit" 
-                button={true} 
-                link="/Dashboard/Produits/Ajouter"
-            />
+                    </div>
+                    <Table
+                        checkbox={false}
+                        status={false}
+                        head={[
+                            "Titre", "Marque", "Description", "Stock", "Prix"
+                        ]}
+                        rows={products}
+                        text="Nouvelle produit"
+                        button={true}
+                        link="/Dashboard/Produits/Ajouter"
+
+                    />
+                </>}
+
             {/* {SectionTitle("Liste des produits","Télécharger",<DownloadSVG/>)} */}
 
             {/*

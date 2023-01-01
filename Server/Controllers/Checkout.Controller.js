@@ -53,6 +53,25 @@ export const getPayment = async (req, res) => {
     console.log(error);
   }
 };
+export const getPayments = async (req, res) => {
+  try {
+    //init driver
+    let driver = getDriver();
+    const session = driver.session();
+    // create user
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
+        MATCH (u:User)-[:Placer]->(c:Commande)-[:Contient]->(p:Product) 
+        RETURN c,u.firstName+" "+u.lastName,count(p)as NoombreProduit
+            `
+      )
+    );
+    res.status(200).json({commandes: result.records});
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 //
 // Path: Server\Routes\Checkout.Routes.js

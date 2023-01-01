@@ -219,6 +219,7 @@ tr th:nth-last-child(1) {
 }
 
 .dropdown-content {
+  user-select: none;
   text-align: left;
   position: absolute;
   background-color: #fff;

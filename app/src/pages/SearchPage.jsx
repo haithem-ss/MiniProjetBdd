@@ -34,7 +34,7 @@ export default function SearchPage() {
         { title: "it6m10", brand: "bran610", description: "description60", price: "price 16" },
         { title: "i17em6", brand: "bra17d6", description: "descriptio176", price: "price 17" },
     ])
-    const [loading,setLoading]=React.useState(false)
+    const [loading, setLoading] = React.useState(false)
     React.useEffect(() => {
         console.log((products.length / 12))
         let p = []
@@ -45,9 +45,9 @@ export default function SearchPage() {
     }, [products])
     React.useEffect(() => {
         PaginationAnimation()
-        setTimeout(()=> {
-        setPageProducts(products.slice((currentPagination - 1) * 12, currentPagination * 12))
-        },600)
+        setTimeout(() => {
+            setPageProducts(products.slice((currentPagination - 1) * 12, currentPagination * 12))
+        }, 600)
     }, [currentPagination])
     const Pagination = () => (
         <div className="pagination">
@@ -80,13 +80,13 @@ export default function SearchPage() {
         }
     }
     const PaginationAnimation = () => {
-        window.scrollTo({top: 0, left: 0, behavior: 'smooth'});
-        setTimeout(()=>{
-                setLoading(true)
-            },500)
-            setTimeout(()=>{
-                setLoading(false)
-            },1500)
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        setTimeout(() => {
+            setLoading(true)
+        }, 500)
+        setTimeout(() => {
+            setLoading(false)
+        }, 1500)
     }
     const TopBar = () => (
         <div
@@ -98,9 +98,9 @@ export default function SearchPage() {
     const CatsBar = () => {
         return (
             <div className="ClassesWrapper">
-                    <button className="active">
-                        catégorie
-                    </button>
+                <button className="active">
+                    catégorie
+                </button>
                 {catégories.map((item) => (
                     <button className="">
                         {item.nom}
@@ -114,26 +114,29 @@ export default function SearchPage() {
         <section >
             <TopBar />
             <CatsBar />
- 
-            {loading===false && pageProducts.length!=0 ? <>
-            <div
-                className="SearchResultContainer"
+
+            {loading === false && pageProducts.length != 0 ? <>
+                <div
+                    className="SearchResultContainer"
+                >
+                    {pageProducts.map((item) => (
+                        <ProductCard title={item.title} brand={item.brand} description={item.description} price={item.price}></ProductCard>
+                    ))}
+                </div>
+                <Pagination />
+            </> : <div
+                style={{
+                    margin: "auto",
+                    width: "75vw",
+                    marginTop: "25vh"
+                }}
             >
-                {  pageProducts.map((item) => (
-                    <ProductCard title={item.title} brand={item.brand} description={item.description} price={item.price}></ProductCard>
-                ))}
-            </div>
-            <Pagination />
-            </>:<div
-            style={{
-                margin:"auto",
-                width:"fit-content",
-                marginTop:"25vh"
-            }}
-            >
-            <Spinner
-                size={"large"}
-            />
+                <div>
+                    <Spinner
+                        size={"large"}
+                    />
+                </div>
+
             </div>}
         </section>)
 

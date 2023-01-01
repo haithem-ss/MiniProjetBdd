@@ -9,7 +9,8 @@ import { DatePicker, DateTimePicker } from "@atlaskit/datetime-picker";
 import Select, { components } from "@atlaskit/select";
 import GoogleIcon from "../../assets/Google.jsx";
 import toast, { Toaster } from 'react-hot-toast';
-import { Navigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+
 import Form, {
   CheckboxField,
   ErrorMessage,
@@ -20,7 +21,7 @@ import Form, {
   HelperMessage,
   ValidMessage
 } from "@atlaskit/form";
-const submitForm = data => {
+const submitForm = (data,Navigate) => {
   let userInfos = {
     email: data.email,
     password: data.password
@@ -36,7 +37,10 @@ const submitForm = data => {
       toast.success("Wellcome back")
         localStorage.setItem("accessToken", response.data.accessToken);
         localStorage.setItem("refreshToken", response.data.refreshToken);
-    
+        setTimeout(()=>{
+          Navigate("/")
+          window.location.reload();
+        },1000)
     
      });
 };
@@ -46,7 +50,10 @@ const googleAuth = () => {
   window.open(url, "_self");
 };
 
-const LoginForm = () => (
+function LoginForm  ()  {
+  let Navigate=useNavigate()
+return(
+
   <div
   style={{
     display: 'flex',
@@ -62,7 +69,7 @@ const LoginForm = () => (
       </div>
     <Form
       onSubmit={data => {
-        return submitForm(data);
+        return submitForm(data,Navigate);
       }}
     >
       {({ formProps, submitting }) => (
@@ -182,6 +189,6 @@ const LoginForm = () => (
       )}
     </Form>
   </div>
-);
+);}
 
 export default LoginForm;

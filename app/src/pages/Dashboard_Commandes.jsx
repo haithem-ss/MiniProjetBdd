@@ -1,10 +1,11 @@
 import Sidebar from "../components/Dashboard/Sidebar"
-import {  SectionTitle, StatsCard } from "../components/Dashboard/Components";
+import { SectionTitle, StatsCard } from "../components/Dashboard/Components";
 import React from "react";
-import {motion} from "framer-motion"
-import {UtilityBar,DownloadSVG} from "../components/Dashboard/Components"
+import { UtilityBar, DownloadSVG } from "../components/Dashboard/Components"
 import Navbar from "../components/Dashboard/Navbar"
-import axios from "axios"
+import { Link } from "react-router-dom";
+import axios from "axios";
+import { motion } from "framer-motion"
 import Spinner from "@atlaskit/spinner"
 import TextField from '@atlaskit/textfield';
 
@@ -15,9 +16,14 @@ function Table({ rows, head, checkbox, status, button, text, link }) {
         if (searchText != "") {
             let data = []
             for (let i of rows) {
-                if (i.firstName.toLowerCase().includes(searchText) || i.lastName.toLowerCase().includes(searchText)) {
-                    data.push(i)
+                try {
+                    if (i.client.toLowerCase().includes(searchText) ) {
+                        data.push(i)
+                    }
+                } catch (e) {
+                    console.log(e)
                 }
+
             }
             setFilteredData(data)
         }
@@ -25,7 +31,7 @@ function Table({ rows, head, checkbox, status, button, text, link }) {
             setFilteredData(rows)
         }
     }, [searchText])
-    let data=searchText==="" ? rows : filteredData
+    let data = searchText === "" ? rows : filteredData
     const handleClickInput = (e) => {
         if (e.target.name === "selectAll") {
             if (e.target.checked === true) {
@@ -143,8 +149,9 @@ function Table({ rows, head, checkbox, status, button, text, link }) {
 
             </div>
         </div>
+        {data.length===0 && <h3 style={{textAlign:"center",margin:"3rem auto",fontWeight:"500"}}>Aucune résultat</h3>}
 
-        <table>
+       {data.length!=0 && <table>
             <tr>
                 <th>
                     {checkbox ? <>
@@ -159,7 +166,7 @@ function Table({ rows, head, checkbox, status, button, text, link }) {
                     <th>{item}</th>
                 ))}
             </tr>
-            {data.map((item) => (
+            {data.length!=0 && data.map((item) => (
                 <tr>
                     <td>
                         {checkbox ? <>
@@ -178,135 +185,89 @@ function Table({ rows, head, checkbox, status, button, text, link }) {
 
 
                     </td>
-                    <td>{item.firstName}</td>
-                    <td>{item.lastName}</td>
-                    <td>{item.phoneNumber}</td>
-                    <td>{item.email}</td>
-                    <td>{item.dateOfBirth}</td>
-
+                    <td>///</td>
+                    <td>{item.client}</td>
+                    <td>{item.NbrProduits.low}</td>
+                    <td>{item.order.amount}</td>
                     <td><Option /></td>
                 </tr>
 
             ))}
 
 
-        </table>
+        </table>}
     </div>
 
 }
-
-
 export default function () {
 
-    const [users, setUsers] = React.useState([])
-    React.useEffect(()=>{
-            axios.get("http://localhost:5000/users/all")
-        .then((response)=>{
+    const [commandes, setProducts] = React.useState([])
+    React.useEffect(() => {
+        axios.get("http://localhost:5000/checkouts")
+            .then((response) => {
+                const data = []
+                for (let i of response.data.commandes) {
+                    data.push({ order: i._fields[0].properties, client: i._fields[1] ,NbrProduits: i._fields[2]})
+                }
+                console.log(data)
+                setProducts(data)
+            })
+    }, [])
 
-            setUsers(response.data)
-            console.log(response.data)
-            return
-        })
 
-    },[])
     return (<div className="dashboard">
         <Sidebar />
         <Navbar />
 
         <div className="ContentWrapper">
-            <div className="UpperSectionWrapper">
-            </div>
-                        {users.length === 0 ? <div
+
+            {commandes.length === 0 ? <div
                 style={{
                     width: "75vw",
-                    height:"calc(100vh - 120px)",
-                    display:"flex",
-                    justifyContent:"center",
-                    alignItems:"center"
+                    height: "calc(100vh - 120px)",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
                 }}
             >
                 <div>
-                <Spinner
-                    size={"large"}
-                />
-                </div>
-               
-            </div> :        <>  <div
-                style={{
-                    display: "flex",
-                    alignItems: "center",
-                    width: "100%",
-                    justifyContent: "space-between",
-                    marginBottom: "1rem"
-                }}>
-                {SectionTitle("Liste des utilisateur","Télécharger", <DownloadSVG></DownloadSVG>)}
-                <div className="MainStatsWrapper">
-
-                    {StatsCard("Nombre des utilisateurs", users.length)}
+                    <Spinner
+                        size={"large"}
+                    />
                 </div>
 
-            </div>
-            <Table
-                checkbox={false}
-                status={false}
-                head={[
-                    "Nom", "Prénom", "N° de téléphone", "Email", "Date de naissance"
-                ]}
-                rows={users}
-            />
-            </>  }
+            </div> :
+                <>
+                    <div
+                        style={{
+                            display: "flex",
+                            alignItems: "center",
+                            width: "100%",
+                            justifyContent: "space-between",
+                            marginBottom: "1rem"
+                        }}>
+                        {SectionTitle("Liste des commandes", "Télécharger", <DownloadSVG></DownloadSVG>)}
+                        <div className="MainStatsWrapper">
+
+                            {StatsCard("Nombre de commandes", commandes.length)}
+                        </div>
+
+                    </div>
+                    <Table
+                        checkbox={false}
+                        status={false}
+                        head={[
+                            "Date de commande", "Client", "Nombre de produits", "Total"
+                        ]}
+                        rows={commandes}
+                        text="Nouvelle produit"
+                        button={true}
+                        link="/Dashboard/Produits/Ajouter"
+
+                    />
+                </>}
 
 
-            </div>
-
-            {/* {SectionTitle("Liste des produits","Télécharger",<DownloadSVG/>)} */}
-
-            {/*
-            <div className="TitleStatsWrapper">
-                {StatsCard("Produits vendu dans ce mois",150)}
-                {StatsCard("Nouveau utilisateur",150)}
-                {StatsCard("Profit de ce mois",150)}
-            </div> */}
-
-
-
-
-
-
-            {/* {SectionTitle("Liste des produits","Télécharger",<DownloadSVG/>)} */}
-            {/* <table>
-                <tr>
-                    <th>
-                        <input type="checkbox" id="scales" name="selectAll"
-                            onClick={handleClickInput}
-                        ></input>
-
-                    </th>
-                    <th>Nom de produit</th>
-                    <th>Marque</th>
-                    <th>Prix</th>
-                </tr>
-                {products.map((item) => (
-                    <tr>
-                        <td>
-                            <input type="checkbox" className="TableCheckBox" data-ordre={products.indexOf(item)} id={item.title}
-                                onClick={handleClickInput}
-                            ></input>
-
-                        </td>
-                        <td>{item.title}</td>
-                        <td>{item.brand}</td>
-                        <td>{item.price}</td>
-                        <td><Option /></td>
-                    </tr>
-
-                ))}
-
-
-            </table> */}
-            {/* <div className="statusFait">Fait</div>
-            <div className="statusAttente">En attente</div> */}
-
-            {/* <BackArrow/> */}
+        </div>
     </div>)
 }

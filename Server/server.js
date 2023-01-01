@@ -55,6 +55,7 @@ app.use("/users", UsersRouter);
 app.use("/users",UsersRouter)
 app.use("/categories",CategoriesRouter)
 app.use("/products",ProductsRouter)
+app.use("/checkouts",CheckoutRouter)
 app.get("/", function (req, res) {
   res.status(200).send("We are up and running");
 });

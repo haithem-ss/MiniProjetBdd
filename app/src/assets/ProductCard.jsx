@@ -2,10 +2,17 @@ import React from "react";
 import Heart from "../assets/Heart"
 import FilledHeart from "../assets/FilledHeart"
 import ProductImage from "./ProductImage.png";
+import toast from 'react-hot-toast';
 
 export default function ProductCard({title,brand,description,price}) {
     const [isFavourite, setAsFavourite] = React.useState(false)
+    //verifier si le produit est un des favouris
     const handleClickFavourite =()=>{
+        if (!isFavourite){
+            toast.success("Produit ajouté aux favouris")
+        }else{
+            toast.success("Produit supprimé aux favouris")
+        }
         setAsFavourite(fav=>!fav)
     }
     return (<>
@@ -27,8 +34,10 @@ export default function ProductCard({title,brand,description,price}) {
                 <p className="ProductCardCatégorie">{brand}</p>
                 <p className="ProductCardDescription">{description}</p>
                 <div className="CardButtons">
-                    <span className="ProductPrice">{price}</span>
-                    <button>Ajouter au panier</button>
+                    <span className="ProductPrice">{price} DA</span>
+                    <button onClick={()=>{
+                        toast.success("Produit ajouté au panier")
+                    }}>Acheter</button>
                 </div>
             </div>
         </div>

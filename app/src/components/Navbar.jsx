@@ -9,75 +9,79 @@ import {
   Profile
 } from "@atlaskit/atlassian-navigation";
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-import {motion} from "framer-motion"
+import { motion } from "framer-motion"
 import Button from "@atlaskit/button";
 import ProfilePic from "../assets/Profile";
 import Avatar from "@atlaskit/avatar";
 import Heart from "../assets/Heart";
 import Cart from "../assets/Cart";
+import { useNavigate } from "react-router-dom";
 import ShoppingCartDropDown from "../assets/ShoppingCartDropDown";
-const Option = ({userInfos}) => {
+const logout = () => {
+
+  localStorage.removeItem("userInfo")
+  localStorage.removeItem("accessToken")
+  localStorage.removeItem("refreshToken")
+
+}
+const Option = ({ userInfos }) => {
   const [open, isOpen] = React.useState(false)
   const ToggleDropDown = () => {
-      isOpen(!open)
+    isOpen(!open)
   }
+  let Navigate = useNavigate()
+
   return <>
-      <button className="dropdown" onClick={ToggleDropDown}>
+    <button className="dropdown" onClick={ToggleDropDown}>
       <Avatar size="small" src={"../assets/Profile.jpg"} />
 
-      </button>
-          <motion.div className="dropdown-content"           
-        initial={{
-            opacity: 0,
-            display: "none",
-            // y:"calc( 9vh + 56px )",
-            x:"clamp(200px,12vw,1vw)"
-        }}
+    </button>
+    <motion.div className="dropdown-content" id="userInfos"
+      initial={{
+        opacity: 0,
+        display: "none",
+        // y:"calc( 9vh + 56px )",
+        x: "clamp(200px,12vw,1vw)"
+      }}
 
-        animate={open ? {
-            display: "block",
-            opacity: 1,
-            transition: {
-                duration: 0.25
-            }
-        } : {}
+      animate={open ? {
+        display: "block",
+        opacity: 1,
+        transition: {
+          duration: 0.25
         }
+      } : {}
+      }
     >
-      <span>Bienvenue  
+      <div style={{
+        paddingTop: " 0.5rem"
+      }}>Bienvenue
         <span style={{
-          fontWeight:600,
-          marginInline:5
+          fontWeight: 600,
+          marginInline: 5
         }}>
           {userInfos.firstName} {userInfos.lastName}
-          </span>
-      </span>
-    </motion.div> 
-      <motion.div className="dropdown-content"          
-          initial={{
-              opacity: 0,
-              display: "none",
-              // y:"calc( 9vh + 56px )",
-              x:"clamp(200px,12vw,1vw)"
-          }}
-
-          animate={open ? {
-              display: "block",
-              opacity: 1,
-              transition: {
-                  duration: 0.25
-              }
-          } : {}
-          }
-      >
-        <span>Bienvenue  
-          <span style={{
-            fontWeight:600,
-            marginInline:5
-          }}>
-            {userInfos.firstName} {userInfos.lastName}
-            </span>
         </span>
-      </motion.div>
+      </div>
+      <br></br>
+      <div id="logout" onClick={() => {
+        logout()
+        Navigate("/Dashboard")
+
+      }}>
+        Panneau de configuration
+      </div>
+      <div id="logout" onClick={() => {
+        logout()
+        Navigate("/")
+        document.location.reload();
+
+      }}>
+        Se déconnecter
+      </div>
+
+    </motion.div>
+
 
 
   </>
@@ -118,10 +122,10 @@ const CallToAction = isAuth => {
         {isAuth ? (
           <>
             <Button id="navBarCTA" appearance="primary">
-            <NavLink to="/Login">Se connecter</NavLink>
+              <NavLink to="/Login">Se connecter</NavLink>
             </Button>
             <PrimaryButton>
-        <NavLink to="/Register">S'identifier</NavLink>
+              <NavLink to="/Register">S'identifier</NavLink>
 
             </PrimaryButton>
           </>
@@ -181,53 +185,53 @@ const SearchBar = () => {
     />
   );
 };
-const NavBar = ({userInfos}) => (
-  userInfos===null ? 
-  <AtlassianNavigation
-    label="site"
-    renderSearch={SearchBar}
-    renderSignIn={() => CallToAction(true)}
+const NavBar = ({ userInfos }) => (
+  userInfos === null ?
+    <AtlassianNavigation
+      label="site"
+      renderSearch={SearchBar}
+      renderSignIn={() => CallToAction(true)}
 
-    renderProductHome={() => (
-      <ProductHome href="#" icon={Logo} logo={Logo} />
-    )}
-    primaryItems={[
-      <PrimaryButton>
-        <NavLink to="/">Home</NavLink>
-      </PrimaryButton>,
-      <PrimaryButton>
-        <NavLink to="/">About</NavLink>
-      </PrimaryButton>,
-      <PrimaryButton>
-        <NavLink to="/">Contact</NavLink>
-      </PrimaryButton>
-    ]}
-  />
-  :<>
-  <AtlassianNavigation
-    label="site"
-    renderSearch={SearchBar}
-    renderSignIn={() => CallToAction(false)}
-    renderProductHome={() => (
-      <ProductHome href="#"  icon={Logo} logo={Logo} />
-    )}
-    renderProfile={() => (
-      <Option userInfos={userInfos}/>
+      renderProductHome={() => (
+        <ProductHome href="#" icon={Logo} logo={Logo} />
+      )}
+      primaryItems={[
+        <PrimaryButton>
+          <NavLink to="/">Home</NavLink>
+        </PrimaryButton>,
+        <PrimaryButton>
+          <NavLink to="/">About</NavLink>
+        </PrimaryButton>,
+        <PrimaryButton>
+          <NavLink to="/">Contact</NavLink>
+        </PrimaryButton>
+      ]}
+    />
+    : <>
+      <AtlassianNavigation
+        label="site"
+        renderSearch={SearchBar}
+        renderSignIn={() => CallToAction(false)}
+        renderProductHome={() => (
+          <ProductHome href="#" icon={Logo} logo={Logo} />
+        )}
+        renderProfile={() => (
+          <Option userInfos={userInfos} />
 
-    )}
-    primaryItems={[
-      <PrimaryButton>
-        <NavLink to="/">Home</NavLink>
-      </PrimaryButton>,
-      <PrimaryButton>
-        <NavLink to="/">About</NavLink>
-      </PrimaryButton>,
-      <PrimaryButton>
-        <NavLink to="/">Contact</NavLink>
-      </PrimaryButton>
-    ]}
-  /></>
-  
+        )}
+        primaryItems={[
+          <PrimaryButton>
+            <NavLink to="/">Home</NavLink>
+          </PrimaryButton>,
+          <PrimaryButton>
+            <NavLink to="/">About</NavLink>
+          </PrimaryButton>,
+          <PrimaryButton>
+            <NavLink to="/">Contact</NavLink>
+          </PrimaryButton>
+        ]}
+      /></>
+
 );
 
 export default NavBar;
