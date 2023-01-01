@@ -16,7 +16,9 @@ const ProductDescription = () => {
   return (
     <div>
       <div className="ProductDescription">
-        <Form onSubmit={formState => console.log("form submitted", formState)}>
+        <Form
+          onSubmit={(formState) => console.log("form submitted", formState)}
+        >
           {({ formProps }) => (
             <form {...formProps}>
               <Field label="Nom du produit" isRequired name="example-text">

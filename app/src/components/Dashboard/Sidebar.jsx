@@ -1,4 +1,4 @@
-import { useLocation , Link  } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 const ShoppingCartIcon = () => (
   <svg
     width="28"
@@ -171,18 +171,28 @@ const SideBarItem = (icon, text, active, path) => {
 };
 
 export default function () {
-    const { pathname } = useLocation();
-    let current
-    if (pathname.split("/").length === 2) current = 1
-    else if (pathname.split("/")[2] === "Commandes") current = 4
-    else if (pathname.split("/")[2] === "Produits") current = 2
-    else if (pathname.split("/")[2] === "Utilisateurs") current = 3
-    console.log(current)
-    return (<div className="Sidebar">
-        {current === 1 ? SideBarItem(<DashboardIcon />, "Dashboard", true,links[0]) : SideBarItem(<DashboardIcon />, "Dashboard", false,links[0])}
-        {current === 2 ? SideBarItem(<ProductIcon />, "Produits", true,links[1]) : SideBarItem(<ProductIcon />, "Produits", false,links[1])}
-        {current === 3 ? SideBarItem(<UsersIcon />, "Utilisateurs", true,links[3]) : SideBarItem(<UsersIcon />, "Utilisateurs", false,links[3])}
-        {current === 4 ? SideBarItem(<ShoppingCartIcon />, "Commandes", true,links[2]) : SideBarItem(<ShoppingCartIcon />, "Commandes", false,links[2])}
-        <LogoutIcon />
-    </div>)
+  const { pathname } = useLocation();
+  let current;
+  if (pathname.split("/").length === 2) current = 1;
+  else if (pathname.split("/")[2] === "Commandes") current = 4;
+  else if (pathname.split("/")[2] === "Produits") current = 2;
+  else if (pathname.split("/")[2] === "Utilisateurs") current = 3;
+  console.log(current);
+  return (
+    <div className="Sidebar">
+      {current === 1
+        ? SideBarItem(<DashboardIcon />, "Dashboard", true, links[0])
+        : SideBarItem(<DashboardIcon />, "Dashboard", false, links[0])}
+      {current === 2
+        ? SideBarItem(<ProductIcon />, "Produits", true, links[1])
+        : SideBarItem(<ProductIcon />, "Produits", false, links[1])}
+      {current === 3
+        ? SideBarItem(<UsersIcon />, "Utilisateurs", true, links[3])
+        : SideBarItem(<UsersIcon />, "Utilisateurs", false, links[3])}
+      {current === 4
+        ? SideBarItem(<ShoppingCartIcon />, "Commandes", true, links[2])
+        : SideBarItem(<ShoppingCartIcon />, "Commandes", false, links[2])}
+      <LogoutIcon />
+    </div>
+  );
 }

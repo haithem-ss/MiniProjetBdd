@@ -17,6 +17,7 @@ import jwt_decode from "jwt-decode";
 import "./styles/dashboard.css";
 import Dashboard_Produits from "./pages/Dashboard_Produits";
 import Dashboard_Utilisateurs from "./pages/Dashboard_Utilisateurs";
+import EditProductPage from "./components/Admin/EditProductPage";
 import "./App.css";
 function App() {
   const [user, setUser] = React.useState(null);
@@ -96,6 +97,10 @@ function App() {
         />
         <Route path="/History" element={<History />} />
         <Route path="/Dashboard/Produits/Ajouter" element={<AdminProduct />} />
+        <Route
+          path="/Dashboard/Produits/Modifier"
+          element={<EditProductPage />}
+        />
         <Route path="/Dashboard/Produits" element={<Dashboard_Produits />} />
         <Route
           path="/Dashboard/Utilisateurs"
