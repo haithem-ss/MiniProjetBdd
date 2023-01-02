@@ -200,3 +200,6 @@
     opacity: 1;
   }
 }
+.quantity__style {
+  display: none !important;
+}

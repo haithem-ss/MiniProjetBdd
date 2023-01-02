@@ -19,6 +19,7 @@ import Dashboard_Produits from "./pages/Dashboard_Produits";
 import Dashboard_Utilisateurs from "./pages/Dashboard_Utilisateurs";
 import Dashboard_Commandes from "./pages/Dashboard_Commandes";
 import EditProductPage from "./components/Admin/EditProductPage";
+import Favoris from "./components/Favoris";
 import "./App.css";
 function App() {
   const [user, setUser] = React.useState(null);
@@ -97,7 +98,10 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/SearchPage" element={<SearchPage userDetails={user} />} />
+        <Route
+          path="/SearchPage"
+          element={<SearchPage userInfos={userInfos} userDetails={user} />}
+        />
 
         <Route path="/product" element={<Product />} />
         <Route
@@ -117,6 +121,7 @@ function App() {
         />
         <Route path="/Dashboard/Commandes" element={<Dashboard_Commandes />} />
         <Route path="/Success" element={<Success userDetails={user} />} />
+        <Route path="/Favoris" element={<Favoris user={userInfos || user} />} />
       </Routes>
     </>
   );

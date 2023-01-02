@@ -4,13 +4,15 @@ import ArrowPagination from "../assets/pagination/ArrowPagination";
 import Spinner from "@atlaskit/spinner";
 import axios from "axios";
 import { useLocation } from "react-router";
-export default function SearchPage(userDetails) {
+export default function SearchPage({ userDetails, userInfos }) {
   const [currentPagination, setCurrentPagination] = React.useState(1);
   const [pageProducts, setPageProducts] = React.useState([]);
   const [pages, setPages] = React.useState([]);
   const location = useLocation();
   const [data, setData] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
+  // console.log("userDetails", userDetails);
+  // console.log("userInfos", userInfos);
   useEffect(() => {
     setData(location.state);
   }, []);
@@ -218,16 +220,18 @@ export default function SearchPage(userDetails) {
       <TopBar />
       <CatsBar />
 
-      {loading === false && pageProducts.length != 0 ? (
+      {pageProducts.length != 0 ? (
         <>
           <div className="SearchResultContainer">
             {pageProducts.map((item) => (
               <ProductCard
+                user={userDetails || userInfos}
                 title={item.title}
-                brand={item.brand}
-                description={item.description}
                 price={item.price}
-              ></ProductCard>
+                image={item.image}
+                description={item.description}
+                brand={item.brand}
+              />
             ))}
           </div>
           <Pagination />
