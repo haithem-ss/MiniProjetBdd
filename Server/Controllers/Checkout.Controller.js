@@ -8,25 +8,28 @@ export const PaymentCheckout = async (req, res) => {
     //init driver
     let driver = getDriver();
     const session = driver.session();
+
     // create user
-    const result = await session.executeWrite((tx) =>
-      tx.run(
-        `
-            MATCH (u:User) WHERE u.phoneNumber = "${phone}"
-            CREATE (u)-[:Placer]->(p:Commande {
-                amount: "${total} DA",
-                cardNumber: "${cardNumber} ",
-                expiry: "${expiry}",
-                cvc: "${cvc}",
-                adress: "${adress}",
-                date: "${date}",
-                items: "${items}",
-                user: "${user}",
-                phone: "${phone}"
-                })
-            `
-      )
-    );
+    for (let i = 0; i < items.length; i++) {
+      const result = await session.executeWrite((tx) =>
+        tx.run(
+          `MATCH (u:User) WHERE u.email = "${user.email}"
+          MATCH (p:Product) WHERE p.ProductName = "${items[i]}"
+          CREATE (u)-[:Placer]->(c:Commande{
+            cardNumber:"${cardNumber}",
+            expiry:"${expiry}",
+            cvc:"${cvc}",
+            adress:"${adress}",
+            phone:"${phone}",
+            total:"${total}",
+            date:"${date}",
+            user:"${user.firstName} ${user.lastName}"
+          })-[:Contient]->(p)
+          RETURN u , p ,c
+          `
+        )
+      );
+    }
 
     res.status(200).json({ msg: "Payment was successful" });
   } catch (error) {
@@ -35,7 +38,7 @@ export const PaymentCheckout = async (req, res) => {
 };
 export const getPayment = async (req, res) => {
   try {
-    const { phone } = req.body;
+    const { email } = req.body;
     //init driver
     let driver = getDriver();
     const session = driver.session();
@@ -43,8 +46,10 @@ export const getPayment = async (req, res) => {
     const result = await session.executeWrite((tx) =>
       tx.run(
         `
-            MATCH (u:User)-[:HAS_PAYMENT]->(p:Payment) WHERE u.phoneNumber = "${phone}"
-            RETURN p
+        MATCH (u:User)-[:Placer]->(c:Commande)-[:Contient]->(p:Product)
+        WHERE u.email = "${email}"
+        RETURN u , p ,c
+
             `
       )
     );

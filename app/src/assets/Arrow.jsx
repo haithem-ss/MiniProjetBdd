@@ -1,5 +1,4 @@
-
-
+import React from "react";
 import "../styles/CartItems.css";
 
 const Arrow = () => {

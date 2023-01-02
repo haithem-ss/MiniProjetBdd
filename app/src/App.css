@@ -437,11 +437,13 @@ section {
   overflow-x: hidden;
   min-height: calc(100vh - 56px - 4rem);
   padding: 2rem 3vw;
+  padding-top: 0;
 
 }
 
 .ClassesWrapper {
-  padding: 0rem 3rem;
+  padding: 0rem ;
+  margin-bottom: 1.5rem;
   display: flex;
   justify-content: flex-start;
   gap: 1rem
@@ -469,7 +471,7 @@ section {
 }
 
 .pagination {
-  padding-bottom: 2rem;
+  padding: 1.5rem 0rem;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -614,4 +616,26 @@ div.formButtons:hover button{
 }
 #RegisterInput div{
   width: 100%;
+}
+.css-11lunul-AtlassianNavigation input{
+  width: 200px;
+  background-color: transparent;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  align-items: center;
+  background-color: var(--ds-background-input, #FAFBFC);
+  border-color: var(--ds-border-input, #DFE1E6);
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: solid;
+  height: calc(2rem + 1px) !important;
+  line-height: 2rem !important;
+  margin: 0px;
+  margin-right: 10px;
 }

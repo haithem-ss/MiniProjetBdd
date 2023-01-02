@@ -7,6 +7,5 @@ import {
 
 const CheckoutRouter = express.Router();
 CheckoutRouter.post("/payment", PaymentCheckout);
-CheckoutRouter.post("/payment", getPayment);
-CheckoutRouter.get("/", getPayments);
+CheckoutRouter.get("/getPayment", getPayment);
 export default CheckoutRouter;

@@ -1,41 +1,41 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { getDriver } from "../Config/database.js";
-import neo4j, { session } from 'neo4j-driver'
+import neo4j, { session } from "neo4j-driver";
 
 //ADD API
 // \\ to %
 
-export const addProduct= async(req,res)=>{
-    var productImages="";
-    var productImages=req.files[0].path 
-    for(var i=1;i<req.files.length;i++){
-      productImages+=','+req.files[i].path
-    }
-    console.log(productImages)
-    const backslashesRemoved = productImages.replaceAll('\\', '%');
-    console.log(backslashesRemoved)
+export const addProduct = async (req, res) => {
+  var productImages = "";
+  var productImages = req.files[0].path;
+  for (var i = 1; i < req.files.length; i++) {
+    productImages += "," + req.files[i].path;
+  }
+  console.log(productImages);
+  const backslashesRemoved = productImages.replaceAll("\\", "%");
+  console.log(backslashesRemoved);
 
-    const ProductInfos={
-        ProductName:req.body.ProductName,
-        ProductDescription:req.body.ProductDescription,
-        ProductPrice:req.body.ProductPrice,
-        ProductStock:req.body.ProductStock,
-        ProductHaveDiscount:req.body.ProductHaveDiscount,
-        ProductBrand:req.body.ProductBrand,
-        ProductCategory:req.body.ProductCategory,
-        productImagesPaths:productImages
-    }
-    console.log(ProductInfos)
+  const ProductInfos = {
+    ProductName: req.body.ProductName,
+    ProductDescription: req.body.ProductDescription,
+    ProductPrice: req.body.ProductPrice,
+    ProductStock: req.body.ProductStock,
+    ProductHaveDiscount: req.body.ProductHaveDiscount,
+    ProductBrand: req.body.ProductBrand,
+    ProductCategory: req.body.ProductCategory,
+    productImagesPaths: productImages,
+  };
+  console.log(ProductInfos);
 
-    //init driver
-    let driver=getDriver()
-    const session = driver.session()
-    //create Product
-    try {
-    const result = await session.executeWrite(
-        tx => tx.run(
-          `
+  //init driver
+  let driver = getDriver();
+  const session = driver.session();
+  //create Product
+  try {
+    const result = await session.executeWrite((tx) =>
+      tx.run(
+        `
             CREATE (p:Product {
               ProductName:"${ProductInfos.ProductName}",
               ProductDescription:"${ProductInfos.ProductDescription}",
@@ -149,12 +149,12 @@ export const getProducts = async (req, res) => {
     //to review
 //UPDATE API
 export const editProduct = async (req, res) => {
-    var productImages="";
-    var productImages=req.files[0].path 
-    for(var i=1;i<req.files.length;i++){
-      productImages+=','+req.files[i].path
-    }
-    const editedBackslashesRemoved = productImages.replaceAll('\\', '%');
+  var productImages = "";
+  var productImages = req.files[0].path;
+  for (var i = 1; i < req.files.length; i++) {
+    productImages += "," + req.files[i].path;
+  }
+  const editedBackslashesRemoved = productImages.replaceAll("\\", "%");
   const editedProductInfos = {
     editedProductName: req.body.ProductName,
     editedProductDescription: req.body.ProductDescription,
@@ -162,7 +162,7 @@ export const editProduct = async (req, res) => {
     editedProductStock: req.body.ProductStock,
     editedProductHaveDiscount: req.body.ProductHaveDiscount,
     editedProductBrand: req.body.ProductBrand,
-        editedProductImagesPaths:productImages
+    editedProductImagesPaths: productImages,
   };
   console.log(editedProductInfos);
   //init driver
@@ -195,6 +195,7 @@ export const editProduct = async (req, res) => {
     await session.close();
   }
 };
+// url: "http://localhost:3000/api/products/recommendation?name=Product 1",
 export const getProduct = async (req, res) => {
   //init driver
   let driver = getDriver();
@@ -215,7 +216,10 @@ export const getProduct = async (req, res) => {
       `
       )
     );
-    res.status(200).json({ product: result.records[0]._fields[0].properties,recommanded: result.records[0]._fields[1]});
+    res.status(200).json({
+      product: result.records[0]._fields[0].properties,
+      recommanded: result.records[0]._fields[1],
+    });
   } catch (error) {
     console.log(error);
     res.status(400).json({ msg: "Internal error, please try later" });
@@ -223,7 +227,7 @@ export const getProduct = async (req, res) => {
     await session.close();
   }
 };
-export const gerProductRecommanded= async (req, res) => {
+export const gerProductRecommanded = async (req, res) => {
   //init driver
   let driver = getDriver();
 
@@ -242,15 +246,17 @@ export const gerProductRecommanded= async (req, res) => {
       )
     );
     const popular = await session.executeWrite((tx) =>
-    tx.run(
-      `
+      tx.run(
+        `
       match (u:User)
       match (u)-[r:Placer]->(c:Commande)-[x:Contient]->(p:Product)-[:CategorisedBy]->(cat:Category)
       return p, count(*) as Frequence order by Frequence Desc limit 25
     `
-    )
-  );
-    res.status(200).json({ recommanded: recommanded.records ,popular:popular.records});
+      )
+    );
+    res
+      .status(200)
+      .json({ recommanded: recommanded.records, popular: popular.records });
   } catch (error) {
     console.log(error);
     res.status(400).json({ msg: "Internal error, please try later" });
