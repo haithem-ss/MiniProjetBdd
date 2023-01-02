@@ -236,8 +236,14 @@ export default function SearchPage() {
 
           <div className="SearchResultContainer" style={{
           }}>
+      {pageProducts.length != 0 ? (
+        <>
+          <div className="SearchResultContainer">
             {pageProducts.map((item) => (
-               <ProductCard title={item.ProductName} 
+               <ProductCard 
+               user={userDetails || userInfos}
+
+               title={item.ProductName} 
                brand={item.ProductBrand} 
                description={item.ProductDescription} price={item.ProductPrice}></ProductCard>
 

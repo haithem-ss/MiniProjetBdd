@@ -3,8 +3,29 @@ import "../styles/ShoppingCartDropDown.css";
 import ShoppingCartElement from "../assets/ShoppingCartElement";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import axios from "axios";
 
-const ShoppingCartDropDown = ({ active, title, favoriteClass = "" }) => {
+const ShoppingCartDropDown = ({ active, title, favoriteClass = "", user }) => {
+  const [favoriteItems, setFavoriteItems] = useState([]);
+  console.log("user in favorite cart", user);
+  useEffect(() => {
+    const favoriteProducts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/favorite/getFavoriteProducts",
+          {
+            firstName: user.firstName,
+          }
+        );
+        setFavoriteItems(response.data);
+        console.log("response", response);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    favoriteProducts();
+  }, []);
+  console.log("favoriteItems", favoriteItems);
   const navigate = useNavigate();
   const [isclickedOutside, setIsClickedOutside] = useState(false);
   const wrapperRef = useRef(null);
@@ -29,7 +50,7 @@ const ShoppingCartDropDown = ({ active, title, favoriteClass = "" }) => {
       };
     }, [ref]);
   }
-  const cart = useSelector(state => state.cart);
+  const cart = useSelector((state) => state.cart);
   console.log("cart", cart);
   return (
     <>
@@ -50,20 +71,32 @@ const ShoppingCartDropDown = ({ active, title, favoriteClass = "" }) => {
             </h3>
           </div>
           <div className="DropDownContainer__Body">
-            {cart.map(item => (
-              <ShoppingCartElement
-                syleCss="ShoppingCartElement__Info__width"
-                styleCat = ""
-                styleDate = ""
-                styleTrash="ShoppingCartElement__Info__trash"
-                img={item.img}
-                title={item.title}
-                category={item.category}
-                date={item.date}
-                price={item.price}
-                quantity={item.quantity}
-              />
-            ))}
+            {title === "Favorite Items"
+              ? favoriteItems.map((item) => (
+                  <ShoppingCartElement
+                    key={item._id}
+                    id={item._id}
+                    title={item.title}
+                    price={item.price}
+                    image={item.image}
+                    quantity={item.quantity}
+                    favoriteClass={favoriteClass}
+                  />
+                ))
+              : cart.map((item) => (
+                  <ShoppingCartElement
+                    syleCss="ShoppingCartElement__Info__width"
+                    styleCat=""
+                    styleDate=""
+                    styleTrash="ShoppingCartElement__Info__trash"
+                    img={item.img}
+                    title={item.title}
+                    category={item.category}
+                    date={item.date}
+                    price={item.price}
+                    quantity={item.quantity}
+                  />
+                ))}
           </div>
         </div>
       ) : null}

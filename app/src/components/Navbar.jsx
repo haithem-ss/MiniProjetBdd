@@ -98,7 +98,10 @@ const Option = ({ userInfos }) => {
   );
 };
 
-const CallToAction = (isAuth) => {
+const CallToAction = (isAuth, user) => {
+  console.log("isAuth", isAuth);
+  console.log("userInfos", user);
+  const navigate = useNavigate();
   const [isCartFavoriteDropDownOpen, setIsCartFavoriteDropDownOpen] =
     useState(false);
   const [isCartDropDownOpen, setIsCartDropDownOpen] = useState(false);
@@ -158,19 +161,14 @@ const CallToAction = (isAuth) => {
               />
             )}
             <PrimaryButton
-              onClick={renderShoppingCartFavoriteDropDown}
+              onClick={() => {
+                navigate("/Favoris");
+              }}
               // ref={wrapperRef}
               iconBefore={<Heart />}
             >
               Favoris
             </PrimaryButton>
-            {isCartFavoriteDropDownOpen && (
-              <ShoppingCartDropDown
-                active={isActive2}
-                title="Favorite Items"
-                favoriteClass="favorite"
-              />
-            )}
           </>
         )}
       </div>
@@ -242,6 +240,7 @@ const SearchBar = () => {
   );
 };
 const NavBar = ({ userInfos, userDetails }) => {
+  const [user, setUser] = useState(userInfos || userDetails);
   const [isAuthentificated, setIsAuthentificated] = useState(false);
   useEffect(() => {
     // console.log("userInfos", userInfos);
@@ -259,7 +258,7 @@ const NavBar = ({ userInfos, userDetails }) => {
         <AtlassianNavigation
           label="site"
           renderSearch={SearchBar}
-          renderSignIn={() => CallToAction(true)}
+          renderSignIn={() => CallToAction(isAuthentificated, user)}
           renderProductHome={() => (
             <ProductHome href="#" icon={Logo} logo={Logo} />
           )}

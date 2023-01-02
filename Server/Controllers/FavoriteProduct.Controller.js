@@ -4,15 +4,23 @@ import { getDriver } from "../Config/database.js";
 // url: http://localhost:5000/favorite/addFavoriteProduct
 export const addFavoriteProduct = async (req, res) => {
   const session = getDriver().session();
-  const { productName, firstName } = req.body;
+  const firstName = req.body.firstName;
+  const productName = req.body.productName;
   try {
     const result = await session.run(
-      `MATCH (p:Product {ProductName:"${productName}"}), (u:User {firstName: "${firstName}"})
-            MERGE (u)-[r:FAVORITE]->(p)
-            RETURN p , u ,r`,
+      `MATCH (u:User {firstName: "${firstName}"}),(p:Product {ProductName: "${productName}"})
+      CREATE (u)-[r:FAVORITE]->(p)
+      RETURN u , p ,r
+            `,
       { productName, firstName }
     );
-    const product = result.records.map((record) => record.get(0).properties);
+    const product = result.records.map((record) => {
+      return {
+        user: record.get(0).properties,
+        product: record.get(1).properties,
+        relation: record.get(2).properties,
+      };
+    });
     res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ message: error.message });
@@ -23,16 +31,22 @@ export const addFavoriteProduct = async (req, res) => {
 // url: http://localhost:5000/favorite/getFavoriteProducts
 export const getFavoriteProducts = async (req, res) => {
   const session = getDriver().session();
-  const { firstName } = req.body;
+  const firstName = req.query.firstName;
   try {
     const result = await session.run(
-      `MATCH (u:User {firstName: $firstName})-[r:FAVORITE]->(p:Product)
-            RETURN p
+      `MATCH (u:User {firstName: "${firstName}"})-[r:FAVORITE]->(p:Product)
+      RETURN p
+
             `,
       { firstName }
     );
-    const products = result.records.map((record) => record.get(0).properties);
-    res.status(200).json(products);
+    const product = result.records.map((record) => {
+      return {
+        product: record.get(0).properties,
+      };
+    });
+
+    res.status(200).json(product);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -42,7 +56,8 @@ export const getFavoriteProducts = async (req, res) => {
 // url: http://localhost:5000/favorite/deleteFavoriteProduct
 export const deleteFavoriteProduct = async (req, res) => {
   const session = getDriver().session();
-  const { productName, firstName } = req.body;
+  const firstName = req.body.firstName;
+  const productName = req.body.productName;
   try {
     const result = await session.run(
       `MATCH (u:User {firstName: "${firstName}"})-[r:FAVORITE]->(p:Product {ProductName: "${productName}"})

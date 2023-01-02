@@ -6,7 +6,7 @@ import {
   incrementQuantity,
   decrementQuantity,
   removeItem,
-  toggleSelect
+  toggleSelect,
 } from "../redux/CartSlice";
 
 const ShoppingCartElement = ({
@@ -25,13 +25,14 @@ const ShoppingCartElement = ({
   category,
   date,
   price,
-  quantity = 0
+  quantityStyle,
+  quantity = 0,
 }) => {
   const dispatch = useDispatch();
   const onDelete = () => {
     dispatch(removeItem(title));
   };
-  const onChange = e => {
+  const onChange = (e) => {
     dispatch(toggleSelect(title));
     fun(e.target.checked);
   };
@@ -58,7 +59,7 @@ const ShoppingCartElement = ({
         <span className={`info__category ${styleCat}`}>{category}</span>
 
         <h3 className="info__price">{price} DA</h3>
-        <div className="cartItem__incrDec">
+        <div className={`cartItem__incrDec ${quantityStyle}`}>
           <button onClick={() => dispatch(decrementQuantity(title))}>-</button>
           <p>{quantity}</p>
           <button onClick={() => dispatch(incrementQuantity(title))}>+</button>
