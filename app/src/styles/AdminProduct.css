@@ -4,7 +4,6 @@
   --lightWhite: #f8f9fa;
   --darkGrey: #6c757d;
   --lightGrey: #e9ecef;
-  --height: 32px !important;
   --Grey200: #dee2e6;
   --Secondary: #e64943;
   --Grey300: #ced4da;
@@ -32,10 +31,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:1rem;
+  gap: 1rem;
   float: left;
   background: var(--lightWhite);
   border: none;
+  cursor: pointer;
 }
 .title-icon {
   width: 1.5rem;
@@ -46,7 +46,6 @@
   align-items: center;
   margin-right: 10px;
   cursor: pointer;
-
 }
 .header_button {
   float: right;
@@ -65,7 +64,7 @@
   cursor: pointer;
 }
 .Product_body {
-  padding:20px;
+  padding: 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,7 +75,7 @@
   box-shadow: 4px 11px 24px rgb(0 0 0 / 15%);
   border-radius: 10px;
   position: relative;
-  margin-bottom:50px
+  margin-bottom: 50px;
 }
 .Product_body_left {
   width: 50%;
@@ -207,6 +206,7 @@
   align-items: baseline;
   width: 160px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 ::-webkit-scrollbar {
@@ -222,9 +222,9 @@
 ::-webkit-scrollbar-thumb {
   background: var(--lightColor);
 }
-label{
+label {
   margin-bottom: 4px !important;
 }
-.SKBRq{
-  max-width:50vw !important
+.SKBRq {
+  max-width: 50vw !important;
 }

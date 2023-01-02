@@ -9,8 +9,8 @@ import UsersRouter from "./Routes/Users.Route.js";
 import cookieParser from "cookie-parser";
 import CategoriesRouter from "./Routes/Categories.Route.js";
 import ProductsRouter from "./Routes/Products.Route.js";
-
-
+import SearchProductsRouter from "./Routes/ProductSearch.Route.js";
+import FavoriteProductRouter from "./Routes/FavoriteProduct.Route.js";
 import CheckoutRouter from "./Routes/Checkout.Route.js";
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -51,10 +51,13 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", AuthRoutes);
 app.use("/users", UsersRouter);
-//app.use("/", AuthRoutes);
-app.use("/users",UsersRouter)
-app.use("/categories",CategoriesRouter)
-app.use("/products",ProductsRouter)
+app.use("/users", UsersRouter);
+app.use("/categories", CategoriesRouter);
+app.use("/checkout", CheckoutRouter);
+// url: "http://localhost:5000/products",
+app.use("/products", ProductsRouter);
+app.use("/search", SearchProductsRouter);
+app.use("/favorite", FavoriteProductRouter);
 app.get("/", function (req, res) {
   res.status(200).send("We are up and running");
 });

@@ -9,6 +9,7 @@
     "@atlaskit/button": "^16.4.1",
     "@atlaskit/checkbox": "^12.4.1",
     "@atlaskit/datetime-picker": "^12.3.2",
+    "@atlaskit/dropdown-menu": "^11.5.8",
     "@atlaskit/dynamic-table": "^14.8.5",
     "@atlaskit/flag": "^14.7.3",
     "@atlaskit/form": "^8.7.1",

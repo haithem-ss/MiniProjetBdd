@@ -9,9 +9,8 @@ import Textfield from "@atlaskit/textfield";
 import { useNavigate } from "react-router";
 
 import "../../styles/AdminProduct.css";
-const ProductPage = () => {
+const EditProductPage = () => {
   const navigate = useNavigate();
-
   return (
     <div className="Product__Wraper">
       <div className="Product_header">
@@ -22,7 +21,7 @@ const ProductPage = () => {
           <div className="title-icon">
             <ArrowLeftIcon size="large" />
           </div>
-          Créer un nouveau produit
+          Modify Produit
         </button>
         <div className="header_button">
           <button className="btn-delete">
@@ -60,7 +59,6 @@ const ProductPage = () => {
               Quantité
             </h3>
             <Textfield
-              type="number"
               name="basic"
               aria-label="default text field"
               placeholder="Quantité"
@@ -76,4 +74,4 @@ const ProductPage = () => {
   );
 };
 
-export default ProductPage;
+export default EditProductPage;

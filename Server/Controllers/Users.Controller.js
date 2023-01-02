@@ -14,7 +14,7 @@ export const Register = async (req, res) => {
     confirmationPassword: req.body.confirmationPassword,
   };
   console.log("New user")
-  console.log(userInfos.password)
+  console.log(userInfos)
   //verify if password and confirmationPassword are a match
   if (userInfos.password !== userInfos.confirmationPassword)
     return res.status(400).json({ msg: "Please verify password" });

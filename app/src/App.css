@@ -34,7 +34,7 @@ form scrcpy --fullscreenbutton,
   line-height: var(--height) !important;
 }
 
-form button {
+form button , #more button {
   z-index: 0;
   height: var(--height) !important;
   line-height: var(--height) !important;
@@ -229,6 +229,9 @@ button#navBarCTA  a{
 }
 
 .section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -webkit-touch-callout: none;
@@ -238,6 +241,7 @@ button#navBarCTA  a{
   padding: 2rem 3vw;
   height: calc(100vh - 56px - 4rem);
   overflow: hidden;
+  gap: 2rem;
 }
 
 .section h2 {
@@ -248,25 +252,46 @@ button#navBarCTA  a{
 
 .ProductCard {
   border-radius: 10px;
-  height: 60vh;
-  width: 20vw;
-  border: 2px solid var(--grey200);
+  height:500px;
+  /* width: 300px !important; */
+  /* width: 20% !important; */
+  flex: 0 0 auto;
   overflow: hidden;
-  max-width:300px
+  max-width:300px;
+  background-color: white;
+  border: 1px solid #E9ECEF;
+
 }
+@media only screen and (max-width: 1377px) {
+  .ProductCard{
+    height:400px;
+  }
+  }
+
 
 .ProductCard p {
-  margin: 0.75rem auto !important;
+  margin: 0.75rem 0 !important;
   margin-top: 0px !important;
-}
+  -webkit-line-clamp: 2; /* number of lines to show */
+  line-clamp: 2;
+  text-overflow: ellipsis;
 
+  max-height: 5rem;
+  overflow: hidden;
+}
+p.ProductCardCatégorie,p.ProductTitle{
+  height: fit-content;
+}
+p.ProductCardDescription{
+  height: 30%;
+}
 .CardsWrapper {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  gap: calc(((100vw - 6vw) - 20*4vw) / 3);
+  align-items: center;
   width: fit-content;
-  overflow-x: hidden;
+  gap: 60px;
 }
 
 .ImageWrapper {
@@ -317,12 +342,17 @@ button#navBarCTA  a{
 .InfosWrapper {
   padding: 1rem;
   height: 50%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  background-color: white;
 }
 
 .ProductTitle {
   font-weight: 600;
   font-size: 22px;
   color: var(--grey700);
+  cursor: pointer;
 }
 
 .Heart {
@@ -334,9 +364,10 @@ button#navBarCTA  a{
   align-items: center;
   justify-content: center;
   margin: 0px;
-  margin-top: -24vh;
-  margin-left: 17vw;
+  margin-left: 250px;
   cursor: pointer;
+  margin-top: -150px;
+  
 }
 
 .Arrow {
@@ -364,8 +395,9 @@ button#navBarCTA  a{
 }
 
 
+
 .SearchResultContainer {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -373,21 +405,45 @@ button#navBarCTA  a{
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
-  padding: 2rem 3vw;
   height: fit-content;
-  width: calc(100% - 2*3vw + calc(((100vw - 6vw) - 20*4vw) / 3));
-  overflow-x: hidden;
-  gap: calc(((100vw - 6vw) - 20*4vw) / 3);
+  justify-content: space-between;
+  width:100%;
+  overflow-x: hidden; */
+  max-width: 100%;
+  margin: 0 auto;
+  display: grid;
+  gap: 1rem;
 }
+
+@media (max-width: 1100px) {
+  .SearchResultContainer { grid-template-columns: repeat(3, 1fr); }
+}
+@media (min-width: 1100px) {
+  .SearchResultContainer { grid-template-columns: repeat(4, 1fr); }
+}
+@media (min-width: 1400px) {
+  .SearchResultContainer { grid-template-columns: repeat(5, 1fr); }
+  .Heart{
+    margin-top: -200px;
+  }
+}
+@media (min-width: 2000px) {
+  .SearchResultContainer { grid-template-columns: repeat(6, 1fr); }
+}
+
+
 
 section {
   overflow-x: hidden;
   min-height: calc(100vh - 56px - 4rem);
+  padding: 2rem 3vw;
+  padding-top: 0;
 
 }
 
 .ClassesWrapper {
-  padding: 0rem 3rem;
+  padding: 0rem ;
+  margin-bottom: 1.5rem;
   display: flex;
   justify-content: flex-start;
   gap: 1rem
@@ -415,7 +471,7 @@ section {
 }
 
 .pagination {
-  padding-bottom: 2rem;
+  padding: 1.5rem 0rem;
   margin: auto;
   display: flex;
   justify-content: space-between;
@@ -541,7 +597,18 @@ section {
 .CheckoutModal svg {
   width: 70%;
 }
-.css-1vpkq7w-AtlassianNavigation{
+#logout{
+  padding: 0.5rem 0rem;
+}
+#logout:hover {
+  background-color: #F8F9FA;
+  cursor: pointer;
+}
+#userInfos{
+  top: 60px;
+  right:230px;
+  height: fit-content;
+
 }
 div.formButtons:hover button{
   z-index: 1 !important;
@@ -549,4 +616,26 @@ div.formButtons:hover button{
 }
 #RegisterInput div{
   width: 100%;
+}
+.css-11lunul-AtlassianNavigation input{
+  width: 200px;
+  background-color: transparent;
+  box-sizing: border-box;
+  color: inherit;
+  cursor: inherit;
+  font-size: 14px;
+  min-width: 0;
+  outline: none;
+  align-items: center;
+  background-color: var(--ds-background-input, #FAFBFC);
+  border-color: var(--ds-border-input, #DFE1E6);
+  color: var(--ds-text, #091E42);
+  cursor: text;
+  border-radius: 3px;
+  border-width: 2px;
+  border-style: solid;
+  height: calc(2rem + 1px) !important;
+  line-height: 2rem !important;
+  margin: 0px;
+  margin-right: 10px;
 }
