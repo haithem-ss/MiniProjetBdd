@@ -3,8 +3,9 @@ import Heart from "../assets/Heart"
 import FilledHeart from "../assets/FilledHeart"
 import ProductImage from "./ProductImage.png";
 import toast from 'react-hot-toast';
-
+import { useNavigate } from "react-router";
 export default function ProductCard({title,brand,description,price}) {
+    let navigate=useNavigate()
     const [isFavourite, setAsFavourite] = React.useState(false)
     //verifier si le produit est un des favouris
     const handleClickFavourite =()=>{
@@ -30,7 +31,10 @@ export default function ProductCard({title,brand,description,price}) {
 
             </div>
             <div className="InfosWrapper">
-                <p className="ProductTitle">{title}</p>
+                <p className="ProductTitle" onClick={()=>{
+                    navigate("/Product/"+title)
+                    window.location.reload()
+                    }}>{title}</p>
                 <p className="ProductCardCatégorie">{brand}</p>
                 <p className="ProductCardDescription">{description}</p>
                 <div className="CardButtons">

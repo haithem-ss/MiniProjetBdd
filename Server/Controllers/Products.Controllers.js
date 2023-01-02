@@ -121,31 +121,31 @@ export const getProducts = async (req, res) => {
 };
   //Read a Product
   //READ API
-export const getProduct = async(req, res) => {
-  let driver=getDriver()
+// export const getProduct = async(req, res) => {
+//   let driver=getDriver()
 
-  const session = driver.session();
-  try {
-    const result = await session.executeWrite(
-        tx => tx.run(
-          `
-          match (p:Product) 
-          where p.ProductName="${req.params.productName}"
-          return(p)
-          `
-        )
-      )
-      res.status(200).json({result});
-    } catch (error) {
-        //Cant get Categories
-        //Duplicated Category
-        console.log(error)
-        res.status(400).json({msg: "Internal error, please try later"});
-    }finally{
-        await session.close()
+//   const session = driver.session();
+//   try {
+//     const result = await session.executeWrite(
+//         tx => tx.run(
+//           `
+//           match (p:Product) 
+//           where p.ProductName="${req.params.productName}"
+//           return(p)
+//           `
+//         )
+//       )
+//       res.status(200).json({result});
+//     } catch (error) {
+//         //Cant get Categories
+//         //Duplicated Category
+//         console.log(error)
+//         res.status(400).json({msg: "Internal error, please try later"});
+//     }finally{
+//         await session.close()
   
-    }
-    }
+//     }
+//     }
     //to review
 //UPDATE API
 export const editProduct = async (req, res) => {
@@ -195,10 +195,9 @@ export const editProduct = async (req, res) => {
     await session.close();
   }
 };
-export const gerProduct = async (req, res) => {
+export const getProduct = async (req, res) => {
   //init driver
   let driver = getDriver();
-  console.log(req.query);
   const session = driver.session();
   try {
     const result = await session.executeWrite((tx) =>

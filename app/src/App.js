@@ -26,9 +26,7 @@ function App() {
 
   const axiosJWT = axios.create();
   const [accessToken, setAccessToken] =React.useState(localStorage.getItem("accessToken"));
-  // setTimeout(()=>{
-  //   setAccessToken(localStorage.getItem("accessToken"))
-  // },500)
+
   React.useEffect(() => {
     try {
       const data=jwt_decode(accessToken)
@@ -92,7 +90,7 @@ function App() {
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/SearchPage" element={<SearchPage />} />
-        <Route path="/product" element={<Product />} />
+        <Route path="/Product/:ProductName" element={<Product />} />
         <Route path="/CartItems" element={<CartItems />} />
         <Route path="/History" element={<History />} />
         <Route path="/Dashboard/Produits/Ajouter" element={<AdminProduct />} />

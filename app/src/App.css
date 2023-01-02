@@ -352,6 +352,7 @@ p.ProductCardDescription{
   font-weight: 600;
   font-size: 22px;
   color: var(--grey700);
+  cursor: pointer;
 }
 
 .Heart {
