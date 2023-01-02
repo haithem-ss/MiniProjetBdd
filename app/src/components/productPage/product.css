@@ -13,8 +13,8 @@ h6{
 .full{
     display: flex;
     width: 100%;
-    margin-top: 50px;
-    margin-bottom: 50px;
+    margin-top: 6.313vh;
+    margin-bottom: 0px;
 
 }
 .picDiv{
@@ -41,24 +41,17 @@ h6{
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 500;
-    font-size: 48px;
-    line-height: 80px;
+    font-size: 3rem;
+    line-height: 8.101vh;
     color: #343A40;
 }
-.descriptionDiv h4{
-    font-family: 'Anek Kannada';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 60px;
-    color: #ADB5BD;
-}
+
 .descriptionDiv h4{
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 400;
     font-size: 32px;
-    line-height: 40px;
+    line-height: 5.051vh;
     color: #6C757D;}
 
 .descriptionDiv p{
@@ -66,27 +59,28 @@ h6{
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 400;
-    font-size: 32px;
-    line-height: 40px;
+    font-size: 1.25rem;
+    line-height: 3vh;
     color: #6C757D;
     margin: 0px;}
 .priceDiv{
 
 }
+
 .priceDiv h1{ 
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 500;
-    font-size: 48px;
-    line-height: 50px;
+    font-size: 2.188rem;
+    line-height: 5.313vh;
     color: #495057;
 }
 .priceDiv h6{ 
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 400;
-    font-size: 24px;
-    line-height: 40px;
+    font-size: 1.25rem;
+    line-height: 3.167vh;
     color: #6C757D;
 }
 .colorDiv {}
@@ -94,18 +88,18 @@ h6{
     font-family: 'Product Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
+    font-size: 1.25rem;
+    line-height: 1.263vh;
     color: #495057;
-    margin-bottom: 20px;
+    margin-bottom: 2.525vh;
 }
 .colorSelectors{
     display: flex;
-    gap: 16px;
+    gap: 1.042vw;
 }
 .colorSelect{
-    width: 55px;
-    height: 55px !important;
+    width: 2.604vw;
+    height: 5.051vh !important;
     border: 0px;
     background: #8E8162;
     border-radius:50% ;
@@ -123,37 +117,37 @@ h6{
     font-family: 'Product Sans';
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 29px;
+    font-size: 1.25rem;
+    line-height: 1.662vh;
     color: #495057;
-    margin-bottom: 20px;
+    margin-bottom: 3.662vh;
     
 }
 .quantitySelector{
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 1.953vw;
 }
 .quantityText h4{
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 400;
-    font-size: 24px;
-    line-height: 40px;
+    font-size: 1.5rem;
+    line-height: 5.051vh;
     color: #6C757D;
 }
 .quantityText h3{
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 600;
-    font-size: 24px;
-    line-height: 40px;
+    font-size: 1.5rem;
+    line-height: 5.051vh;
     color: #343A40;
     
 }
 .quantityDecrement{
-    width: 78px;
-    height: 56px !important;
+    width: 3.255vw;
+    height: 5.682vh !important;
     border: 1px solid #E9ECEF;
     border-radius: 00px 40px 40px 0px;
     transform: matrix(-1, 0, 0, 1, 0, 0);
@@ -164,13 +158,13 @@ h6{
     cursor: pointer;
 }
 .quantity{
-    width:75px;
+    width:4.883vw;
     text-align: center;
-    font-size: 36px;
+    font-size: 2.25rem;
 }
 .quantityIncrement{
-    width: 78px;
-    height: 56px !important;
+    width: 3.255vw;
+    height: 5.682vh !important;
     border: 1px solid #E9ECEF;
     border-radius: 40px 0px 0px 40px;
     transform: matrix(-1, 0, 0, 1, 0, 0);
@@ -180,11 +174,11 @@ h6{
 }
 .quantityDecrement h1{
     margin-bottom: 0px;
-    font-size: 36px;
+    font-size: 2.25rem;
 }
 .quantityIncrement h1{
     margin-bottom: 0px;
-    font-size: 36px;
+    font-size: 2.25rem;
 }
 .quantityIncrement:hover{
     cursor: pointer;
@@ -192,11 +186,11 @@ h6{
 }
 .quantiyValue{
     display: flex;
-    height: 56px;
+    height: 5.682vh;
 }
 .quantityText{
     display: flex;
-    gap: 10px;
+    gap: 0.651vw;
 }
 .submitionDiv{
     display: flex;
@@ -210,30 +204,30 @@ h6{
 .cartButton {
     border: 1px solid #2F45C5;
     border-radius: 10px;
-    width:25%;
-    height:75px !important;
+    width:20%;
+    height:6.313vh !important;
 }
 .cartButton h1{
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 500;
-    font-size: 28px;
-    line-height: 35px;
+    font-size: 1.25rem;
+    line-height: 4.419vh;
     color: #2F45C5;
 }
 .purchaseButton{
     background: #2F45C5;
     border-radius: 10px;
-    width:25%;
-    height:75px !important;
-    margin-right: 75px;
+    width:20%;
+    height:6.313vh !important;
+    margin-right:4.883vw;
 }
 .purchaseButton h1{
     font-family: 'Anek Kannada';
     font-style: normal;
     font-weight: 500;
-    font-size: 28px;
-    line-height: 35px;
+    font-size: 1.25rem;
+    line-height: 4.419vh;
     color: #FFFFFF;
 
 }
