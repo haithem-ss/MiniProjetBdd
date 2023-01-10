@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import TextField from "@atlaskit/textfield";
 import { Link, useNavigate } from "react-router-dom";
@@ -70,7 +70,16 @@ export const graphCard = (data) => (
     <span className="data">{data}</span>
   </div>
 );
-export function Table({ rows, head, checkbox, status, button, text, link }) {
+export function Table({
+  rows,
+  head,
+  checkbox,
+  status,
+  button,
+  text,
+  link,
+  ProductName,
+}) {
   const [searchText, setSearchText] = React.useState("");
   const [filteredData, setFilteredData] = React.useState(rows);
   console.log(filteredData);
@@ -103,7 +112,12 @@ export function Table({ rows, head, checkbox, status, button, text, link }) {
       console.log(!open);
       isOpen(!open);
     };
+
     const navigate = useNavigate();
+    const getProductName = (e) => {
+      console.log(e.target.dataset.productname);
+      return e.target.dataset.productname;
+    };
     return (
       <>
         <button className="dropdown" onClick={ToggleDropDown}>
@@ -141,8 +155,10 @@ export function Table({ rows, head, checkbox, status, button, text, link }) {
           <p>A propos de produit</p>
           <p
             onClick={() => {
-              navigate("/Dashboard/Produits/Modifier");
-              console.log("Modifier le produit");
+              // const ProductName = getProductName();
+              const ProductName = "iPhone 9";
+              navigate(`/Dashboard/Produits/Modifier?name=${ProductName}`);
+              console.log(`Dashboard/Produits/Modifier?name=${ProductName}`);
             }}
           >
             Modifier le produit

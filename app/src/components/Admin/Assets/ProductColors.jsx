@@ -7,13 +7,14 @@ const ProductColors = () => {
   const addBtnClick = () => {
     setColorList(ColorList.concat(<ProductDescriptionColor />));
   };
+
   return (
     <div
       className="ProductDescription"
       style={{
         height: "150px",
         overflowY: "scroll",
-        scrollbars: "none"
+        scrollbars: "none",
       }}
     >
       <ProductDescriptionColor />

@@ -5,19 +5,20 @@ import AddIcon from "@atlaskit/icon/glyph/add";
 import Form, { Field, FormFooter, HelperMessage } from "@atlaskit/form";
 import Textfield from "@atlaskit/textfield";
 import LoadingButton from "@atlaskit/button/loading-button";
+import axios from "axios";
 
 export default function Modal() {
   const [modal, setModal] = useState(false);
   const [nameCategory, setNameCategory] = useState("");
 
-  const onChange = useCallback(event => {
+  const onChange = useCallback((event) => {
     setNameCategory(event.target.value);
   }, []);
   console.log(nameCategory);
   const toggleModal = useCallback(() => {
     setModal(!modal);
   }, [modal]);
-  const onSubmit = useCallback(event => {
+  const onSubmit = useCallback((event) => {
     event.preventDefault();
     console.log("submit");
   }, []);
@@ -26,6 +27,25 @@ export default function Modal() {
   } else {
     document.body.classList.remove("active-modal");
   }
+
+  const addCategory = (e) => {
+    // e.preventDefault();
+    axios
+      .post("http://localhost:5000/categories/addCategory", {
+        categoryName: nameCategory,
+        categoryDescription: `description de la catégorie ${nameCategory}`,
+      })
+      .then((res) => {
+        console.log("res", res);
+        if (res.status === 200) {
+          toggleModal();
+          window.location.reload();
+        }
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
 
   return (
     <>
@@ -56,7 +76,10 @@ export default function Modal() {
               </Field>
             </form>
             <div className="modal-footer">
-              <button className="btn btn-primary btn-footer" onClick={onSubmit}>
+              <button
+                className="btn btn-primary btn-footer"
+                onClick={addCategory}
+              >
                 confirmer
               </button>
               <button

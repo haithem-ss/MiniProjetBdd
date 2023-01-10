@@ -5,14 +5,13 @@ import ImageOutline from "./ImageOutline";
 import MediaServicesScaleLargeIcon from "@atlaskit/icon/glyph/media-services/scale-large";
 const fileTypes = ["JPG", "PNG", "GIF"];
 
-const ProductImages = () => {
-  const [file, setFile] = useState(null);
+const ProductImages = ({ setProductImages }) => {
   const [imgURL, setImgURL] = useState();
-  const handleChange = files => {
+  const handleChange = (files) => {
     console.log(Object.values(files));
-    setImgURL(Object.values(files).map(file => URL.createObjectURL(file)));
+    setImgURL(Object.values(files).map((file) => URL.createObjectURL(file)));
   };
-
+  setProductImages(imgURL);
   return (
     <div className="ProductDescription">
       <div className="product__images_wraper__Header">
@@ -24,7 +23,7 @@ const ProductImages = () => {
           maxSize={4}
           label="Ajouter des images"
           hoverTitle="Glissez et déposez votre image ici"
-          onTypeError={file => {
+          onTypeError={(file) => {
             alert("Seuls les fichiers JPG, PNG et GIF sont autorisés");
           }}
         />{" "}

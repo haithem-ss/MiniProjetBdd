@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import "../../../styles/AdminProduct.css";
 import Form, { Field, ErrorMessage, ValidMessage } from "@atlaskit/form";
 import Textfield from "@atlaskit/textfield";
@@ -12,7 +12,19 @@ function validate(value) {
   return undefined;
 }
 
-const ProductDescription = () => {
+const ProductDescription = ({ setProductName, setProductDescription }) => {
+  const [name, setName] = React.useState("");
+  const onChangeName = (e) => {
+    setName(e.target.value);
+    setProductName(e.target.value);
+  };
+  const [description, setDescription] = React.useState("");
+  const onChangeDescription = (e) => {
+    setDescription(e.target.value);
+    setProductDescription(e.target.value);
+  };
+  // console.log("name", name);
+  // console.log("description", description);
   return (
     <div>
       <div className="ProductDescription">
@@ -25,18 +37,21 @@ const ProductDescription = () => {
                 {({ fieldProps }) => (
                   <Fragment>
                     <Textfield
-                      placeholder="saisir le nom du produit..."
                       {...fieldProps}
+                      placeholder="saisir le nom du produit..."
+                      onChange={onChangeName}
+                      value={name}
                     />
                   </Fragment>
                 )}
               </Field>
               <Field
-                label="Description"
+                label="Description du produit"
                 isRequired
-                name="command"
+                name="example-textarea"
+                value={description}
                 validate={validate}
-                defaultValue=""
+                onChange={onChangeDescription}
               >
                 {({ fieldProps, error, meta: { valid } }) => (
                   <Fragment>
@@ -44,6 +59,8 @@ const ProductDescription = () => {
                       {...fieldProps}
                       resize="none"
                       placeholder="saisir la description..."
+                      onChange={onChangeDescription}
+                      value={description}
                     />
                     {valid && (
                       <ValidMessage>

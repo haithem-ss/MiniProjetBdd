@@ -4,6 +4,7 @@ import { getDriver } from "../Config/database.js";
 import neo4j, { session } from "neo4j-driver";
 
 //ADD API
+// url: http://localhost:5000/categories/addCategory
 export const addCategory = async (req, res) => {
   const categoryInfos = {
     categoryName: req.body.categoryName,
@@ -57,11 +58,9 @@ export const deleteCategory = async (req, res) => {
         `
       )
     );
-    res
-      .status(200)
-      .json({
-        msg: "Category " + categoryToDeleteName + " deleted successfully",
-      });
+    res.status(200).json({
+      msg: "Category " + categoryToDeleteName + " deleted successfully",
+    });
   } catch (error) {
     //Cant create user
     console.log(error);
@@ -85,7 +84,7 @@ export const getCategories = async (req, res) => {
           `
       )
     );
-    res.status(200).json({ cats:result.records});
+    res.status(200).json({ cats: result.records });
   } catch (error) {
     //Cant get Categories
     //Duplicated Category

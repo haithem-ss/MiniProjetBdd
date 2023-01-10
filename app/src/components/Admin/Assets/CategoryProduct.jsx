@@ -5,7 +5,7 @@ import Modal from "./Modal";
 import axios from "axios";
 import Spinner from "@atlaskit/spinner";
 
-const CategoryProduct = () => {
+const CategoryProduct = ({ setProductCategory }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [categories, setCategories] = React.useState([]);
   const [categoryNames, setCategoryNames] = React.useState([]);
@@ -15,26 +15,27 @@ const CategoryProduct = () => {
       const res = await axios.get(
         `${process.env.REACT_APP_API_URL}/categories`
       );
-      setCategories(res.data);
+      console.log("res", res.data);
+      setCategories(res.data.cats);
     };
     getCategories();
   }, []);
-
   useEffect(() => {
     try {
-      const categoryNames = categories.result.records.map((category) => {
+      const categoryNames = categories.map((category) => {
         return {
           label: category._fields[0].properties.categoryName,
           value: category._fields[0].properties.categoryName,
         };
       });
-      setCategoryNames(categoryNames);
-      console.log(categoryNames);
-      if (categories) {
+      const uniqueCategoryNames = [...new Set(categoryNames)];
+      console.log("categoryNames", categoryNames);
+      if (categoryNames.length > 0) {
         setIsLoading(false);
+        setCategoryNames(uniqueCategoryNames);
       }
     } catch (error) {
-      console.log(error);
+      console.log("error", error);
     }
   }, [categories]);
 
@@ -48,12 +49,18 @@ const CategoryProduct = () => {
         <>
           <label htmlFor="single-select-example">catégorie de produit</label>
           <Select
-            inputId="single-select-example"
-            className="single-select"
-            classNamePrefix="react-select"
+            className="select"
+            classNamePrefix="select"
+            id="single-select-example"
+            isSearchable
+            name="single-select-example"
             options={categoryNames}
-            placeholder="Sélectionnez une catégorie"
+            onChange={(e) => {
+              // console.log("e", e.value);
+              setProductCategory(e.value);
+            }}
           />
+
           <Modal />
         </>
       )}

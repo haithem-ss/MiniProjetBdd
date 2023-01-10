@@ -11,7 +11,9 @@ const ProductDescriptionColor = () => {
         className="color-picker"
         name="color"
         initialValue="#5e72e4"
-        onChange={setColor}
+        onChange={(e) => {
+          setColor(e.hex);
+        }}
         placement="right"
       />
     </div>

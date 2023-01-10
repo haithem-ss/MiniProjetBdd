@@ -6,15 +6,16 @@ import neo4j, { session } from "neo4j-driver";
 //ADD API
 // \\ to %
 
+// url: http://localhost:5000/products/addProduct
 export const addProduct = async (req, res) => {
-  var productImages = "";
-  var productImages = req.files[0].path;
-  for (var i = 1; i < req.files.length; i++) {
-    productImages += "," + req.files[i].path;
-  }
-  console.log(productImages);
-  const backslashesRemoved = productImages.replaceAll("\\", "%");
-  console.log(backslashesRemoved);
+  // var productImages = "";
+  // var productImages = req.files[0].path;
+  // for (var i = 1; i < req.files.length; i++) {
+  //   productImages += "," + req.files[i].path;
+  // }
+  // console.log(productImages);
+  // const backslashesRemoved = productImages.replaceAll("\\", "%");
+  // console.log(backslashesRemoved);
 
   const ProductInfos = {
     ProductName: req.body.ProductName,
@@ -24,7 +25,7 @@ export const addProduct = async (req, res) => {
     ProductHaveDiscount: req.body.ProductHaveDiscount,
     ProductBrand: req.body.ProductBrand,
     ProductCategory: req.body.ProductCategory,
-    productImagesPaths: productImages,
+    // productImagesPaths: productImages,
   };
   console.log(ProductInfos);
 
@@ -43,7 +44,7 @@ export const addProduct = async (req, res) => {
               ProductStock:"${ProductInfos.ProductStock}",
               ProductHaveDiscount:"${ProductInfos.ProductHaveDiscount}",
               ProductBrand:"${ProductInfos.ProductBrand}",
-              productImagesPaths:"${backslashesRemoved}"
+              productImagesPaths:"null"
             })
             with p
             MATCH(c:Category{categoryName:"${ProductInfos.ProductCategory}"})
@@ -119,8 +120,8 @@ export const getProducts = async (req, res) => {
     await session.close();
   }
 };
-  //Read a Product
-  //READ API
+//Read a Product
+//READ API
 // export const getProduct = async(req, res) => {
 //   let driver=getDriver()
 
@@ -129,7 +130,7 @@ export const getProducts = async (req, res) => {
 //     const result = await session.executeWrite(
 //         tx => tx.run(
 //           `
-//           match (p:Product) 
+//           match (p:Product)
 //           where p.ProductName="${req.params.productName}"
 //           return(p)
 //           `
@@ -143,18 +144,19 @@ export const getProducts = async (req, res) => {
 //         res.status(400).json({msg: "Internal error, please try later"});
 //     }finally{
 //         await session.close()
-  
+
 //     }
 //     }
-    //to review
+//to review
 //UPDATE API
+// url: http://localhost:5000/products/editProduct/:productId
 export const editProduct = async (req, res) => {
-  var productImages = "";
-  var productImages = req.files[0].path;
-  for (var i = 1; i < req.files.length; i++) {
-    productImages += "," + req.files[i].path;
-  }
-  const editedBackslashesRemoved = productImages.replaceAll("\\", "%");
+  // var productImages = "";
+  // var productImages = req.files[0].path;
+  // for (var i = 1; i < req.files.length; i++) {
+  //   productImages += "," + req.files[i].path;
+  // }
+  // const editedBackslashesRemoved = productImages.replaceAll("\\", "%");
   const editedProductInfos = {
     editedProductName: req.body.ProductName,
     editedProductDescription: req.body.ProductDescription,
@@ -162,7 +164,7 @@ export const editProduct = async (req, res) => {
     editedProductStock: req.body.ProductStock,
     editedProductHaveDiscount: req.body.ProductHaveDiscount,
     editedProductBrand: req.body.ProductBrand,
-    editedProductImagesPaths: productImages,
+    // editedProductImagesPaths: productImages,
   };
   console.log(editedProductInfos);
   //init driver
@@ -174,15 +176,15 @@ export const editProduct = async (req, res) => {
       tx.run(
         `
           match(p:Product)
-          where ID(p)=${req.params.productId}
+          where p.ProductName="${req.params.productName}"
           set 
           p.ProductName = "${editedProductInfos.editedProductName}",
           p.ProductDescription = "${editedProductInfos.editedProductDescription}",
           p.ProductPrice = "${editedProductInfos.editedProductPrice}",
           p.ProductStock = "${editedProductInfos.editedProductStock}",
           p.ProductHaveDiscount = "${editedProductInfos.editedProductHaveDiscount}",
-          p.ProductBrand = "${editedProductInfos.editedProductBrand}"
-          p.productImagesPaths:"${editedBackslashesRemoved}"
+          p.ProductBrand = "${editedProductInfos.editedProductBrand}",
+          p.productImagesPaths = "${editedProductInfos.editedProductImagesPaths}"
 
           `
       )

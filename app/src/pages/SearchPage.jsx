@@ -13,8 +13,7 @@ export default function SearchPage() {
   // const location = useLocation();
   // const [data, setData] = React.useState([]);
   const [categories, setCategories] = React.useState([]);
-  const { Tags } = useParams()
-
+  const { Tags } = useParams();
 
   const [products, setProducts] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
@@ -35,15 +34,15 @@ export default function SearchPage() {
   // }, [data]);
 
   useEffect(() => {
-        axios.get(`http://localhost:5000/search/`,{params:{value:Tags}})
+    axios
+      .get(`http://localhost:5000/search/`, { params: { value: Tags } })
       .then((res) => {
-        setProducts(res.data)
+        setProducts(res.data);
       })
       .catch((err) => {
         console.log(err);
       });
 
-    
     // try {
     //   const product = data.searchedItems.map((product) => {
     //     return {
@@ -86,12 +85,14 @@ export default function SearchPage() {
       setPageProducts(
         products.slice((currentPagination - 1) * 12, currentPagination * 12)
       );
-      console.log(currentPagination)
-      console.log(products)
-      console.log(products.slice((currentPagination - 1) * 12, currentPagination * 12))
+      console.log(currentPagination);
+      console.log(products);
+      console.log(
+        products.slice((currentPagination - 1) * 12, currentPagination * 12)
+      );
       setLoading(true);
     }, 600);
-  }, [currentPagination,products]);
+  }, [currentPagination, products]);
   // const filterByCategory = (category) => {
   //   console.log("category", category);
   //   if (category === "catégorie") {
@@ -207,7 +208,7 @@ export default function SearchPage() {
   const CatsBar = () => {
     return (
       <>
-      {loading === false && pageProducts.length != 0 ? (
+        {loading === false && pageProducts.length != 0 ? (
           <div className="ClassesWrapper">
             <button
               className="active"
@@ -218,50 +219,51 @@ export default function SearchPage() {
             {categories.map((cat) => (
               <button
               //  onClick={() => filterByCategory(cat)}
-               >{cat}</button>
+              >
+                {cat}
+              </button>
             ))}
           </div>
         ) : null}
       </>
     );
   };
-  return (
-    <section style={{
-    }}>
-            {loading === false && pageProducts.length != 0 ? (
-        <>
-      <TopBar />
-      <CatsBar />
+  // return (
+  //   <section style={{
+  //   }}>
+  //           {loading === false && pageProducts.length != 0 ? (
+  //       <>
+  //     <TopBar />
+  //     <CatsBar />
 
+  //         <div className="SearchResultContainer" style={{
+  //         }}>
+  //     {pageProducts.length != 0 ? (
+  //       <>
+  //         <div className="SearchResultContainer">
+  //           {pageProducts.map((item) => (
+  //              <ProductCard
+  //              user={userDetails || userInfos}
 
-          <div className="SearchResultContainer" style={{
-          }}>
-      {pageProducts.length != 0 ? (
-        <>
-          <div className="SearchResultContainer">
-            {pageProducts.map((item) => (
-               <ProductCard 
-               user={userDetails || userInfos}
+  //              title={item.ProductName}
+  //              brand={item.ProductBrand}
+  //              description={item.ProductDescription} price={item.ProductPrice}></ProductCard>
 
-               title={item.ProductName} 
-               brand={item.ProductBrand} 
-               description={item.ProductDescription} price={item.ProductPrice}></ProductCard>
-
-            ))}
-          </div>
-          <Pagination />
-        </>
-      ) : (
-        <div
-          style={{
-            margin: "auto",
-            width: "fit-content",
-            marginTop: "25vh",
-          }}
-        >
-          <Spinner size={"large"} />
-        </div>
-      )}
-    </section>
-  );
+  //           ))}
+  //         </div>
+  //         <Pagination />
+  //       </>
+  //     ) : (
+  //       <div
+  //         style={{
+  //           margin: "auto",
+  //           width: "fit-content",
+  //           marginTop: "25vh",
+  //         }}
+  //       >
+  //         <Spinner size={"large"} />
+  //       </div>
+  //     )}
+  //   </section>
+  // );
 }
